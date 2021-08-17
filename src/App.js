@@ -7,60 +7,64 @@ import { GameBoard } from './GameBoard';
 
 /* GAME */
 
-// Return true if `cells` is in a winning configuration.
-const IsVictory = cells => {
-	const positions = [
-		[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6],
-		[1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]
-	];
-	const isRowComplete = row => {
-		const symbols = row.map(i => cells[i]);
-		return symbols.every(i => i !== null && i === symbols[0]);
-	};
-	return positions.map(isRowComplete).some(i => i === true);
-};
+// TODO: win conditions
+const ganar = (G, ctx) => G.tablas[ctx.currentPlayer] && G.tablas[ctx.currentPlayer]
+	.map(carta => carta[1])
+	.filter(Boolean).length >= 4
+;
+const empatar = G => G.cantadas >= G.cartas.length;
 
-// Return true if all `cells` are occupied.
-const IsDraw = cells => cells.filter(c => c === null).length === 0;
+const crearTabla = (baraja, cuantas) => [...barajar(baraja).slice(0, cuantas)].map(
+	carta => [carta, false]
+);
 
-const crearTabla = (baraja, cuantas) => {
-	let cartasRestantes = [...baraja];
-	let cartaElegida;
-	return Array(cuantas).fill(null).map(_ => {
-		const i = Math.floor(Math.random() * cartasRestantes.length);
-		cartaElegida = cartasRestantes[i];
-		cartasRestantes = [...cartasRestantes.slice(0, i), ...cartasRestantes.slice(i + 1)];
-		return cartaElegida;
+const barajar = baraja => {
+	const barajada = [...baraja].reverse();
+	let temp, j;
+	baraja.map((_, i) => {
+		j = Math.floor(Math.random() * (i + 1));
+		temp = barajada[i];
+		barajada[i] = barajada[j];
+		barajada[j] = temp;
 	});
+	return barajada;
 };
 
-const cartas = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
-const cantadas = [];
+const cartas = barajar([
+	'A', 'B', 'C', 'D', 'E', 'F', 'G',
+	'H', 'I', 'J', 'K', 'L', 'M', 'N',
+	'O', 'P', 'Q', 'R', 'S', 'T', 'U',
+	'V', 'W', 'X', 'Y', 'Z'
+]);
 const tablas = {
 	'1': crearTabla(cartas, 9),
 	'2': crearTabla(cartas, 9)
 };
 
-const TicTacToe = {
+const Loteria = {
 	setup: () => ({
 		tablas,
 		cartas,
-		cantadas
+		cantadas: 0,
 	}),
 	turn: {
 		moveLimit: 1
 	},
 	moves: {
-		clickCell: (G, ctx, playerId, cellId) => {
-			if (G.tablas[playerId].includes(cellId)) return INVALID_MOVE;
-			G.cells[playerId].push(ctx.currentPlayer);
+		cantar: G => { G.cantadas++; },
+		marcar: (G, ctx, cellId) => {
+			const cell = G.tablas[ctx.currentPlayer][cellId];
+			if (cell[1]) return INVALID_MOVE;
+			if (G.cartas.slice(0, G.cantadas).includes(cell[0])) {
+				cell[1] = true;
+			}
 		}
 	},
 	endIf: (G, ctx) => {
-		if (IsVictory(G.cells)) {
+		if (ganar(G, ctx)) {
 			return { winner: ctx.currentPlayer };
 		}
-		if (IsDraw(G.cells)) {
+		if (empatar(G)) {
 			return { draw: true };
 		}
 	}
@@ -71,7 +75,7 @@ const TicTacToe = {
 const App = () => {
 
 	const GameClient = Client({
-		game: TicTacToe,
+		game: Loteria,
 		board: GameBoard,
 		multiplayer: Local(),
 		// debug: false

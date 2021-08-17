@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const GameBoard = ({ G, ctx, moves }) => {
+export const GameBoard = ({ G, ctx, moves, playerID }) => {
 	let winner = '';
 	if (ctx.gameover) {
 		winner = ctx.gameover.winner !== undefined ? (
@@ -18,21 +18,21 @@ export const GameBoard = ({ G, ctx, moves }) => {
 		textAlign: 'center',
 	};
 
-	// create table
-	const tableDimensions = [3, 3];
+	const tabla = G.tablas[playerID];
+	const anchura = 3;
 
 	return(
 		<div>
 			<table id="board">
 				<tbody>
-					{new Array(tableDimensions[0]).fill(null).map((_, i) => 
+					{new Array(anchura).fill(null).map((_, i) => 
 						<tr key={i}>
-							{new Array(tableDimensions[1]).fill(null).map((_, j) => (
+							{new Array(anchura).fill(null).map((_, j) => (
 								<td
 									style={cellStyle}
-									key={3 * i + j}
-									onClick={() => moves.clickCell(3 * i + j)}
-								>{G.cells[3 * i + j]}</td>
+									key={anchura * i + j}
+									onClick={() => moves.marcar(anchura * i + j)}
+								>{tabla[anchura * i + j][0]}</td>
 							))}
 						</tr>
 					)}
