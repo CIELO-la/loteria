@@ -3,7 +3,7 @@ import './App.css';
 import { Client } from 'boardgame.io/react';
 import { Local } from 'boardgame.io/multiplayer';
 import { INVALID_MOVE } from 'boardgame.io/core';
-import { GameBoard } from './GameBoard';
+import { Tabla } from './Tabla';
 
 /* GAME */
 
@@ -52,11 +52,11 @@ const Loteria = {
 	},
 	moves: {
 		cantar: G => { G.cantadas++; },
-		marcar: (G, ctx, cellId) => {
-			const cell = G.tablas[ctx.currentPlayer][cellId];
-			if (cell[1]) return INVALID_MOVE;
-			if (G.cartas.slice(0, G.cantadas).includes(cell[0])) {
-				cell[1] = true;
+		marcar: (G, playerId, cartaId) => {
+			const carta = G.tablas[playerId][cartaId];
+			if (carta[1]) return INVALID_MOVE;
+			if (G.cartas.slice(0, G.cantadas).includes(carta[0])) {
+				carta[1] = true;
 			}
 		}
 	},
@@ -76,19 +76,19 @@ const App = () => {
 
 	const GameClient = Client({
 		game: Loteria,
-		board: GameBoard,
+		board: Tabla,
 		multiplayer: Local(),
 		// debug: false
 	});
 
 	return (
 		<div className="App">
-			{Object.keys(tablas).map(playerID => (
-				<div key={playerID}>
-					Player {playerID}
+			{Object.keys(tablas).map(playerId => (
+				<div key={playerId}>
+					Player {playerId}
 					<GameClient
-						key={playerID}
-						playerID={playerID}
+						key={playerId}
+						playerId={playerId}
 					/>
 					<hr/>
 				</div>
