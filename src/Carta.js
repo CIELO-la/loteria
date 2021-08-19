@@ -5,7 +5,7 @@ export const Carta = ({ cartaId, carta, estilo, marcar }) => {
 		<td
 			key={cartaId}
 			style={estilo}
-			onClick={marcar(cartaId)}
+			onClick={() => marcar(cartaId)}
 		>{carta}</td>
 	);
 };

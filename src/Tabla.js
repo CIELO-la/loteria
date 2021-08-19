@@ -1,5 +1,5 @@
 import React from 'react';
-import Carta from './Carta';
+import { Carta } from './Carta';
 
 export const Tabla = ({ G, ctx, moves, playerId }) => {
 	let winner = '';
@@ -20,29 +20,33 @@ export const Tabla = ({ G, ctx, moves, playerId }) => {
 	};
 
 	const tabla = G.tablas[playerId];
-	const anchura = 3;
-	const marcar = cartaId => moves.marcar(G, playerId, cartaId);
+	const anchura = Array(3).fill(null);
 
-	return(
+	const marcar = cartaId => moves.Marcar
+		? console.log(`marcar (G, ctx, ${playerId}, ${cartaId})`) && moves.Marcar(playerId, cartaId)
+		: {}
+	;
+
+	return tabla ? (
 		<div>
 			<table id="tabla">
 				<tbody>
-					{new Array(anchura).fill(null).map((_, i) => (
+					{anchura.map((_, i) => (
 						<tr key={i}>
-							{new Array(anchura).fill(null).map((_, j) => (
+							{anchura.map((_, j) => (
 								<Carta
 									key={`carta-${i}-${j}`}
-									cartaId={anchura * i + j}
-									carta={tabla[anchura * i + j][0]}
+									cartaId={anchura.length * i + j}
+									carta={tabla[anchura.length * i + j][0]}
 									estilo={cardStyle}
 									marcar={marcar}
 								/>
 							))}
 				 		</tr>
-					)}
+					))}
 				</tbody>
 			</table>
 			{winner}
 		</div>
-	);
+	): (<div></div>);
 };

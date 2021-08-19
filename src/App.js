@@ -7,16 +7,7 @@ import { Tabla } from './Tabla';
 
 /* GAME */
 
-// TODO: win conditions
-const ganar = (G, ctx) => G.tablas[ctx.currentPlayer] && G.tablas[ctx.currentPlayer]
-	.map(carta => carta[1])
-	.filter(Boolean).length >= 4
-;
-const empatar = G => G.cantadas >= G.cartas.length;
-
-const crearTabla = (baraja, cuantas) => [...barajar(baraja).slice(0, cuantas)].map(
-	carta => [carta, false]
-);
+const crearTabla = (baraja, cuantas) => [...barajar(baraja).slice(0, cuantas)];
 
 const barajar = baraja => {
 	const barajada = [...baraja].reverse();
@@ -26,6 +17,7 @@ const barajar = baraja => {
 		temp = barajada[i];
 		barajada[i] = barajada[j];
 		barajada[j] = temp;
+		return null;
 	});
 	return barajada;
 };
@@ -37,34 +29,83 @@ const cartas = barajar([
 	'V', 'W', 'X', 'Y', 'Z'
 ]);
 const tablas = {
-	'1': crearTabla(cartas, 9),
-	'2': crearTabla(cartas, 9)
+	'01': crearTabla(cartas, 9),
+	'02': crearTabla(cartas, 9),
 };
+const marcadas = {
+	'01': [],
+	'02': [],
+};
+
+const Cantar = (G, ctx) => {
+	G.cantadas = G.cantadas + 1;
+};
+
+const Marcar = (G, ctx, playerId, cartaId) => {
+	const carta = G.tablas[playerId]
+		? G.tablas[playerId][cartaId]
+		: null
+	;
+	console.log(`jugador ${playerId} eligió la carta ${carta}`);
+	if (carta === null || G.marcadas[playerId].includes(carta) || !G.cartas.slice(0, G.cantadas).includes(carta)) {
+		console.log(`no se marcó`);
+		return INVALID_MOVE;
+	}
+	G.marcadas[playerId].push(carta);
+	console.log(`sí se pudo marcar`);
+};
+
+// TODO: win conditions
+const Ganar = tabla => tabla.map(carta => carta[1]).filter(Boolean).length >= 4;
+const Empatar = G => G.cantadas >= G.cartas.length;
 
 const Loteria = {
 	setup: () => ({
-		tablas,
 		cartas,
 		cantadas: 0,
+		tablas,
+		marcadas,
 	}),
 	turn: {
-		moveLimit: 1
+		//moveLimit: 1,
+		onBegin: (G, ctx) => {
+			console.log(`Corre y se va... el ${G.cartas[G.cantadas]}`);
+			Cantar(G, ctx);
+			setInterval(() => ctx.events.endTurn(), 4000);
+		},
+		onEnd: (G, ctx) => {
+			console.log(`se acabó el turno`);
+		}
 	},
 	moves: {
-		cantar: G => { G.cantadas++; },
-		marcar: (G, playerId, cartaId) => {
-			const carta = G.tablas[playerId][cartaId];
-			if (carta[1]) return INVALID_MOVE;
-			if (G.cartas.slice(0, G.cantadas).includes(carta[0])) {
-				carta[1] = true;
-			}
-		}
+		Marcar
 	},
+	// phases: {
+	// 	play: {
+	// 		start: true,
+	// 		moves: {
+	// 			Marcar: (G, ctx, playerId, cartaId) => {}
+	// 		},
+	// 		onBegin: (G, ctx) => {
+	// 			G.cantadas++;
+	// 			console.log(G);
+	// 			ctx.events.endPhase();
+	// 		},
+	// 		next: 'play'
+	// 	},
+	// 	end: {
+	// 		moves: { Marcar },
+	// 		onBegin: (G, ctx) => setTimeout(() => ctx.events.endPhase(), 4000),
+	// 		next: 'call'
+	// 	}
+	// },
 	endIf: (G, ctx) => {
-		if (ganar(G, ctx)) {
-			return { winner: ctx.currentPlayer };
+		const playerId = '01'; 	// TODO: pass arg
+		if (!G.tablas) return;
+		if (Ganar(G.tablas[playerId])) {
+			return { winner: playerId };
 		}
-		if (empatar(G)) {
+		if (Empatar(G)) {
 			return { draw: true };
 		}
 	}
