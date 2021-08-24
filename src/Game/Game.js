@@ -5,6 +5,8 @@ class Caller {
 		// TODO:
 		// 	- modo de marcar las cartas (véase más abajo)		
 
+		this.barajaId = barajaId;
+
 		// la baraja
 		// estructura == [{ id: 0, nombre: '', imagen: '' }, ...]
 		this.cartas = [...barajas[barajaId]].map((carta, id) => ({
@@ -35,7 +37,7 @@ class Caller {
 		// barajar tabla de 16 índices (cartaId) e indicar si están marcadas (falso)
 		this.tablas.push([
 			...this.barajar(this.cartas).slice(0, 16).map(carta => (
-				[ carta.id, false ]
+				[ carta, false ]
 			))
 		]);
 		// usar tabla id como jugadorId

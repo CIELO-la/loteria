@@ -34,13 +34,33 @@ class App extends React.Component {
 	}
 
 	render() {
-		const { carta } = this.state;
+		const { carta, caller, playerId } = this.state;
+		const tabla = caller !== null ? caller.tablas[playerId] : null;
+		const anchura = Array(4).fill(null);
+
 		return (
 			<div className="App">
 				{carta && carta.nombre
 					? <div>el {carta.nombre}</div>
 					: <div>¡Corre y se va!</div>
 				}
+				<table>
+					<tbody>
+						{tabla && anchura.map((_, i) => (
+							<tr key={i}>
+								{anchura.map((_, j) => (
+									<td key={j}>
+										<button
+											onClick={() => console.log(`card ${anchura.length * i + j}`)}
+										>
+											{tabla[anchura.length * i + j][0].nombre}
+										</button>
+									</td>
+								))}
+							</tr>
+						))}
+					</tbody>
+				</table>
 			</div>
 		);
 	}
