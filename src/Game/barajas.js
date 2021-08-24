@@ -1,7 +1,7 @@
 //import { v4 as uuid4 } from 'uuid';
 
 export const barajas = {
-	'zap-01': [
+	'zapo-01': [
 		{
 			nombre: '01',
 			imagen: ''

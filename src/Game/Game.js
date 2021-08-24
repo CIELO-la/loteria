@@ -6,19 +6,19 @@ class Caller {
 		// 	- modo de marcar las cartas (véase más abajo)		
 
 		// la baraja
-		// estructura -- { id: 1, nombre: '', imagen: '', ... }
+		// estructura == [{ id: 0, nombre: '', imagen: '' }, ...]
 		this.cartas = [...barajas[barajaId]].map((carta, id) => ({
 			id,
 			...carta
 		}));
 
-		// tabla para cada jugador -- /* 16 [id, bool] pairs == [cartaId, isMarked] */
+		// tabla para cada jugador == 16 [[cartaId, isMarked], ...]
 		// véase la función registrar y el depósito en store.js
 		this.tablas = [];
 
 		this.cantadas = 0;
 
-		/* cuatro ~ n tabla slotIds que estén marcadas */,
+		// cuatro/n tabla slotIds que estén marcadas
 		this.condiciones = [
 			[0, 1, 2, 3],
 			[4, 5, 6, 7],
@@ -31,22 +31,22 @@ class Caller {
 		];
 	}
 
-	const registrar = () => {
+	registrar = () => {
 		// barajar tabla de 16 índices (cartaId) e indicar si están marcadas (falso)
 		this.tablas.push([
 			...this.barajar(this.cartas).slice(0, 16).map(carta => (
 				[ carta.id, false ]
-			)
+			))
 		]);
 		// usar tabla id como jugadorId
 		return this.tablas.length-1;
 	};
 
-	const iniciar = () => {
-		this.cartas = barajar(this.cartas);
+	iniciar = () => {
+		this.cartas = this.barajar(this.cartas);
 	};
 
-	const barajar = cartas => {
+	barajar = cartas => {
 		const cartasBarajadas = [...cartas].reverse();
 		let temp, j;
 		cartas.map((_, i) => {
@@ -59,25 +59,34 @@ class Caller {
 		return cartasBarajadas;
 	};
 
-	const cantar = () => {
+	cantar = () => {
+		if (this.cantadas >= this.cartas.length) {
+			return;
+		}
+		const carta = { ...this.cartas[this.cantadas] };
 		this.cantadas++;
+		return carta;
 	};
 
-	const marcar = (tablaId, slotId) => {
-		const cantadasIndices = [...this.cartas.slice(0, cantadas)].map(carta => carta.id);
-		if (cantadasIndices.includes(this.tablas[tablaId][slotId])) {
+	yaCantadas = () => this.cartas.slice(0, this.cantadas).map(carta => carta.id);
+
+	marcar = (tablaId, slotId) => {
+		const indicesCantados = this.yaCantadas();
+		if (indicesCantados.includes(this.tablas[tablaId][slotId])) {
 			// TODO: marcar tabla slot
+
 		}
 	};
 
-	const verificar = tablaId => {
-		const cantadasIndices = this.cartas.slice(0, this.cantadas).map(carta => carta.id);
+	verificar = tablaId => {
+		const indicesCantados = this.yaCantadas();
 		
-		// TODO: check that jugador marked them on tabla
-		const tablaValores = this.tablas[tablaId].map(cartaId => (
-			cantadasIndices.includes(cartaId)
+		// si se marcaron
+		const tablaValores = this.tablas[tablaId].map(carta => (
+			carta[1] && indicesCantados.includes(carta[0])
 		));
 		
+		// si ganó
 		return this.condiciones.reduce(
 			(condicion, verificacion) => ([
 				...verificacion,
@@ -88,10 +97,11 @@ class Caller {
 	};
 }
 
-// So is Caller simply the game logic now, and jugador the app that sends updates?
-class Jugador {
-	constructor(caller) {
-		this.caller = caller;
-		this.id = caller.register();
-	}
-}
+// class Jugador {
+// 	constructor(caller) {
+// 		this.caller = caller;
+// 		this.id = caller.register();
+// 	}
+// }
+
+export default Caller;
