@@ -1,35 +1,44 @@
-class Caller {
-	constructor() {
-		// TODO:
-		// 	- this.baraja : card uuids
-		// 	- this.cartas : card objects (imgs, sounds, lang text)
-		// 	- need a function to create a baraja for the game
-		// 	- need a way to mark card on tabla (see TODOs below)
+import { barajas } from './barajas';
 
-		// tabla para cada jugador
-		this.tablas = [
-			[/* 16 [uuid, bool] pairs == [cartaId, isMarked] */],
-			...
-		];
+class Caller {
+	constructor(barajaId) {
+		// TODO:
+		// 	- modo de marcar las cartas (véase más abajo)		
+
 		// la baraja
-		this.cartas = [
-			{ id: 1, nombre: '', img: '', ... },
-			...
-		];
+		// estructura -- { id: 1, nombre: '', imagen: '', ... }
+		this.cartas = [...barajas[barajaId]].map((carta, id) => ({
+			id,
+			...carta
+		}));
+
+		// tabla para cada jugador -- /* 16 [id, bool] pairs == [cartaId, isMarked] */
+		// véase la función registrar y el depósito en store.js
+		this.tablas = [];
+
 		this.cantadas = 0;
+
+		/* cuatro ~ n tabla slotIds que estén marcadas */,
 		this.condiciones = [
-			[ /* four/n tabla slot ids */ ],
-			...
+			[0, 1, 2, 3],
+			[4, 5, 6, 7],
+			[8, 9, 10, 11],
+			[12, 13, 14, 15],
+			[0, 4, 8, 12],
+			[1, 5, 9, 13],
+			[2, 6, 10, 14],
+			[3, 7, 11, 15],
 		];
 	}
 
-	// TODO: player id associated c tabla
 	const registrar = () => {
-		// tabla array of just carta ids
+		// barajar tabla de 16 índices (cartaId) e indicar si están marcadas (falso)
 		this.tablas.push([
-			...this.barajar(this.cartas).slice(0, 16).map(carta => carta.id)
+			...this.barajar(this.cartas).slice(0, 16).map(carta => (
+				[ carta.id, false ]
+			)
 		]);
-		// latest tabla id as player
+		// usar tabla id como jugadorId
 		return this.tablas.length-1;
 	};
 
@@ -38,8 +47,15 @@ class Caller {
 	};
 
 	const barajar = cartas => {
-		const cartasBarajadas = [...cartas];
-		// TODO: insert a knuth shuffle
+		const cartasBarajadas = [...cartas].reverse();
+		let temp, j;
+		cartas.map((_, i) => {
+			j = Math.floor(Math.random() * (i + 1));
+			temp = cartasBarajadas[i];
+			cartasBarajadas[i] = cartasBarajadas[j];
+			cartasBarajadas[j] = temp;
+			return null;
+		});
 		return cartasBarajadas;
 	};
 
@@ -50,7 +66,7 @@ class Caller {
 	const marcar = (tablaId, slotId) => {
 		const cantadasIndices = [...this.cartas.slice(0, cantadas)].map(carta => carta.id);
 		if (cantadasIndices.includes(this.tablas[tablaId][slotId])) {
-			// TODO: mark tabla slot somewhow
+			// TODO: marcar tabla slot
 		}
 	};
 
