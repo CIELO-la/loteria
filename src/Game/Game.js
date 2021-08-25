@@ -74,10 +74,10 @@ class Caller {
 
 	marcar = (tablaId, slotId) => {
 		const indicesCantados = this.yaCantadas();
-		if (indicesCantados.includes(this.tablas[tablaId][slotId])) {
-			// TODO: marcar tabla slot
-
+		if (indicesCantados.includes(this.tablas[tablaId][slotId][0].id)) {
+			this.tablas[tablaId][slotId][1] = true;
 		}
+		return this.tablas[tablaId][slotId][1];
 	};
 
 	verificar = tablaId => {
