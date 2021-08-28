@@ -20,6 +20,8 @@ class Caller {
 
 		this.cantadas = 0;
 
+		this.timer = null;
+
 		// cuatro/n tabla slotIds que estén marcadas
 		this.condiciones = [
 			[0, 1, 2, 3],
@@ -44,8 +46,23 @@ class Caller {
 		return this.tablas.length-1;
 	};
 
-	iniciar = () => {
+	iniciar = (callback) => {
 		this.cartas = this.barajar(this.cartas);
+
+		this.timer = setInterval(
+			() => {
+				const cartaCantada = this.cantar();
+				callback({
+					type: "carta",
+					cartaCantada
+				});
+			},
+			4500
+		);
+	};
+
+	stop = () => {
+		clearInterval(this.timer);
 	};
 
 	barajar = cartas => {

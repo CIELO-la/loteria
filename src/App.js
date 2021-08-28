@@ -32,16 +32,19 @@ const App = () => {
 		// Only run this for the host
 		if(!isHost) { return; }
 
-		g.iniciar();
-		const timer = setInterval(
-			() => {
-				const cartaCantada = g.cantar();
-				setState(state => ({ ...state, cartaCantada }));
-			},
-			4500
-		);
+		g.iniciar(message => {
+			switch(message.type) {
+				case "carta":
+					const { cartaCantada } = message;
+					setState(state => ({ ...state, cartaCantada }));
+					break;
+				default:
+					// Nothing to do
+					break;
+			}
+		});
 
-		return () => clearInterval(timer);
+		return () => { g.stop(); }
 	}, []);
 
 	const { g, cartaCantada, playerId, marcadas } = state;
