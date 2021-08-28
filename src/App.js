@@ -1,74 +1,80 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import './App.css';
 import Caller from './Game/Game';
 import Tabla from './Components/Tabla';
 
-class App extends React.Component {
-	constructor(props) {
-		super(props);
+const App = () => {
+	const [state, setState] = useState({
+		g: null,
+		playerId: null,
+		isHost: false,
+		cartaCantada: {},
+		marcadas: [],
+	});
 
+	// Run the first time the component is mounted
+	// The empty array as the second argument means that the `useEffect`
+	// will not fire again due to changes.
+	useEffect(() => {
 		const g = new Caller('zapo-01');
 		const playerId = g.registrar();
 		const isHost = playerId === 0;
 		console.log(`soy el jugador número ${playerId}`);
 
-		this.state = {
+		setState({
 			g,
 			playerId,
 			isHost,
 			cartaCantada: {},
-			marcadas: []
-		};
-	}
+			marcadas: [],
+		});
 
-	componentDidMount() {
-		if(this.timer !== undefined || !this.state.isHost) {
-			return;
-		}
+		// Only run this for the host
+		if(!isHost) { return; }
 
-		this.state.g.iniciar();
-		this.timer = setInterval(
-			() => this.setState(({g}) => ({ cartaCantada: g.cantar() })),
+		g.iniciar();
+		const timer = setInterval(
+			() => {
+				const cartaCantada = g.cantar();
+				setState(state => ({ ...state, cartaCantada }));
+			},
 			4500
 		);
-	}
 
-	marcar = slotId => {
-		const marcada = this.state.g.marcar(this.state.playerId, slotId);
-		if (marcada && !this.state.marcadas.includes(slotId)) {
+		return () => clearInterval(timer);
+	}, []);
+
+	const { g, cartaCantada, playerId, marcadas } = state;
+	
+	const marcar = slotId => {
+		const marcada = g.marcar(playerId, slotId);
+		if (marcada && !marcadas.includes(slotId)) {
 			console.log(`marcando el eslot ${slotId}`);
-			this.setState({ marcadas: [...this.state.marcadas, slotId] });
+			setState(state => ({ ...state, marcadas: [...marcadas, slotId] }));
 		}
 	};
 
-	render() {
-		const { marcar } = this;
-		const { g, cartaCantada, playerId, marcadas } = this.state;
-		const tabla = g !== null ? g.tablas[playerId] : null;
-		return (
-			<div className="App">
-				<div>
-					{cartaCantada && cartaCantada.nombre
-						? <div>el {cartaCantada.nombre}</div>
-						: <div>¡Corre y se va!</div>
-					}
-				</div>
-				<div>
-					{tabla && (
-						<Tabla
-							g={g}
-							playerId={playerId}
-							tabla={tabla}
-							dimension={4}
-							marcar={marcar}
-							marcadas={marcadas}
-						/>
-					)}
-					<button onClick={() => g.verificar(playerId)}>¡¿pues gané?!</button>
-				</div>
+	return !g ? null : (
+		<div className="App">
+			<div>
+				{cartaCantada && cartaCantada.nombre
+					? <div>el {cartaCantada.nombre}</div>
+					: <div>¡Corre y se va!</div>
+				}
 			</div>
-		);
-	}
+			<div>
+				<Tabla
+					g={g}
+					playerId={playerId}
+					tabla={g.tablas[playerId]}
+					dimension={4}
+					marcar={marcar}
+					marcadas={marcadas}
+				/>
+				<button onClick={() => g.verificar(playerId)}>¡¿pues gané?!</button>
+			</div>
+		</div>
+	);
 };
 
 export default App;
