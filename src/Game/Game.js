@@ -1,4 +1,22 @@
 import { barajas } from './barajas';
+import { initializeApp } from 'firebase/app';
+import { getFirestore, collection, doc, getDocs, onSnapshot } from "firebase/firestore";
+
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+//
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyBPRtv5TNdX7muyQwnEgftaPP6p6cObPJM",
+  authDomain: "loteria-807ae.firebaseapp.com",
+  projectId: "loteria-807ae",
+  storageBucket: "loteria-807ae.appspot.com",
+  messagingSenderId: "235108927532",
+  appId: "1:235108927532:web:ff61e18d3e59a4048d6989"
+};
+// Initialize Firebase
+const fireapp = initializeApp(firebaseConfig);
+const db = getFirestore(fireapp);
 
 class Caller {
 	constructor(barajaId) {
@@ -46,7 +64,26 @@ class Caller {
 		return this.tablas.length-1;
 	};
 
-	iniciar = (callback) => {
+	iniciar = async (callback) => {
+		// Get a list of cities from your database
+		async function getGame() {
+		  const gameCol = collection(db, 'games');
+		  const gameSnapshot = await getDocs(gameCol);
+		  const gameList = gameSnapshot.docs;
+		  return gameList;
+		}
+		const games = await getGame();
+		
+		// Choose a game. Right now just pick the first one.
+		const selectedGame = games[0];
+		const data = selectedGame.data();
+		const gameId = selectedGame.id;
+
+		// Subscribe to updates to the game.
+		const unsub = onSnapshot(selectedGame.ref, (doc) => {
+		    console.log("Current data: ", doc.data());
+		});
+
 		this.cartas = this.barajar(this.cartas);
 
 		this.timer = setInterval(
