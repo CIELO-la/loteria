@@ -6,32 +6,30 @@ import Tabla from './Components/Tabla';
 class App extends React.Component {
 	constructor(props) {
 		super(props);
+
+		const g = new Caller('zapo-01');
+		const playerId = g.registrar();
+		const isHost = playerId === 0;
+		console.log(`soy el jugador número ${playerId}`);
+
 		this.state = {
-			g: null,
-			playerId: null,
-			isHost: false,
+			g,
+			playerId,
+			isHost,
 			cartaCantada: {},
 			marcadas: []
 		};
 	}
 
 	componentDidMount() {
-		!this.state.g && this.setState(
-			{ g: new Caller('zapo-01') },
-			() => this.setState(
-				{ playerId: this.state.g.registrar() },
-				() => {
-					console.log(`soy el jugador número ${this.state.playerId}`)
-					if (this.state.playerId === 0) {
-						this.setState({ isHost: true });
-						this.state.g.iniciar();
-						setInterval(
-							() => this.setState({ cartaCantada: this.state.g.cantar() }),
-							4500
-						);
-					}
-				}
-			)
+		if(this.timer !== undefined || !this.state.isHost) {
+			return;
+		}
+
+		this.state.g.iniciar();
+		this.timer = setInterval(
+			() => this.setState(({g}) => ({ cartaCantada: g.cantar() })),
+			4500
 		);
 	}
 
