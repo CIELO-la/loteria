@@ -18,22 +18,22 @@ const firebaseConfig = {
 const fireapp = initializeApp(firebaseConfig);
 const db = getFirestore(fireapp);
 
-class Caller {
-	constructor(barajaId) {
-		// TODO:
-		// 	- modo de marcar las cartas (véase más abajo)		
+// TAREA: estatus del juego como "jugando" o se armó o se acabó
 
+class Cantor {
+	constructor(barajaId) {
+		// referencia a las cartas no barajadas
 		this.barajaId = barajaId;
 
-		// la baraja
-		// estructura == [{ id: 0, nombre: '', imagen: '' }, ...]
+		// las cartas barajadas
+		// estructura == [{ id: 0, nombre: '', imagen: '', ... }, ...]
 		this.cartas = [...barajas[barajaId]].map((carta, id) => ({
 			id,
 			...carta
 		}));
 
-		// tabla para cada jugador == 16 [[cartaId, isMarked], ...]
-		// véase la función registrar y el depósito en store.js
+		// tabla para cada jugador == 16 [[cartaId, estaMarcada], ...]
+		// véase la función .registrar y el depósito
 		this.tablas = [];
 
 		this.cantadas = 0;
@@ -54,7 +54,7 @@ class Caller {
 	}
 
 	registrar = () => {
-		// barajar tabla de 16 índices (cartaId) e indicar si están marcadas (falso)
+		// barajar tabla de 16 cartas e indicar si están marcadas
 		this.tablas.push([
 			...this.barajar(this.cartas).slice(0, 16).map(carta => (
 				[ carta, false ]
@@ -65,30 +65,40 @@ class Caller {
 	};
 
 	iniciar = async (callback) => {
-		// Get a list of cities from your database
-		async function getGame() {
+		
+		/* FIREBASE */
+		async function getGames() {
 		  const gameCol = collection(db, 'games');
 		  const gameSnapshot = await getDocs(gameCol);
 		  const gameList = gameSnapshot.docs;
 		  return gameList;
 		}
-		const games = await getGame();
-		
+		const games = await getGames();
+		//
 		// Choose a game. Right now just pick the first one.
-		const selectedGame = games[0];
-		const data = selectedGame.data();
-		const gameId = selectedGame.id;
-
-		// Subscribe to updates to the game.
-		const unsub = onSnapshot(selectedGame.ref, (doc) => {
-		    console.log("Current data: ", doc.data());
+		const game = games[0];
+		const gameData = game.data();
+		const gameId = game.id;
+		//
+		// Subscribe for updates
+		const unsub = onSnapshot(game.ref, gameDoc => {
+		    console.log("Current data: ", gameDoc.data());
 		});
+		/* /FIREBASE */
 
+		const updateDB = cantadas => {
+			console.log(db);
+			//db().collection('games').doc(game.id).update({ 'cantadas' : cantadas });
+		};
+		
 		this.cartas = this.barajar(this.cartas);
 
 		this.timer = setInterval(
 			() => {
 				const cartaCantada = this.cantar();
+				
+				updateDB(this.cantadas);
+
 				callback({
 					type: "carta",
 					cartaCantada
@@ -153,11 +163,4 @@ class Caller {
 	};
 }
 
-// class Jugador {
-// 	constructor(caller) {
-// 		this.caller = caller;
-// 		this.id = caller.register();
-// 	}
-// }
-
-export default Caller;
+export default Cantor;

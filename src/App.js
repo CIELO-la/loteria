@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import './App.css';
-import Caller from './Game/Game';
+import Cantor from './Game/Game';
 import Tabla from './Components/Tabla';
 
 const App = () => {
@@ -16,7 +16,7 @@ const App = () => {
 	// The empty array as the second argument means that the `useEffect`
 	// will not fire again due to changes.
 	useEffect(() => {
-		const g = new Caller('zapo-01');
+		const g = new Cantor('zapo-01');
 		const playerId = g.registrar();
 		const isHost = playerId === 0;
 		console.log(`soy el jugador número ${playerId}`);
