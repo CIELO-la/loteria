@@ -1,6 +1,6 @@
 import { barajas } from './barajas';
 import { initializeApp } from 'firebase/app';
-import { getFirestore, collection, doc, getDocs, onSnapshot } from "firebase/firestore";
+import { getFirestore, collection, doc, getDocs, onSnapshot } from 'firebase/firestore';
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -19,14 +19,13 @@ const fireapp = initializeApp(firebaseConfig);
 const db = getFirestore(fireapp);
 
 // TAREA: estatus del juego como "jugando" o se armó o se acabó
-
 class Cantor {
 	constructor(barajaId) {
 		// referencia a las cartas no barajadas
 		this.barajaId = barajaId;
 
 		// las cartas barajadas
-		// estructura == [{ id: 0, nombre: '', imagen: '', ... }, ...]
+		// estructura == [{ id: '', nombre: '', imagen: '', ... }, ...]
 		this.cartas = [...barajas[barajaId]].map((carta, id) => ({
 			id,
 			...carta
@@ -65,39 +64,48 @@ class Cantor {
 	};
 
 	iniciar = async (callback) => {
-		
-		/* FIREBASE */
+		/* FIRESTORE */
 		async function getGames() {
-		  const gameCol = collection(db, 'games');
-		  const gameSnapshot = await getDocs(gameCol);
-		  const gameList = gameSnapshot.docs;
-		  return gameList;
+		  const gamesCollection = collection(db, 'games');
+		  const gamesSnapshot = await getDocs(gamesCollection);
+		  return gamesSnapshot.docs;
 		}
 		const games = await getGames();
+		const gamesRef = collection(db, 'games');
+		//games.map(gSnapshot => console.log("game id, ref: ", gSnapshot.id, gSnapshot.ref));
+		//console.log("firebase.firestore.collection('games'): UNDEFINED");
+		console.log("gamesRef: ", gamesRef);
+		console.log("gamesRef.firestore: ", gamesRef.firestore);
+		console.log("gamesRef.firestore.add: ", gamesRef.firestore.add);
+		console.log("games (doc list): ", games);
+		console.log("games.add: ", games.add);
+		console.log("games[0] (single doc): ", games[0]);
+		console.log("games[0].add: ", games[0].add);
 		//
 		// Choose a game. Right now just pick the first one.
 		const game = games[0];
+		//console.log("game data: ", game);
 		const gameData = game.data();
 		const gameId = game.id;
 		//
-		// Subscribe for updates
+		// attach listener for updates
 		const unsub = onSnapshot(game.ref, gameDoc => {
-		    console.log("Current data: ", gameDoc.data());
+		    //console.log("Current data: ", gameDoc.data());
 		});
-		/* /FIREBASE */
+		/* /FIRESTORE */
 
-		const updateDB = cantadas => {
-			console.log(db);
-			//db().collection('games').doc(game.id).update({ 'cantadas' : cantadas });
-		};
-		
+		// const updateDB = cantadas => {
+		// 	console.log(onSnapshot);
+		// 	db.collection('games').doc(game.id).update({ 'cantadas' : cantadas });
+		// };
+
 		this.cartas = this.barajar(this.cartas);
 
 		this.timer = setInterval(
 			() => {
 				const cartaCantada = this.cantar();
 				
-				updateDB(this.cantadas);
+				// updateDB(this.cantadas);
 
 				callback({
 					type: "carta",
