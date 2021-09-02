@@ -1,6 +1,6 @@
 import { barajas } from './barajas';
 import { initializeApp } from 'firebase/app';
-import { getFirestore, collection, doc, getDocs, onSnapshot } from 'firebase/firestore';
+import { getFirestore, collection, doc, getDocs, setDoc, onSnapshot } from 'firebase/firestore';
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -71,33 +71,18 @@ class Cantor {
 		  return gamesSnapshot.docs;
 		}
 		const games = await getGames();
-		const gamesRef = collection(db, 'games');
-		//games.map(gSnapshot => console.log("game id, ref: ", gSnapshot.id, gSnapshot.ref));
-		//console.log("firebase.firestore.collection('games'): UNDEFINED");
-		console.log("gamesRef: ", gamesRef);
-		console.log("gamesRef.firestore: ", gamesRef.firestore);
-		console.log("gamesRef.firestore.add: ", gamesRef.firestore.add);
-		console.log("games (doc list): ", games);
-		console.log("games.add: ", games.add);
-		console.log("games[0] (single doc): ", games[0]);
-		console.log("games[0].add: ", games[0].add);
-		//
+
 		// Choose a game. Right now just pick the first one.
 		const game = games[0];
-		//console.log("game data: ", game);
-		const gameData = game.data();
-		const gameId = game.id;
-		//
+		const gameRef = game.ref
+		// const gameData = game.data();
+		// const gameId = game.id;
+
 		// attach listener for updates
-		const unsub = onSnapshot(game.ref, gameDoc => {
-		    //console.log("Current data: ", gameDoc.data());
+		const unsub = onSnapshot(gameRef, gameDoc => {
+		    console.log("Current data: ", gameDoc.data());
 		});
 		/* /FIRESTORE */
-
-		// const updateDB = cantadas => {
-		// 	console.log(onSnapshot);
-		// 	db.collection('games').doc(game.id).update({ 'cantadas' : cantadas });
-		// };
 
 		this.cartas = this.barajar(this.cartas);
 
@@ -105,7 +90,10 @@ class Cantor {
 			() => {
 				const cartaCantada = this.cantar();
 				
-				// updateDB(this.cantadas);
+				// firestore update
+				setDoc(gameRef, {
+					cantadas: this.cantadas,
+				}, { merge: true });
 
 				callback({
 					type: "carta",
