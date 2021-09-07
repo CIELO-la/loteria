@@ -1,26 +1,26 @@
 import { barajas } from './barajas';
-import { initializeApp } from 'firebase/app';
-import { getFirestore, collection, doc, getDocs, setDoc, onSnapshot } from 'firebase/firestore';
+import { dbSub } from './db';
 
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-//
-// Your web app's Firebase configuration
-const firebaseConfig = {
-  apiKey: "AIzaSyBPRtv5TNdX7muyQwnEgftaPP6p6cObPJM",
-  authDomain: "loteria-807ae.firebaseapp.com",
-  projectId: "loteria-807ae",
-  storageBucket: "loteria-807ae.appspot.com",
-  messagingSenderId: "235108927532",
-  appId: "1:235108927532:web:ff61e18d3e59a4048d6989"
-};
-// Initialize Firebase
-const fireapp = initializeApp(firebaseConfig);
-const db = getFirestore(fireapp);
+/* Game-db interactions
+ *
+ * 1) lock someone in as writer when load
+ * 2) writerʻs Cantor writes the barajaId and shuffled deck
+ * 3) everyone reads barajaId and shuffled deck from db
+ * 4) writer's Cantor updates the cantada index each call and checks status
+ * 		- if status is win go to 6
+ * 5) everyone reads the cantada index (every whatever?)
+ *
+ * 6) winner status, display win message
+ * 7) draw status - how to handle?
+ *
+ */
 
 // TAREA: estatus del juego como "jugando" o se armó o se acabó
 class Cantor {
 	constructor(barajaId) {
+		// remote store setup
+		//deposito = dbSub();
+
 		// referencia a las cartas no barajadas
 		this.barajaId = barajaId;
 
@@ -64,36 +64,27 @@ class Cantor {
 	};
 
 	iniciar = async (callback) => {
-		/* FIRESTORE */
-		async function getGames() {
-		  const gamesCollection = collection(db, 'games');
-		  const gamesSnapshot = await getDocs(gamesCollection);
-		  return gamesSnapshot.docs;
-		}
-		const games = await getGames();
 
-		// Choose a game. Right now just pick the first one.
-		const game = games[0];
-		const gameRef = game.ref
-		// const gameData = game.data();
-		// const gameId = game.id;
-
-		// attach listener for updates
-		const unsub = onSnapshot(gameRef, gameDoc => {
-		    console.log("Current data: ", gameDoc.data());
-		});
-		/* /FIRESTORE */
+		const deposito = await dbSub();
 
 		this.cartas = this.barajar(this.cartas);
+
+		// TAREA: leer o modificar
+		console.log(deposito);
+		deposito.update({
+			barajaId: this.barajaId,
+			cartas: this.cartas,
+			cantadas: 0,
+			estatus: 'jugando'
+		});
 
 		this.timer = setInterval(
 			() => {
 				const cartaCantada = this.cantar();
 				
-				// firestore update
-				setDoc(gameRef, {
+				deposito.update({
 					cantadas: this.cantadas,
-				}, { merge: true });
+				});
 
 				callback({
 					type: "carta",
