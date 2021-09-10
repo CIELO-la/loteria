@@ -76,9 +76,23 @@ class Cantor {
 		return this.tablas.length-1;
 	};
 
-	iniciar = async (callback) => {
+	iniciar = async (juegoId, callback) => {
+		// TAREA: error de vuelta si no hay juego
+		if (!this.isHost && !juegoId) {
+			console.log(`Game.js -- no hay ni host ni juego`);
+			return;
+		}
 
-		const deposito = await dbSub(null);
+		// objeto con métodos para leer y modificar - véase el db.js
+		const deposito = await dbSub(juegoId, gameDoc => {
+			this.cantar();
+			console.log(`Reading data from snapshot to call card ${gameDoc.data().cantadas}`);
+			return callback({
+				type: 'carta',
+				cartaCantada: this.cantar(),
+				estatus: gameDoc.data().estatus
+			});
+		});
 
 		this.cartas = this.barajar(this.cartas);
 
@@ -89,24 +103,34 @@ class Cantor {
 				barajaId: this.barajaId,
 				cartas: this.cartas,
 				cantadas: 0,
-				estatus: 'jugando'
+				estatus: 'iniciar'
 			});
 		} else {
-			// nomás leer
+			const game = deposito.read();
+			this.barajaId = game.barajaId;
+			this.cartas = game.cartas;
+			this.cantadas = game.cantadas;
+			// nomás leer los dados y encarregar las cartas barajadas
+			// o sea: 
+			// this.cartas = getDoc() -> game.cartas;
+			// JUST ARRAY OF [cardId,] -- look up in baraja by id not array
+
+			// y luego en vez del intervalo
+			// getDoc or onSnapshot
+			// this.cantadas = game.cantadas;
+			// callback ({ type: 'carta', cartaCantada: this.leerUltima() });
 		}
 
+		// sólo para el host los demás agarran los dados actualizados
 		this.timer = setInterval(
 			() => {
 				const cartaCantada = this.cantar();
-				
-				this.isHost && deposito.update({
-					cantadas: this.cantadas,
-				});
-
-				callback({
-					type: "carta",
-					cartaCantada
-				});
+				if (this.isHost) {
+					this.isHost && deposito.update({
+						cantadas: this.cantadas,
+						estatus: 'jugar'
+					});
+				}
 			},
 			4500
 		);
@@ -131,12 +155,15 @@ class Cantor {
 
 	cantar = () => {
 		if (this.cantadas >= this.cartas.length) {
+			// TAREA: empate
 			return;
 		}
-		const carta = { ...this.cartas[this.cantadas] };
+		const carta = this.leerUltima();
 		this.cantadas++;
 		return carta;
 	};
+
+	leerUltima = () => ({ ...this.cartas[this.cantadas] });
 
 	yaCantadas = () => this.cartas.slice(0, this.cantadas).map(carta => carta.id);
 

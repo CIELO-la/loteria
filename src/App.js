@@ -4,6 +4,7 @@ import Cantor from './Game/Game';
 import Tabla from './Components/Tabla';
 
 const App = () => {
+	// TODO: gameId state for join/host
 	const [state, setState] = useState({
 		g: null,
 		playerId: null,
@@ -47,13 +48,13 @@ const App = () => {
 	const { g, cartaCantada, playerId, marcadas } = state;
 	
 	// TAREA: elegir la baraja
-	const hostGame = () => iniciar('zapo-01', true);
+	const hostGame = () => iniciar('zapo-01', null, true);
 
-	const joinGame = () => {
+	const joinGame = gameId => {
 		console.log(`TAREA: buscar juego y conectar...`);
 	};
 
-	const iniciar = (deckId, isHost) => {
+	const iniciar = (deckId, gameId, isHost) => {
 		const g = new Cantor(deckId, isHost);
 		const playerId = g.registrar();
 		console.log(`soy el jugador número ${playerId}`);
@@ -64,7 +65,7 @@ const App = () => {
 			marcadas: [],
 		});
 
-		g.iniciar(message => {
+		g.iniciar(gameId, message => {
 			switch(message.type) {
 				case "carta":
 					const { cartaCantada } = message;
@@ -90,6 +91,7 @@ const App = () => {
 		<div className="App">
 			{!g
 				? (
+					<form onSubmit={() => joinGame()}>
 					<div>
 						<div><button onClick={() => hostGame()}>Host</button></div>
 						<div><button onClick={() => joinGame()}>Join</button></div>

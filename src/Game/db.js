@@ -19,7 +19,7 @@ const fireapp = initializeApp(firebaseConfig);
 const firestore = getFirestore(fireapp);
 
 // Firestore initial read
-export const dbSub = async gameId => {
+export const dbSub = async (gameId, gameStateCallback) => {
 	// new or joined game
 	const isNewGame = gameId === null;
 	const gameDocId = isNewGame ? uuid4() : gameId;
@@ -29,11 +29,10 @@ export const dbSub = async gameId => {
 	  const gamesCollection = collection(firestore, 'games');
 	  // add new game to collection
 	  if (isNewGame) {
-	  	setDoc(doc(gamesCollection, gameDocId), {}, { merge : false });
+	  	await setDoc(doc(gamesCollection, gameDocId), {}, { merge : false });
 	  }
 	  // read and return docs in collection
-	  const gameDocRef = doc(firestore, 'games', gameDocId);
-	  const gameSnapshot = await getDoc(gameDocRef);
+	  const gameSnapshot = await getDoc(doc(gamesCollection, gameDocId));
 	  if (gameSnapshot.exists()) {
 	    console.log("Document data:", gameSnapshot.ref);
 	  } else {
@@ -47,12 +46,11 @@ export const dbSub = async gameId => {
 
 	return ({
 		// Attach listener for updates
-		unsub: onSnapshot(gameRef, gameDoc => (
-		    console.log("Current data: ", gameDoc.data())
-		)),
-		// Game data
+		// callback gets passed gameDoc => gameDoc.data()
+		unsub: onSnapshot(gameRef, gameStateCallback),
+		// get game data
 		read: () => game,
-		// 
-		update: docObj => setDoc(gameRef, docObj, { merge: true }),
+		// set game data
+		update: async docObj => await setDoc(gameRef, docObj, { merge: true }),
 	});
 };
