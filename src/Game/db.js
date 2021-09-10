@@ -49,7 +49,7 @@ export const dbSub = async (gameId, gameStateCallback) => {
 		// callback gets passed gameDoc => gameDoc.data()
 		unsub: onSnapshot(gameRef, gameStateCallback),
 		// get game data
-		read: () => game,
+		read: () => game.data(),
 		// set game data
 		update: async docObj => await setDoc(gameRef, docObj, { merge: true }),
 	});

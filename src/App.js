@@ -6,6 +6,7 @@ import Tabla from './Components/Tabla';
 const App = () => {
 	// TODO: gameId state for join/host
 	const [state, setState] = useState({
+		gameId: '',
 		g: null,
 		playerId: null,
 		cartaCantada: {},
@@ -49,16 +50,14 @@ const App = () => {
 	
 	// TAREA: elegir la baraja
 	const hostGame = () => iniciar('zapo-01', null, true);
-
-	const joinGame = gameId => {
-		console.log(`TAREA: buscar juego y conectar...`);
-	};
+	const joinGame = () => iniciar('zapo-01', state.gameId, false);
 
 	const iniciar = (deckId, gameId, isHost) => {
 		const g = new Cantor(deckId, isHost);
 		const playerId = g.registrar();
 		console.log(`soy el jugador número ${playerId}`);
 		setState({
+			gameId,
 			g,
 			playerId,
 			cartaCantada: {},
@@ -87,18 +86,30 @@ const App = () => {
 		}
 	};
 
+	const handleGameIdInput = event => setState({ gameId: event.target.value.trim() });
+
 	return (
 		<div className="App">
 			{!g
 				? (
-					<form onSubmit={() => joinGame()}>
 					<div>
-						<div><button onClick={() => hostGame()}>Host</button></div>
-						<div><button onClick={() => joinGame()}>Join</button></div>
+						<form onSubmit={joinGame}>
+							<label>
+								gameId: 
+								<input
+									type="text"
+									value={state.gameId}
+									onChange={handleGameIdInput}
+								/>
+							</label>
+							<input type="submit" value="Join" />
+						</form>
+						<div><button onClick={hostGame}>Host</button></div>
 					</div>
 				)
 				: (
 					<>
+						<div>{g.isHost ? `HOST` : `GUEST`}</div>
 						<div>
 							{cartaCantada && cartaCantada.nombre
 								? <div>el {cartaCantada.nombre}</div>

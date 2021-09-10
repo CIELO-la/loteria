@@ -4,26 +4,16 @@ import { dbSub } from './db';
 /* Game-db interactions
  *
  * 1) lock someone in as writer when load
- * 2) writerʻs Cantor writes the barajaId and shuffled deck
- * 3) everyone reads barajaId and shuffled deck from db
+ * 2) writerʻs Cantor writes the barajaId and shuffled cartaIds
+ * 3) everyone reads barajaId and shuffled cartaIds from db
  * 4) writer's Cantor updates the cantada index each call and checks status
+ * 		- latest card called was previous card (i-1); total called slice up to i
  * 		- if status is win go to 6
- * 5) everyone reads the cantada index (every whatever?)
- *
+ * 5) everyone gets snapshot with updated cantada index (necessary?)
  * 6) winner status, display win message
  * 7) draw status - how to handle?
  *
  */
-
-// for step #1, determining writer (host):
-//  - APP: I start game
-// 		(- GAME & STORE: add players: [playerId, ...], host: playerId)
-// 		- GAME: wait for Game.js to talk to Firestore
-// 		- STORE: write new doc { playerId }
-// 		- GAME: tell me I'm host and from now on I write
-// - APP: I join game
-// 		- GAME: give me document id to snapshot listen
-// 		https://firebase.google.com/docs/firestore/query-data/listen
 
 // TAREA: estatus del juego como "jugando" o se armó o se acabó
 class Cantor {
@@ -81,24 +71,24 @@ class Cantor {
 		if (!this.isHost && !juegoId) {
 			console.log(`Game.js -- no hay ni host ni juego`);
 			return;
+		} else {
+			console.log(`intentando leer el juego\n${juegoId}`);
 		}
 
 		// objeto con métodos para leer y modificar - véase el db.js
 		const deposito = await dbSub(juegoId, gameDoc => {
-			this.cantar();
-			console.log(`Reading data from snapshot to call card ${gameDoc.data().cantadas}`);
+			this.cantadas = gameDoc.data().cantadas;
 			return callback({
 				type: 'carta',
-				cartaCantada: this.cantar(),
+				cartaCantada: this.leerUltima(),
 				estatus: gameDoc.data().estatus
 			});
 		});
 
-		this.cartas = this.barajar(this.cartas);
-
 		// TAREA: leer o modificar
 		console.log(deposito);
 		if (this.isHost) {
+			this.cartas = this.barajar(this.cartas);
 			deposito.update({
 				barajaId: this.barajaId,
 				cartas: this.cartas,
@@ -110,35 +100,28 @@ class Cantor {
 			this.barajaId = game.barajaId;
 			this.cartas = game.cartas;
 			this.cantadas = game.cantadas;
-			// nomás leer los dados y encarregar las cartas barajadas
+			// TAREA: nomás leer los dados y encarregar las cartas barajadas
 			// o sea: 
-			// this.cartas = getDoc() -> game.cartas;
-			// JUST ARRAY OF [cardId,] -- look up in baraja by id not array
-
-			// y luego en vez del intervalo
-			// getDoc or onSnapshot
-			// this.cantadas = game.cantadas;
-			// callback ({ type: 'carta', cartaCantada: this.leerUltima() });
+			// 	- this.cartas = getDoc() -> game.cartas;
+			// 	- JUST ARRAY OF [cardId,] -- look up in baraja by id not array
 		}
 
 		// sólo para el host los demás agarran los dados actualizados
-		this.timer = setInterval(
-			() => {
-				const cartaCantada = this.cantar();
-				if (this.isHost) {
+		if (this.isHost) {
+			this.timer = setInterval(
+				() => {
+					this.cantar();
 					this.isHost && deposito.update({
 						cantadas: this.cantadas,
 						estatus: 'jugar'
 					});
-				}
-			},
-			4500
-		);
+				},
+				4500
+			);
+		}
 	};
 
-	stop = () => {
-		clearInterval(this.timer);
-	};
+	stop = () => this.isHost && clearInterval(this.timer);
 
 	barajar = cartas => {
 		const cartasBarajadas = [...cartas].reverse();
