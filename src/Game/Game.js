@@ -15,11 +15,24 @@ import { dbSub } from './db';
  *
  */
 
+// for step #1, determining writer (host):
+//  - APP: I start game
+// 		(- GAME & STORE: add players: [playerId, ...], host: playerId)
+// 		- GAME: wait for Game.js to talk to Firestore
+// 		- STORE: write new doc { playerId }
+// 		- GAME: tell me I'm host and from now on I write
+// - APP: I join game
+// 		- GAME: give me document id to snapshot listen
+// 		https://firebase.google.com/docs/firestore/query-data/listen
+
 // TAREA: estatus del juego como "jugando" o se armó o se acabó
 class Cantor {
-	constructor(barajaId) {
+	constructor(barajaId, isHost) {
 		// remote store setup
 		//deposito = dbSub();
+
+		// TODO: placeholder for authorization!
+		this.isHost = isHost;
 
 		// referencia a las cartas no barajadas
 		this.barajaId = barajaId;
@@ -65,24 +78,28 @@ class Cantor {
 
 	iniciar = async (callback) => {
 
-		const deposito = await dbSub();
+		const deposito = await dbSub(null);
 
 		this.cartas = this.barajar(this.cartas);
 
 		// TAREA: leer o modificar
 		console.log(deposito);
-		deposito.update({
-			barajaId: this.barajaId,
-			cartas: this.cartas,
-			cantadas: 0,
-			estatus: 'jugando'
-		});
+		if (this.isHost) {
+			deposito.update({
+				barajaId: this.barajaId,
+				cartas: this.cartas,
+				cantadas: 0,
+				estatus: 'jugando'
+			});
+		} else {
+			// nomás leer
+		}
 
 		this.timer = setInterval(
 			() => {
 				const cartaCantada = this.cantar();
 				
-				deposito.update({
+				this.isHost && deposito.update({
 					cantadas: this.cantadas,
 				});
 
