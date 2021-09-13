@@ -20,10 +20,11 @@ const Tabla = ({ g, playerId, tabla, dimension, marcar, marcadas }) => {
 					<tr key={i}>
 						{anchura.map((_, j) => {
 							const slot = anchura.length * i + j;
+							const cartaId = tabla[slot][0];
 							return (
 								<Carta
 									key={`carta-${slot}`}
-									carta={g.leerCarta(tabla[slot][0])}
+									carta={g.leerCarta(cartaId)}
 									slot={slot}
 									marcar={marcar}
 									marcada={marcadas.includes(slot)}

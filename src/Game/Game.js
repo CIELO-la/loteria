@@ -4,15 +4,18 @@ import { dbSub } from './db';
 /* Game-db interactions
  *
  * 1) lock someone in as writer when load
- * 2) writerʻs Cantor writes the barajaId and shuffled cartaIds
+ * 2) writer's Cantor writes the barajaId and shuffled cartaIds
  * 3) everyone reads barajaId and shuffled cartaIds from db
  * 4) writer's Cantor updates the cantada index each call and checks status
  * 		- latest card called was previous card (i-1); total called slice up to i
  * 		- if status is win go to 6
  * 5) everyone gets snapshot with updated cantada index (necessary?)
- * 6) winner status, display win message
- * 7) draw status - how to handle?
  *
+ * TAREA:
+ * 6) ganar status - how to handle?
+ * 		- el ganador escribe para modificar el estatus
+ * 7) empate status - how to handle?
+ * 		- el host escribe el estatus
  */
 
 // TAREA: estatus del juego como "jugando" o se armó o se acabó
@@ -73,7 +76,7 @@ class Cantor {
 			console.log(`Game.js -- no hay ni host ni juego`);
 			return;
 		} else {
-			console.log(`intentando leer el juego\n${juegoId}`);
+			console.log(`leyendo juego ${!juegoId ? 'nuevo' : juegoId}`);
 		}
 
 		// objeto con métodos para leer y modificar - véase el db.js
@@ -87,7 +90,6 @@ class Cantor {
 		});
 
 		// TAREA: leer o modificar
-		console.log(deposito);
 		if (this.isHost) {
 			this.cartas = this.barajar(this.cartas);
 			deposito.update({
@@ -101,10 +103,6 @@ class Cantor {
 			this.barajaId = game.barajaId;
 			this.cartas = game.cartas;
 			this.cantadas = game.cantadas;
-			// TAREA: nomás leer los dados y encarregar las cartas barajadas
-			// o sea: 
-			// 	- this.cartas = getDoc() -> game.cartas;
-			// 	- JUST ARRAY OF [cardId,] -- look up in baraja by id not array
 		}
 
 		// sólo para el host los demás agarran los dados actualizados

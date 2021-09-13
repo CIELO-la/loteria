@@ -1,10 +1,10 @@
-import React, { useState } from 'react'; // { useEffect } from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import Cantor from './Game/Game';
-import Tabla from './Components/Tabla';
+import BuscarJuego from './Components/BuscarJuego';
+import Juego from './Components/Juego';
 
 const App = () => {
-	// TODO: gameId state for join/host
 	const [state, setState] = useState({
 		gameId: '',
 		g: null,
@@ -13,58 +13,24 @@ const App = () => {
 		marcadas: [],
 	});
 
-	// Run the first time the component is mounted
-	// The empty array as the second argument means that the `useEffect`
-	// will not fire again due to changes.
-	// useEffect(() => {
-	// 	const g = new Cantor('zapo-01');
-	// 	const playerId = g.registrar();
-	// 	const isHost = playerId === 0;
-	// 	console.log(`soy el jugador número ${playerId}`);
-	// 	setState({
-	// 		g,
-	// 		playerId,
-	// 		isHost,
-	// 		cartaCantada: {},
-	// 		marcadas: [],
-	// 	});
-
-	// 	// Only run this for the host
-	// 	if (!isHost) { return; }
-
-	// 	g.iniciar(message => {
-	// 		switch(message.type) {
-	// 			case "carta":
-	// 				const { cartaCantada } = message;
-	// 				setState(state => ({ ...state, cartaCantada }));
-	// 				break;
-	// 			default:
-	// 				// Nothing to do
-	// 				break;
-	// 		}
-	// 	});
-	// 	return () => { g.stop(); }
-	// }, []);
-
-	const { g, cartaCantada, playerId, marcadas } = state;
+	const { g, cartaCantada, playerId, gameId, marcadas } = state;
 	
 	// TAREA: elegir la baraja
-	const hostGame = () => iniciar('es-demo', null, true);
-	const joinGame = () => iniciar('es-demo', state.gameId, false);
+	const hostGame = () => iniciar('es-demo', true);
+	const joinGame = () => iniciar('es-demo', false);
 
-	const iniciar = (deckId, gameId, isHost) => {
+	const iniciar = (deckId, isHost) => {
 		const g = new Cantor(deckId, isHost);
 		const playerId = g.registrar();
 		console.log(`soy el jugador número ${playerId}`);
 		setState({
-			gameId,
 			g,
 			playerId,
 			cartaCantada: {},
 			marcadas: [],
 		});
 
-		g.iniciar(gameId, message => {
+		g.iniciar(isHost ? null : gameId, message => {
 			switch(message.type) {
 				case "carta":
 					const { cartaCantada } = message;
@@ -92,42 +58,21 @@ const App = () => {
 		<div className="App">
 			{!g
 				? (
-					<div>
-						<form onSubmit={joinGame}>
-							<label>
-								gameId: 
-								<input
-									type="text"
-									value={state.gameId}
-									onChange={handleGameIdInput}
-								/>
-							</label>
-							<input type="submit" value="Join" />
-						</form>
-						<div><button onClick={hostGame}>Host</button></div>
-					</div>
-				)
-				: (
-					<>
-						<div>{g.isHost ? `HOST` : `GUEST`}</div>
-						<div>
-							{cartaCantada && cartaCantada.nombre
-								? <div>{cartaCantada.nombre}</div>
-								: <div>¡Corre y se va!</div>
-							}
-						</div>
-						<div>
-							<Tabla
-								g={g}
-								playerId={playerId}
-								tabla={g.tablas[playerId]}
-								dimension={4}
-								marcar={marcar}
-								marcadas={marcadas}
-							/>
-							<button onClick={() => g.verificar(playerId)}>¡¿pues gané?!</button>
-						</div>
-					</>
+					<BuscarJuego
+						hostGame={hostGame}
+						joinGame={joinGame}
+						gameId={gameId}
+						handleGameIdInput={handleGameIdInput}
+					/>
+				) : (
+					<Juego
+						g={g}
+						cartaCantada={cartaCantada}
+						playerId={playerId}
+						tablaDimension={4}
+						marcar={marcar}
+						marcadas={marcadas}
+					/>
 				)
 			}
 		</div>
