@@ -1,106 +1,102 @@
-//import { v4 as uuid4 } from 'uuid';
-
 export const barajas = {
-	'zapo-01': [
-		{
-			nombre: '01',
+	'zapo-01': {},
+	'es-demo': {
+		'01': {
+			nombre: 'el gallo',
 			imagen: ''
 		},
-		{
-			nombre: '02',
+		'02': {
+			nombre: 'el diablito',
 			imagen: ''
 		},
-		{
-			nombre: '03',
+		'03': {
+			nombre: 'la dama',
 			imagen: ''
 		},
-		{
-			nombre: '04',
+		'04': {
+			nombre: 'el catrín',
 			imagen: ''
 		},
-		{
-			nombre: '05',
+		'05': {
+			nombre: 'el paraguas',
 			imagen: ''
 		},
-		{
-			nombre: '06',
+		'06': {
+			nombre: 'la sirena',
 			imagen: ''
 		},
-		{
-			nombre: '07',
+		'07': {
+			nombre: 'la escalera',
 			imagen: ''
 		},
-		{
-			nombre: '08',
+		'08': {
+			nombre: 'la botella',
 			imagen: ''
 		},
-		{
-			nombre: '09',
+		'09': {
+			nombre: 'el barril',
 			imagen: ''
 		},
-		{
-			nombre: '10',
+		'10': {
+			nombre: 'el árbol',
 			imagen: ''
 		},
-		{
-			nombre: '11',
+		'11': {
+			nombre: 'el melón',
 			imagen: ''
 		},
-		{
-			nombre: '12',
+		'12': {
+			nombre: 'el valiente',
 			imagen: ''
 		},
-		{
-			nombre: '13',
+		'13': {
+			nombre: 'el gorrito',
 			imagen: ''
 		},
-		{
-			nombre: '14',
+		'14': {
+			nombre: 'la muerte',
 			imagen: ''
 		},
-		{
-			nombre: '15',
+		'15': {
+			nombre: 'la pera',
 			imagen: ''
 		},
-		{
-			nombre: '16',
+		'16': {
+			nombre: 'la bandera',
 			imagen: ''
 		},
-		{
-			nombre: '17',
+		'17': {
+			nombre: 'el bandolón',
 			imagen: ''
 		},
-		{
-			nombre: '18',
+		'18': {
+			nombre: 'el violoncello',
 			imagen: ''
 		},
-		{
-			nombre: '19',
+		'19': {
+			nombre: 'la garza',
 			imagen: ''
 		},
-		{
-			nombre: '20',
+		'20': {
+			nombre: 'el pájaro',
 			imagen: ''
 		},
-		{
-			nombre: '21',
+		'21': {
+			nombre: 'la mano',
 			imagen: ''
 		},
-		{
-			nombre: '22',
+		'22': {
+			nombre: 'la bota',
 			imagen: ''
 		},
-		{
-			nombre: '23',
+		'23': {
+			nombre: 'la luna',
 			imagen: ''
 		},
-		{
-			nombre: '24',
+		'24': {
+			nombre: 'el cotorro',
 			imagen: ''
 		},
-		{
-			nombre: '25',
-			imagen: ''
-		},
-	],
+		// ... hasta el 54
+	},
 };

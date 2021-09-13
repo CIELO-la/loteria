@@ -23,7 +23,7 @@ const Tabla = ({ g, playerId, tabla, dimension, marcar, marcadas }) => {
 							return (
 								<Carta
 									key={`carta-${slot}`}
-									carta={tabla[slot][0]}
+									carta={g.leerCarta(tabla[slot][0])}
 									slot={slot}
 									marcar={marcar}
 									marcada={marcadas.includes(slot)}

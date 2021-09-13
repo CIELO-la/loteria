@@ -49,8 +49,8 @@ const App = () => {
 	const { g, cartaCantada, playerId, marcadas } = state;
 	
 	// TAREA: elegir la baraja
-	const hostGame = () => iniciar('zapo-01', null, true);
-	const joinGame = () => iniciar('zapo-01', state.gameId, false);
+	const hostGame = () => iniciar('es-demo', null, true);
+	const joinGame = () => iniciar('es-demo', state.gameId, false);
 
 	const iniciar = (deckId, gameId, isHost) => {
 		const g = new Cantor(deckId, isHost);
@@ -112,7 +112,7 @@ const App = () => {
 						<div>{g.isHost ? `HOST` : `GUEST`}</div>
 						<div>
 							{cartaCantada && cartaCantada.nombre
-								? <div>el {cartaCantada.nombre}</div>
+								? <div>{cartaCantada.nombre}</div>
 								: <div>¡Corre y se va!</div>
 							}
 						</div>

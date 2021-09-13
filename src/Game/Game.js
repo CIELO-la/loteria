@@ -27,12 +27,13 @@ class Cantor {
 		// referencia a las cartas no barajadas
 		this.barajaId = barajaId;
 
-		// las cartas barajadas
-		// estructura == [{ id: '', nombre: '', imagen: '', ... }, ...]
-		this.cartas = [...barajas[barajaId]].map((carta, id) => ({
-			id,
-			...carta
-		}));
+		// las cartaIds barajadas
+		if (barajas[barajaId]) {
+			this.cartas = [ ...Object.keys(barajas[barajaId]) ];
+		} else {
+			// TAREA: salir del juego si no hay baraja
+			console.log(`baraja no definida: ${barajaId}`);
+		}
 
 		// tabla para cada jugador == 16 [[cartaId, estaMarcada], ...]
 		// véase la función .registrar y el depósito
@@ -58,8 +59,8 @@ class Cantor {
 	registrar = () => {
 		// barajar tabla de 16 cartas e indicar si están marcadas
 		this.tablas.push([
-			...this.barajar(this.cartas).slice(0, 16).map(carta => (
-				[ carta, false ]
+			...this.barajar(this.cartas).slice(0, 16).map(cartaId => (
+				[ cartaId, false ]
 			))
 		]);
 		// usar tabla id como jugadorId
@@ -80,7 +81,7 @@ class Cantor {
 			this.cantadas = gameDoc.data().cantadas;
 			return callback({
 				type: 'carta',
-				cartaCantada: this.leerUltima(),
+				cartaCantada: this.leerCartaCantada(),
 				estatus: gameDoc.data().estatus
 			});
 		});
@@ -141,18 +142,22 @@ class Cantor {
 			// TAREA: empate
 			return;
 		}
-		const carta = this.leerUltima();
 		this.cantadas++;
-		return carta;
+		return this.leerCartaCantada();
 	};
 
-	leerUltima = () => ({ ...this.cartas[this.cantadas] });
+	leerCartaCantada = () => (this.cantadas === 0
+		? {}
+		: this.leerCarta(this.cartas[this.cantadas-1])
+	);
 
-	yaCantadas = () => this.cartas.slice(0, this.cantadas).map(carta => carta.id);
+	leerCarta = cartaId => ({...barajas[this.barajaId][cartaId]});
+
+	yaCantadas = () => [...this.cartas.slice(0, this.cantadas)];
 
 	marcar = (tablaId, slotId) => {
 		const indicesCantados = this.yaCantadas();
-		if (indicesCantados.includes(this.tablas[tablaId][slotId][0].id)) {
+		if (indicesCantados.includes(this.tablas[tablaId][slotId][0])) {
 			this.tablas[tablaId][slotId][1] = true;
 		}
 		return this.tablas[tablaId][slotId][1];
