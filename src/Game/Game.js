@@ -38,6 +38,7 @@ class Cantor {
 			console.log(`baraja no definida: ${barajaId}`);
 		}
 
+		// TAREA: sólo local no todes
 		// tabla para cada jugador == 16 [[cartaId, estaMarcada], ...]
 		// véase la función .registrar y el depósito
 		this.tablas = [];

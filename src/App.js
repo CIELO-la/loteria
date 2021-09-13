@@ -3,21 +3,27 @@ import './App.css';
 import Cantor from './Game/Game';
 import BuscarJuego from './Components/BuscarJuego';
 import Juego from './Components/Juego';
+import { barajas } from './Game/barajas';
 
 const App = () => {
 	const [state, setState] = useState({
 		gameId: '',
+		barajaId: '',
 		g: null,
 		playerId: null,
 		cartaCantada: {},
 		marcadas: [],
 	});
 
+	const barajaIds = [...Object.keys(barajas)];
+
 	const { g, cartaCantada, playerId, gameId, marcadas } = state;
+
+	const barajaId = !state.barajaId ? barajaIds[0] : state.barajaId;
 	
 	// TAREA: elegir la baraja
-	const hostGame = () => iniciar('es-demo', true);
-	const joinGame = () => iniciar('es-demo', false);
+	const hostGame = () => iniciar(barajaId, true);
+	const joinGame = () => iniciar(barajaId, false);
 
 	const iniciar = (deckId, isHost) => {
 		const g = new Cantor(deckId, isHost);
@@ -54,6 +60,11 @@ const App = () => {
 
 	const handleGameIdInput = event => setState({ gameId: event.target.value.trim() });
 
+	const handleBarajaIdInput = event => {
+		event.preventDefault();
+		event.target.value && setState({ barajaId: event.target.value });
+	};
+
 	return (
 		<div className="App">
 			{!g
@@ -63,6 +74,9 @@ const App = () => {
 						joinGame={joinGame}
 						gameId={gameId}
 						handleGameIdInput={handleGameIdInput}
+						barajaId={barajaId}
+						barajaIds={barajaIds}
+						handleBarajaIdInput={handleBarajaIdInput}
 					/>
 				) : (
 					<Juego
