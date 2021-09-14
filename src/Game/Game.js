@@ -18,6 +18,15 @@ import { dbSub } from './db';
  * 		- el host escribe el estatus
  */
 
+ // TAREA: jugador con tabla completa puede seleccionar "ganar" después del empate
+
+const estatus = {
+	iniciar: 'iniciar',
+	jugar: 'jugar',
+	ganar: 'ganar',
+	empate: 'empate'
+};
+
 // TAREA: estatus del juego como "jugando" o se armó o se acabó
 class Cantor {
 	constructor(barajaId, jugadorId, isHost) {
@@ -85,22 +94,29 @@ class Cantor {
 		this.deposito = await dbSub(juegoId, gameDoc => {
 			this.cantadas = gameDoc.data().cantadas;
 			
-			// TAREA: ganador
-			if (gameDoc.data().estatus === 'ganar') {
+			// ganador
+			if (gameDoc.data().estatus === estatus.ganar) {
 				this.stop();
 				return callback({
 					type: gameDoc.data().estatus,
-					mensaje: `ganó el jugador ${gameDoc.data().ganador}`
+					cartaCantada: {},
+					mensaje: `ganó el jugador ${gameDoc.data().ganador}`,
 				});
 			}
-			// TAREA: empate
-			else if (gameDoc.data().estatus === 'empate') {
-				// ...
+			// resultó empate
+			else if (gameDoc.data().estatus === estatus.empate) {
+				this.stop();
+				return callback({
+					type: gameDoc.data().estatus,
+					cartaCantada: {},
+					mensaje: `no ganó nadie`,
+				});
 			}
 			else {
 				return callback({
 					type: gameDoc.data().estatus,
 					cartaCantada: this.leerCartaCantada(),
+					mensaje: ``,
 				});
 			}
 		});
@@ -112,7 +128,7 @@ class Cantor {
 				barajaId: this.barajaId,
 				cartas: this.cartas,
 				cantadas: 0,
-				estatus: 'iniciar',
+				estatus: estatus.iniciar,
 				jugadores: [this.jugadorId],
 				ganador: null
 			});
@@ -132,11 +148,16 @@ class Cantor {
 		if (this.isHost) {
 			this.timer = setInterval(
 				() => {
-					this.cantar();
-					this.isHost && this.deposito.update({
-						cantadas: this.cantadas,
-						estatus: 'jugar'
-					});
+					if (this.cantar()) {
+						this.deposito.update({
+							cantadas: this.cantadas,
+							estatus: estatus.jugar,
+						});
+					} else {
+						this.deposito.update({
+							estatus: estatus.empate
+						});
+					}
 				},
 				4500
 			);
@@ -160,11 +181,10 @@ class Cantor {
 
 	cantar = () => {
 		if (this.cantadas >= this.cartas.length) {
-			// TAREA: empate
-			return;
+			return false;
 		}
 		this.cantadas++;
-		return this.leerCartaCantada();
+		return true;
 	};
 
 	leerCartaCantada = () => (this.cantadas === 0
@@ -203,7 +223,7 @@ class Cantor {
 		
 		// se acaba el juego
 		if (esGanador) {
-			this.deposito.update({ estatus: 'ganar', ganador: this.jugadorId });
+			this.deposito.update({ estatus: estatus.ganar, ganador: this.jugadorId });
 		}
 
 		return esGanador;

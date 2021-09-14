@@ -36,13 +36,15 @@ const App = () => {
 		console.log('RUNNING START');
 
 		g.iniciar(isHost ? null : gameId, message => {
+			const { mensaje, cartaCantada } = message;	
 			switch(message.type) {
 				case 'jugar':
-					const { cartaCantada } = message;
 					setState(state => ({ ...state, cartaCantada }));
 					break;
 				case 'ganar':
-					const { mensaje } = message;
+					setState(state => ({ ...state, mensaje }));
+					break;
+				case 'empate':
 					setState(state => ({ ...state, mensaje }));
 					break;
 				default:
