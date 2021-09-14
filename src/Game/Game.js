@@ -20,9 +20,9 @@ import { dbSub } from './db';
 
 // TAREA: estatus del juego como "jugando" o se armó o se acabó
 class Cantor {
-	constructor(barajaId, isHost) {
-		// remote store setup
-		//deposito = dbSub();
+	constructor(barajaId, jugadorId, isHost) {
+		// remote store
+		this.deposito = null;
 
 		// TODO: placeholder for authorization!
 		this.isHost = isHost;
@@ -38,10 +38,11 @@ class Cantor {
 			console.log(`baraja no definida: ${barajaId}`);
 		}
 
-		// TAREA: sólo local no todes
-		// tabla para cada jugador == 16 [[cartaId, estaMarcada], ...]
-		// véase la función .registrar y el depósito
-		this.tablas = [];
+		// tabla tiene 16 [[cartaId, estaMarcada], ...]
+		// véase la función .crearTabla y el depósito
+		this.tabla = [];
+
+		this.jugadorId = jugadorId;
 
 		this.cantadas = 0;
 
@@ -60,15 +61,13 @@ class Cantor {
 		];
 	}
 
-	registrar = () => {
+	crearTabla = () => {
 		// barajar tabla de 16 cartas e indicar si están marcadas
-		this.tablas.push([
+		this.tabla = [
 			...this.barajar(this.cartas).slice(0, 16).map(cartaId => (
 				[ cartaId, false ]
 			))
-		]);
-		// usar tabla id como jugadorId
-		return this.tablas.length-1;
+		];
 	};
 
 	iniciar = async (juegoId, callback) => {
@@ -80,38 +79,61 @@ class Cantor {
 			console.log(`leyendo juego ${!juegoId ? 'nuevo' : juegoId}`);
 		}
 
+		this.crearTabla();
+
 		// objeto con métodos para leer y modificar - véase el db.js
-		const deposito = await dbSub(juegoId, gameDoc => {
+		this.deposito = await dbSub(juegoId, gameDoc => {
 			this.cantadas = gameDoc.data().cantadas;
-			return callback({
-				type: 'carta',
-				cartaCantada: this.leerCartaCantada(),
-				estatus: gameDoc.data().estatus
-			});
+			
+			// TAREA: ganador
+			if (gameDoc.data().estatus === 'ganar') {
+				this.stop();
+				return callback({
+					type: gameDoc.data().estatus,
+					mensaje: `ganó el jugador ${gameDoc.data().ganador}`
+				});
+			}
+			// TAREA: empate
+			else if (gameDoc.data().estatus === 'empate') {
+				// ...
+			}
+			else {
+				return callback({
+					type: gameDoc.data().estatus,
+					cartaCantada: this.leerCartaCantada(),
+				});
+			}
 		});
 
-		// TAREA: leer o modificar
+		// primera lectura, primera actualización (sólo host)
 		if (this.isHost) {
 			this.cartas = this.barajar(this.cartas);
-			deposito.update({
+			await this.deposito.update({
 				barajaId: this.barajaId,
 				cartas: this.cartas,
 				cantadas: 0,
-				estatus: 'iniciar'
+				estatus: 'iniciar',
+				jugadores: [this.jugadorId],
+				ganador: null
 			});
 		} else {
-			const game = deposito.read();
+			const game = this.deposito.read();
 			this.barajaId = game.barajaId;
 			this.cartas = game.cartas;
 			this.cantadas = game.cantadas;
+			await this.deposito.update({
+				jugadores: [...game.jugadores, this.jugadorId]
+			});
 		}
+
+		// TAREA: lobby antes de jugar
 
 		// sólo para el host los demás agarran los dados actualizados
 		if (this.isHost) {
 			this.timer = setInterval(
 				() => {
 					this.cantar();
-					this.isHost && deposito.update({
+					this.isHost && this.deposito.update({
 						cantadas: this.cantadas,
 						estatus: 'jugar'
 					});
@@ -154,30 +176,37 @@ class Cantor {
 
 	yaCantadas = () => [...this.cartas.slice(0, this.cantadas)];
 
-	marcar = (tablaId, slotId) => {
+	marcar = slotId => {
 		const indicesCantados = this.yaCantadas();
-		if (indicesCantados.includes(this.tablas[tablaId][slotId][0])) {
-			this.tablas[tablaId][slotId][1] = true;
+		if (indicesCantados.includes(this.tabla[slotId][0])) {
+			this.tabla[slotId][1] = true;
 		}
-		return this.tablas[tablaId][slotId][1];
+		return this.tabla[slotId][1];
 	};
 
-	verificar = tablaId => {
+	verificar = () => {
 		const indicesCantados = this.yaCantadas();
 		
 		// si se marcaron
-		const tablaValores = this.tablas[tablaId].map(carta => (
+		const tablaValores = this.tabla.map(carta => (
 			carta[1] && indicesCantados.includes(carta[0])
 		));
 		
 		// si ganó
-		return this.condiciones.reduce(
+		const esGanador = this.condiciones.reduce(
 			(condicion, verificacion) => ([
 				...verificacion,
 				!(condicion.map(campo => tablaValores[campo]).includes(false))
 			]),
 			[]
 		).includes(true);
+		
+		// se acaba el juego
+		if (esGanador) {
+			this.deposito.update({ estatus: 'ganar', ganador: this.jugadorId });
+		}
+
+		return esGanador;
 	};
 }
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Carta } from './Carta';
 
-const Tabla = ({ g, playerId, tabla, dimension, marcar, marcadas }) => {
+const Tabla = ({ g, tabla, dimension, marcar, marcadas }) => {
 
 	const estilo = {
 		border: '1px solid #555',

@@ -2,16 +2,6 @@ import React from 'react';
 
 const BuscarJuego = ({ joinGame, hostGame, gameId, handleGameIdInput, barajaId, barajaIds, handleBarajaIdInput }) => (
 	<div>
-		<div>
-			<label>
-				barajaId:
-				<select onChange={handleBarajaIdInput} value={barajaId}>
-					{barajaIds.map(baraja => (
-						<option key={baraja} value={baraja}>{baraja}</option>
-					))}
-				</select>
-			</label>
-		</div>
 		<form onSubmit={joinGame}>
 			<div>
 				<label>
@@ -27,8 +17,21 @@ const BuscarJuego = ({ joinGame, hostGame, gameId, handleGameIdInput, barajaId, 
 				<input type="submit" value="Join" />
 			</div>
 		</form>
+		<br/>
 		<form onSubmit={hostGame}>
-			<input type="submit" value="Host" />
+			<div>
+				<label>
+					barajaId:
+					<select onChange={handleBarajaIdInput} value={barajaId}>
+						{barajaIds.map(baraja => (
+							<option key={baraja} value={baraja}>{baraja}</option>
+						))}
+					</select>
+				</label>
+			</div>
+			<div>
+				<input type="submit" value="Host" />
+			</div>
 		</form>
 	</div>
 );
