@@ -10,13 +10,21 @@ Por ahora realizado con `React`, y custom `js` en `./src/Game`. Antes con `board
 
 ## Tareas
 
+- [ ] leer (join) / elegir (host) la baraja antes de iniciar
+
+- [ ] ganar
+	- [ ] la verificación parece tardar hasta el próximo `.cantar` 
+	- [ ] uno puede declararse ganador después del empate
+
 - [ ] lobby
 	- [ ] separar la configuración del inicio en `.iniciar`
 	- [ ] crea el host y se juntan los joiners
 	- [ ] los joiners buscan juegos actuales antes de juntarse en el lobby
-- [ ] crear imágenes, audio para la baraja
-- [ ] haz que el setTimeout/.timer espere por el audio
-- [ ] selecciones app en una página de arranque
+
+- [ ] demo
+	- [ ] crear imágenes, audio para la baraja
+	- [ ] haz que el setTimeout/.timer espere por el audio
+	- [ ] elegir baraja, opciones en una página de arranque
 
 - [ ] diseño
 	- ...tareas CSS/HTML

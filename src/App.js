@@ -23,7 +23,6 @@ const App = () => {
 
 	const barajaId = !state.barajaId ? barajaIds[0] : state.barajaId;
 	
-	// TAREA: elegir la baraja
 	const hostGame = e => {
 		e.preventDefault();
 		registrar(barajaId, true);
@@ -68,7 +67,7 @@ const App = () => {
 		// TAREA: llamar en lobby
 		await g.iniciar();
 
-		return () => { g.stop(); }
+		return () => { g.stop(); setState(state => ({ ...state, g: null })); };
 	};
 
 	const marcar = slotId => {
@@ -93,7 +92,7 @@ const App = () => {
 	return (
 		<div className="App">
 			<div>{mensaje}</div>
-			{!gameId
+			{!g
 				? (
 					<BuscarJuego
 						hostGame={hostGame}

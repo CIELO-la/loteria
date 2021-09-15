@@ -92,9 +92,7 @@ class Cantor {
 		this.crearTabla();
 
 		// objeto con métodos para leer y modificar - véase el db.js
-		this.deposito = await dbSub(juegoId, gameDoc => {
-			this.cantadas = gameDoc.data().cantadas;
-			
+		this.deposito = await dbSub(juegoId, gameDoc => {			
 			// ganador
 			if (gameDoc.data().estatus === estatus.ganar) {
 				this.stop();
@@ -113,7 +111,9 @@ class Cantor {
 					mensaje: `no ganó nadie`,
 				});
 			}
+			// jugar (cantar)
 			else {
+				this.cantadas = gameDoc.data().cantadas;
 				return callback({
 					type: gameDoc.data().estatus,
 					cartaCantada: this.leerCartaCantada(),
@@ -122,7 +122,7 @@ class Cantor {
 			}
 		});
 
-		// primera lectura, primera actualización (sólo host)
+		// primera lectura, primera actualización
 		if (this.isHost) {
 			this.cartas = this.barajar(this.cartas);
 			await this.deposito.update({
