@@ -79,7 +79,7 @@ class Cantor {
 		];
 	};
 
-	iniciar = async (juegoId, callback) => {
+	registrar = async (juegoId, callback) => {
 		// TAREA: error de vuelta si no hay juego
 		if (!this.isHost && !juegoId) {
 			console.log(`Game.js -- no hay ni host ni juego`);
@@ -88,6 +88,7 @@ class Cantor {
 			console.log(`leyendo juego ${!juegoId ? 'nuevo' : juegoId}`);
 		}
 
+		// TAREA: en .iniciar
 		this.crearTabla();
 
 		// objeto con métodos para leer y modificar - véase el db.js
@@ -142,9 +143,11 @@ class Cantor {
 			});
 		}
 
-		// TAREA: lobby antes de jugar
+		return this.deposito.id();
+	};
 
-		// sólo para el host los demás agarran los dados actualizados
+	iniciar = () => {
+		// solo para el host los demás agarran los dados actualizados
 		if (this.isHost) {
 			this.timer = setInterval(
 				() => {

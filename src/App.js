@@ -24,18 +24,22 @@ const App = () => {
 	const barajaId = !state.barajaId ? barajaIds[0] : state.barajaId;
 	
 	// TAREA: elegir la baraja
-	const hostGame = e => e.preventDefault && iniciar(barajaId, true);
-	const joinGame = e => e.preventDefault && iniciar(barajaId, false);
+	const hostGame = e => {
+		e.preventDefault();
+		registrar(barajaId, true);
+	};
+	const joinGame = e => {
+		e.preventDefault();
+		registrar(barajaId, false);
+	};
 
-	const iniciar = async (deckId, isHost) => {
+	const registrar = async (deckId, isHost) => {
 
-		//TODO: get barajaId from host -- separate config/registrar from iniciar
+		//TODO: get barajaId from host
 
 		const g = new Cantor(deckId, jugadorId, isHost);
 
-		console.log('RUNNING START');
-
-		g.iniciar(isHost ? null : gameId, message => {
+		const joinedGameId = await g.registrar(isHost ? null : gameId, message => {
 			const { mensaje, cartaCantada } = message;	
 			switch(message.type) {
 				case 'jugar':
@@ -55,10 +59,14 @@ const App = () => {
 
 		setState(state => ({
 			...state,
+			gameId: joinedGameId,
 			g,
 			cartaCantada: {},
 			marcadas: [],
 		}));
+
+		// TAREA: llamar en lobby
+		await g.iniciar();
 
 		return () => { g.stop(); }
 	};
@@ -85,7 +93,7 @@ const App = () => {
 	return (
 		<div className="App">
 			<div>{mensaje}</div>
-			{!g
+			{!gameId
 				? (
 					<BuscarJuego
 						hostGame={hostGame}
