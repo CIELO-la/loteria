@@ -53,14 +53,27 @@ class Cantor {
 
 		// cuatro/n tabla slotIds que estén marcadas
 		this.condiciones = [
+			// horiz
 			[0, 1, 2, 3],
 			[4, 5, 6, 7],
 			[8, 9, 10, 11],
 			[12, 13, 14, 15],
+			// vert
 			[0, 4, 8, 12],
 			[1, 5, 9, 13],
 			[2, 6, 10, 14],
 			[3, 7, 11, 15],
+			// cuadr
+			[0, 1, 4, 5],
+			[1, 2, 5, 6],
+			[2, 3, 6, 7],
+			[4, 5, 8, 9],
+			[5, 6, 9, 10],
+			[6, 7, 10, 11],
+			[8, 9, 12, 13],
+			[9, 10, 13, 14],
+			[10, 11, 14, 15],
+			[0, 3, 12, 15],
 		];
 	}
 
@@ -232,15 +245,19 @@ class Cantor {
 		const tablaValores = this.tabla.map(carta => (
 			carta[1] && indicesCantados.includes(carta[0])
 		));
+
+		console.log("Verificando valores tabla:", tablaValores);
 		
 		// si ganó
 		const esGanador = this.condiciones.reduce(
-			(condicion, verificacion) => ([
-				...verificacion,
+			(verificacionesPrevias, condicion) => ([
+				...verificacionesPrevias,
 				!(condicion.map(campo => tablaValores[campo]).includes(false))
 			]),
 			[]
 		).includes(true);
+
+		console.log("es ganador:", esGanador);
 		
 		// se acaba el juego
 		if (esGanador) {
