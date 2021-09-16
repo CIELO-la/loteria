@@ -82,15 +82,12 @@ class Cantor {
 			console.log(`leyendo juego ${!juegoId ? 'nuevo' : juegoId}`);
 		}
 
-		// TAREA: en .iniciar
-		this.crearTabla();
-
 		// objeto con métodos para leer y modificar - véase el db.js
 		this.deposito = await dbSub(juegoId, gameDoc => {
 			// lobby
 			if (gameDoc.data().estatus === estatus.registrar) {
 				return callback({
-					type: gameDoc.data().estatus,
+					tipo: gameDoc.data().estatus,
 					cartaCantada: {},
 					mensaje: `registrar - en el lobby`,
 				});
@@ -98,7 +95,7 @@ class Cantor {
 			// configuración inicial del juego
 			if (gameDoc.data().estatus === estatus.iniciar) {
 				return callback({
-					type: gameDoc.data().estatus,
+					tipo: gameDoc.data().estatus,
 					cartaCantada: {},
 					mensaje: `iniciar`,
 				});
@@ -107,7 +104,7 @@ class Cantor {
 			else if (gameDoc.data().estatus === estatus.ganar) {
 				this.stop();
 				return callback({
-					type: gameDoc.data().estatus,
+					tipo: gameDoc.data().estatus,
 					cartaCantada: {},
 					mensaje: `ganar - ganó el jugador ${gameDoc.data().ganador}`,
 				});
@@ -116,7 +113,7 @@ class Cantor {
 			else if (gameDoc.data().estatus === estatus.empate) {
 				this.stop();
 				return callback({
-					type: gameDoc.data().estatus,
+					tipo: gameDoc.data().estatus,
 					cartaCantada: {},
 					mensaje: `empate - no ganó nadie`,
 				});
@@ -125,7 +122,7 @@ class Cantor {
 			else {
 				this.cantadas = gameDoc.data().cantadas;
 				return callback({
-					type: gameDoc.data().estatus,
+					tipo: gameDoc.data().estatus,
 					cartaCantada: this.leerCartaCantada(),
 					mensaje: `jugar`,
 				});
@@ -162,6 +159,8 @@ class Cantor {
 				estatus: estatus.iniciar,
 			});
 		}
+
+		this.crearTabla();
 
 		// TAREA: pasos entre entrada y primera carta
 		// -- ¡Corre y se va corriendo! --

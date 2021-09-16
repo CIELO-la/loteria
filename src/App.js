@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import './App.css';
-import Cantor from './Game/Game';
-import BuscarJuego from './Components/BuscarJuego';
+import Cantor from './Juego/Juego';
 import Juego from './Components/Juego';
-import { barajas } from './Game/barajas';
+import BuscarJuego from './Components/BuscarJuego';
+import { barajas } from './Juego/barajas';
+import { estatus } from './Juego/estatus';
 import { v4 as uuid4 } from 'uuid';
 
 const App = () => {
@@ -14,13 +15,13 @@ const App = () => {
 		g: null,
 		cartaCantada: {},
 		marcadas: [],
-		estatus: '',
+		estatusActual: '',
 		mensaje: '',
 	});
 
 	const barajaIds = [...Object.keys(barajas)];
 
-	const { jugadorId, gameId, g, cartaCantada, marcadas, mensaje } = state;
+	const { jugadorId, gameId, g, cartaCantada, marcadas, mensaje, estatusActual } = state;
 
 	const barajaId = !state.barajaId ? barajaIds[0] : state.barajaId;
 	
@@ -34,29 +35,48 @@ const App = () => {
 	};
 
 	const registrar = async (deckId, isHost) => {
-
 		//TODO: get barajaId from host
-
 		const g = new Cantor(deckId, jugadorId, isHost);
 
 		const joinedGameId = await g.registrar(isHost ? null : gameId, message => {
 			// TODO: d.r.y. map status:function
-			const { mensaje, cartaCantada } = message;
-			switch(message.type) {
+			const { tipo, mensaje, cartaCantada } = message;
+			switch(tipo) {
 				case 'registrar':
-					setState(state => ({ ...state, mensaje }));
+					setState(state => ({
+						...state,
+						mensaje,
+						estatusActual: tipo,
+					}));
 					break;
 				case 'iniciar':
-					setState(state => ({ ...state, mensaje }));
+					setState(state => ({
+						...state,
+						mensaje,
+						estatusActual: tipo,						
+					}));
 					break;
 				case 'jugar':
-					setState(state => ({ ...state, mensaje, cartaCantada }));
+					setState(state => ({
+						...state,
+						mensaje,
+						cartaCantada,
+						estatusActual: tipo,
+					}));
 					break;
 				case 'ganar':
-					setState(state => ({ ...state, mensaje }));
+					setState(state => ({
+						...state,
+						mensaje,
+						estatusActual: tipo,
+					}));
 					break;
 				case 'empate':
-					setState(state => ({ ...state, mensaje }));
+					setState(state => ({
+						...state,
+						mensaje,
+						estatusActual: tipo,
+					}));
 					break;
 				default:
 					// Nothing to do
@@ -70,12 +90,17 @@ const App = () => {
 			g,
 			cartaCantada: {},
 			marcadas: [],
+			estatusActual: estatus.registrar,
 		}));
 
-		// TAREA: llamar en lobby
-		await g.iniciar();
+		return () => {
+			g.stop();
+			setState(state => ({ ...state, g: null }));
+		};
+	};
 
-		return () => { g.stop(); setState(state => ({ ...state, g: null })); };
+	const iniciar = async () => {
+		await g.iniciar();
 	};
 
 	const marcar = slotId => {
@@ -111,15 +136,23 @@ const App = () => {
 						barajaIds={barajaIds}
 						handleBarajaIdInput={handleBarajaIdInput}
 					/>
-				) : (
-					<Juego
-						g={g}
-						cartaCantada={cartaCantada}
-						tablaDimension={4}
-						marcar={marcar}
-						marcadas={marcadas}
-					/>
-				)
+				) : estatusActual === estatus.registrar
+					? (
+						<div>
+							<p>Lobby</p>
+							<p>estatus: {estatusActual}</p>
+							<p>jugadores: {jugadorId}</p>
+							<button onClick={iniciar}>iniciar</button>
+						</div>
+					) : (
+						<Juego
+							g={g}
+							cartaCantada={cartaCantada}
+							tablaDimension={4}
+							marcar={marcar}
+							marcadas={marcadas}
+						/>
+					)
 			}
 		</div>
 	);

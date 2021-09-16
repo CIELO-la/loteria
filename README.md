@@ -18,8 +18,13 @@ Por ahora realizado con `React`, y custom `js` en `./src/Game`. Antes con `board
 	- [ ] uno puede declararse ganador después del empate
 
 - [ ] lobby
-	- [ ] separar la configuración del inicio en `.iniciar`
+	- [ ] mostrar los jugadores en el lobby
+		- [ ] y más opciones para juntar o ¿nomás selecciona host?
+	- [X] separar la configuración del inicio en `.iniciar`
+	- [ ] los joiners leen la barajaId cuando conectan
 	- [ ] crea el host y se juntan los joiners
+
+- [ ] búsqueda
 	- [ ] los joiners buscan juegos actuales antes de juntarse en el lobby
 
 - [ ] demo
