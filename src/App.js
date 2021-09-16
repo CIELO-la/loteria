@@ -14,7 +14,8 @@ const App = () => {
 		g: null,
 		cartaCantada: {},
 		marcadas: [],
-		mensaje: ''
+		estatus: '',
+		mensaje: '',
 	});
 
 	const barajaIds = [...Object.keys(barajas)];
@@ -39,10 +40,17 @@ const App = () => {
 		const g = new Cantor(deckId, jugadorId, isHost);
 
 		const joinedGameId = await g.registrar(isHost ? null : gameId, message => {
-			const { mensaje, cartaCantada } = message;	
+			// TODO: d.r.y. map status:function
+			const { mensaje, cartaCantada } = message;
 			switch(message.type) {
+				case 'registrar':
+					setState(state => ({ ...state, mensaje }));
+					break;
+				case 'iniciar':
+					setState(state => ({ ...state, mensaje }));
+					break;
 				case 'jugar':
-					setState(state => ({ ...state, cartaCantada }));
+					setState(state => ({ ...state, mensaje, cartaCantada }));
 					break;
 				case 'ganar':
 					setState(state => ({ ...state, mensaje }));

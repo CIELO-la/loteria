@@ -13,7 +13,8 @@ Por ahora realizado con `React`, y custom `js` en `./src/Game`. Antes con `board
 - [ ] leer (join) / elegir (host) la baraja antes de iniciar
 
 - [ ] ganar
-	- [ ] la verificación parece tardar hasta el próximo `.cantar` 
+	- [ ] la verificación parece tardar hasta el próximo `.cantar`
+	- [ ] ROTO ya que muchas veces no se llega a verificar hasta las cartas muy últimas
 	- [ ] uno puede declararse ganador después del empate
 
 - [ ] lobby
