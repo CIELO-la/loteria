@@ -46,6 +46,7 @@ class Cantor {
 		this.tabla = [];
 
 		this.jugadorId = jugadorId;
+		this.jugadores = [];
 
 		this.cantadas = 0;
 
@@ -99,6 +100,7 @@ class Cantor {
 		this.deposito = await dbSub(juegoId, gameDoc => {
 			// lobby
 			if (gameDoc.data().estatus === estatus.registrar) {
+				this.jugadores = gameDoc.data().jugadores;
 				return callback({
 					tipo: gameDoc.data().estatus,
 					cartaCantada: {},
@@ -107,6 +109,7 @@ class Cantor {
 			}
 			// configuración inicial del juego
 			if (gameDoc.data().estatus === estatus.iniciar) {
+				this.jugadores = gameDoc.data().jugadores;
 				return callback({
 					tipo: gameDoc.data().estatus,
 					cartaCantada: {},
