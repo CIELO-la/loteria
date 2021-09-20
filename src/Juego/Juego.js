@@ -270,7 +270,7 @@ class Cantor {
 		
 		// si ganó
 		const esGanador = this.condiciones.reduce(
-			(verificacionesPrevias, condicion) => ([
+			(verificacionesPrevias, condicion) => ([ // !(condicion, verificacionesPrevias)
 				...verificacionesPrevias,
 				!(condicion.map(campo => tablaValores[campo]).includes(false))
 			]),
