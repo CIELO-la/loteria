@@ -143,7 +143,7 @@ const App = () => {
 							<p>estatus: {estatusActual}</p>
 							<ul>jugadores:
 								{g.jugadores.map(jugador => (
-									<li>{jugador}</li>
+									<li key={jugador}>{jugador}</li>
 								))}
 							</ul>
 							<button onClick={iniciar}>iniciar</button>

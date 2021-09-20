@@ -12,14 +12,17 @@ Por ahora realizado con `React`, y custom `js` en `./src/Game`. Antes con `board
 
 - [ ] leer (join) / elegir (host) la baraja antes de iniciar
 
-- [ ] ganar
+- [X] ganar
 	- [X] la verificación parece tardar hasta el próximo `.cantar`
 	- [X] ROTO ya que muchas veces no se llega a verificar hasta las cartas muy últimas
-	- [ ] uno puede declararse ganador después del empate
+	- [X] uno puede declararse ganador después del empate
+
+- [ ] pero ¿por qué una vez funcionó el reductor con las entradas al revés? (_un aparte_)
 
 - [ ] lobby
 	- [ ] mostrar los jugadores en el lobby
 		- [ ] y más opciones para juntar o ¿nomás selecciona host?
+	- [ ] mostrar algo para cada jugador (imagen, cuadro)
 	- [X] separar la configuración del inicio en `.iniciar`
 	- [ ] los joiners leen la barajaId cuando conectan
 	- [ ] crea el host y se juntan los joiners

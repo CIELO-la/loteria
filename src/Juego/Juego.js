@@ -51,6 +51,7 @@ class Cantor {
 		this.cantadas = 0;
 
 		this.timer = null;
+		this.seAcabo = false;
 
 		// cuatro/n tabla slotIds que estén marcadas
 		this.condiciones = [
@@ -118,7 +119,7 @@ class Cantor {
 			}
 			// ganador
 			else if (gameDoc.data().estatus === estatus.ganar) {
-				this.stop();
+				this.parar();
 				return callback({
 					tipo: gameDoc.data().estatus,
 					cartaCantada: {},
@@ -127,7 +128,7 @@ class Cantor {
 			}
 			// resultó empate
 			else if (gameDoc.data().estatus === estatus.empate) {
-				this.stop();
+				this.parar();
 				return callback({
 					tipo: gameDoc.data().estatus,
 					cartaCantada: {},
@@ -201,7 +202,10 @@ class Cantor {
 		}
 	};
 
-	stop = () => this.isHost && clearInterval(this.timer);
+	parar = () => {
+		this.isHost && clearInterval(this.timer);
+		this.seAcabo = true;
+	};
 
 	barajar = cartas => {
 		const cartasBarajadas = [...cartas].reverse();
@@ -242,6 +246,8 @@ class Cantor {
 	};
 
 	verificar = () => {
+		if (this.seAcabo) { return; }
+
 		const indicesCantados = this.yaCantadas();
 		
 		// si se marcaron
