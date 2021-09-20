@@ -23,7 +23,7 @@ import { estatus } from './estatus';
 
 // TAREA: estatus del juego como "jugando" o se armó o se acabó
 class Cantor {
-	constructor(barajaId, jugadorId, isHost) {
+	constructor(barajaId, jugadorId, isHost=false) {
 		// remote store
 		this.deposito = null;
 
@@ -31,18 +31,13 @@ class Cantor {
 		this.isHost = isHost;
 
 		// referencia a las cartas no barajadas
-		this.barajaId = barajaId;
+		this.barajaId = isHost ? barajaId : null;
 
-		// las cartaIds barajadas
-		if (barajas[barajaId]) {
-			this.cartas = [ ...Object.keys(barajas[barajaId]) ];
-		} else {
-			// TAREA: salir del juego si no hay baraja
-			console.log(`baraja no definida: ${barajaId}`);
-		}
+		// las cartaIds
+		this.cartas = [];
 
 		// tabla tiene 16 [[cartaId, estaMarcada], ...]
-		// véase la función .crearTabla y el depósito
+		// véase las funciones .iniciar, .crearTabla y el depósito
 		this.tabla = [];
 
 		this.jugadorId = jugadorId;
@@ -79,14 +74,14 @@ class Cantor {
 		];
 	}
 
-	crearTabla = () => {
+	crearTabla = () => (
 		// barajar tabla de 16 cartas e indicar si están marcadas
-		this.tabla = [
+		[
 			...this.barajar(this.cartas).slice(0, 16).map(cartaId => (
 				[ cartaId, false ]
 			))
-		];
-	};
+		]
+	);
 
 	registrar = async (juegoId, callback) => {
 		// TAREA: error de vuelta si no hay juego
@@ -99,56 +94,74 @@ class Cantor {
 
 		// objeto con métodos para leer y modificar - véase el db.js
 		this.deposito = await dbSub(juegoId, gameDoc => {
-			// lobby
-			if (gameDoc.data().estatus === estatus.registrar) {
-				this.jugadores = gameDoc.data().jugadores;
+			const datos = gameDoc.data();
+			// lobby y configuración inicial
+			if (datos.estatus === estatus.registrar) {
+				// almacenar datos locales del juego
+				this.barajaId = datos.barajaId;
+				this.jugadores = datos.jugadores;
+				// elegir baraja y barajar cartas para tabla
+				if (!barajas[this.barajaId]) {
+					// TAREA: salir del juego si no hay baraja
+					console.log(`baraja no definida: ${this.barajaId}`);
+				}
+				this.tabla = this.crearTabla();
+				// mostrar lobby
 				return callback({
-					tipo: gameDoc.data().estatus,
+					estatusActual: datos.estatus,
+					barajaId: datos.barajaId,
 					cartaCantada: {},
-					mensaje: `registrar - en el lobby`,
+					ganador: datos.ganador,
 				});
 			}
-			// configuración inicial del juego
-			if (gameDoc.data().estatus === estatus.iniciar) {
-				this.jugadores = gameDoc.data().jugadores;
+			// empezar
+			if (datos.estatus === estatus.iniciar) {
+				this.jugadores = datos.jugadores;
+				this.barajaId = datos.barajaId;
 				return callback({
-					tipo: gameDoc.data().estatus,
+					estatusActual: datos.estatus,
+					barajaId: datos.barajaId,
 					cartaCantada: {},
-					mensaje: `iniciar`,
+					ganador: datos.ganador,
 				});
 			}
 			// ganador
-			else if (gameDoc.data().estatus === estatus.ganar) {
+			else if (datos.estatus === estatus.ganar) {
 				this.parar();
 				return callback({
-					tipo: gameDoc.data().estatus,
+					estatusActual: datos.estatus,
+					barajaId: datos.barajaId,
 					cartaCantada: {},
-					mensaje: `ganar - ganó el jugador ${gameDoc.data().ganador}`,
+					ganador: datos.ganador,
 				});
 			}
 			// resultó empate
-			else if (gameDoc.data().estatus === estatus.empate) {
+			else if (datos.estatus === estatus.empate) {
 				this.parar();
 				return callback({
-					tipo: gameDoc.data().estatus,
+					estatusActual: datos.estatus,
+					barajaId: datos.barajaId,
 					cartaCantada: {},
-					mensaje: `empate - no ganó nadie`,
+					ganador: datos.ganador,
 				});
 			}
-			// jugar (cantar)
+			// jugar
 			else {
-				this.cantadas = gameDoc.data().cantadas;
+				this.cantadas = datos.cantadas;
 				return callback({
-					tipo: gameDoc.data().estatus,
+					estatusActual: datos.estatus,
+					barajaId: datos.barajaId,
 					cartaCantada: this.leerCartaCantada(),
-					mensaje: `jugar`,
+					ganador: datos.ganador,
 				});
 			}
 		});
 
 		// primera lectura, primera actualización
 		if (this.isHost) {
-			this.cartas = this.barajar(this.cartas);
+			this.cartas = this.barajar([
+				...Object.keys(barajas[this.barajaId])
+			]);
 			await this.deposito.update({
 				barajaId: this.barajaId,
 				cartas: this.cartas,
@@ -177,12 +190,10 @@ class Cantor {
 			});
 		}
 
-		this.crearTabla();
-
 		// TAREA: pasos entre entrada y primera carta
 		// -- ¡Corre y se va corriendo! --
 		
-		// solo para el host los demás agarran los dados actualizados
+		// solo escribe el host - los demás agarran los datos actualizados
 		if (this.isHost) {
 			this.timer = setInterval(
 				() => {

@@ -38,44 +38,46 @@ const App = () => {
 		//TODO: get barajaId from host
 		const g = new Cantor(deckId, jugadorId, isHost);
 
-		const joinedGameId = await g.registrar(isHost ? null : gameId, message => {
-			// TODO: d.r.y. map status:function
-			const { tipo, mensaje, cartaCantada } = message;
-			switch(tipo) {
+		const joinedGameId = await g.registrar(isHost ? null : gameId, datos => {
+			// TODO: d.r.y. map status:function aquí y en Juego.js .registrar
+			const { estatusActual, barajaId, cartaCantada, ganador } = datos;
+			switch(estatusActual) {
 				case 'registrar':
 					setState(state => ({
 						...state,
-						mensaje,
-						estatusActual: tipo,
+						estatusActual,
+						barajaId,
+						mensaje: `registrar - en el lobby`,
 					}));
 					break;
 				case 'iniciar':
 					setState(state => ({
 						...state,
-						mensaje,
-						estatusActual: tipo,						
+						estatusActual,
+						barajaId,					
+						mensaje: `iniciar`,
 					}));
 					break;
 				case 'jugar':
 					setState(state => ({
 						...state,
-						mensaje,
+						estatusActual,
 						cartaCantada,
-						estatusActual: tipo,
+						mensaje,
 					}));
 					break;
 				case 'ganar':
 					setState(state => ({
 						...state,
-						mensaje,
-						estatusActual: tipo,
+						estatusActual,
+						mensaje: `ganar - ganó el jugador ${ganador}`,
 					}));
 					break;
 				case 'empate':
 					setState(state => ({
 						...state,
-						mensaje,
-						estatusActual: tipo,
+						estatusActual,
+						mensaje: `empate - no ganó nadie`,
 					}));
 					break;
 				default:
