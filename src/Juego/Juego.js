@@ -3,7 +3,6 @@ import { dbSub } from './db';
 import { estatus } from './estatus';
 
 /* Game-db interactions
- *
  * 1) lock someone in as writer when load
  * 2) writer's Cantor writes the barajaId and shuffled cartaIds
  * 3) everyone reads barajaId and shuffled cartaIds from db
@@ -11,19 +10,15 @@ import { estatus } from './estatus';
  * 		- latest card called was previous card (i-1); total called slice up to i
  * 		- if status is win go to 6
  * 5) everyone gets snapshot with updated cantada index (necessary?)
- *
- * TAREA:
- * 6) ganar status - how to handle?
- * 		- el ganador escribe para modificar el estatus
- * 7) empate status - how to handle?
- * 		- el host escribe el estatus
+ * 6) ganar status
+ * 7) empate status
  */
 
- // TAREA: jugador con tabla completa puede seleccionar "ganar" después del empate
-
-// TAREA: estatus del juego como "jugando" o se armó o se acabó
 class Cantor {
 	constructor(barajaId, jugadorId, isHost=false) {
+
+		console.log(this.colorear(jugadorId));
+
 		// remote store
 		this.deposito = null;
 
@@ -41,7 +36,7 @@ class Cantor {
 		this.tabla = [];
 
 		this.jugadorId = jugadorId;
-		this.jugadores = [];
+		this.jugadoresColores = []; 	// [[jugadorId, colorHex], ...]
 
 		this.cantadas = 0;
 
@@ -74,6 +69,18 @@ class Cantor {
 		];
 	}
 
+	// convertir cadena en color
+	// modificación de https://stackoverflow.com/questions/3426404/create-a-hexadecimal-colour-based-on-a-string-with-javascript
+	colorear = texto => {
+		const txtHash = texto.split('').reduce((hash, letra) => (
+			letra.charCodeAt(0) + ((hash << 5) - hash)
+		), 0);
+	    const color = '#' + [0, 1, 2].map(i => (
+	   		('00' + ((txtHash >> (i * 8)) & 0xFF).toString(16)).substr(-2)
+	    )).join('');
+	    return color;
+	};
+
 	crearTabla = () => (
 		// barajar tabla de 16 cartas e indicar si están marcadas
 		[
@@ -99,7 +106,10 @@ class Cantor {
 			if (datos.estatus === estatus.registrar) {
 				// almacenar datos locales del juego
 				this.barajaId = datos.barajaId;
-				this.jugadores = datos.jugadores;
+				this.jugadores = datos.jugadores.map(jugadorId => [
+					jugadorId,
+					this.colorear(jugadorId),
+				]);
 				// elegir baraja y barajar cartas para tabla
 				if (!barajas[this.barajaId]) {
 					// TAREA: salir del juego si no hay baraja
@@ -116,7 +126,10 @@ class Cantor {
 			}
 			// empezar
 			if (datos.estatus === estatus.iniciar) {
-				this.jugadores = datos.jugadores;
+				this.jugadores = datos.jugadores.map(jugadorId => [
+					jugadorId,
+					this.colorear(jugadorId),
+				]);
 				this.barajaId = datos.barajaId;
 				return callback({
 					estatusActual: datos.estatus,
@@ -270,7 +283,7 @@ class Cantor {
 		
 		// si ganó
 		const esGanador = this.condiciones.reduce(
-			(verificacionesPrevias, condicion) => ([ // !(condicion, verificacionesPrevias)
+			(verificacionesPrevias, condicion) => ([
 				...verificacionesPrevias,
 				!(condicion.map(campo => tablaValores[campo]).includes(false))
 			]),

@@ -20,7 +20,7 @@ Por ahora realizado con `React`, y custom `js` en `./src/Game`. Antes con `board
 - [ ] lobby
 	- [X] mostrar los jugadores en el lobby
 	- [ ] y más opciones para juntar o ¿nomás selecciona host?
-	- [ ] mostrar algo para cada jugador (imagen, cuadro)
+	- [X] mostrar algo para cada jugador (imagen, cuadro)
 	- [X] separar la configuración del inicio en `.iniciar`
 	- [X] los joiners leen la barajaId cuando conectan
 	- [X] crea el host y se juntan los joiners

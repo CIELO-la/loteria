@@ -9,3 +9,15 @@ table {
 a {
 	color: #61dafb;
 }
+
+.cuadros-jugadores {
+	display: inline-flex;
+	flex-flow: row wrap;
+	gap: 10px;
+	justify-content: flex-start;
+}
+
+.cuadro-jugador {
+	height: 40px;
+	width: 40px;
+}

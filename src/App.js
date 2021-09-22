@@ -3,6 +3,8 @@ import './App.css';
 import Cantor from './Juego/Juego';
 import Juego from './Components/Juego';
 import BuscarJuego from './Components/BuscarJuego';
+import Cuadros from './Components/Cuadros';
+import Lobby from './Components/Lobby';
 import { barajas } from './Juego/barajas';
 import { estatus } from './Juego/estatus';
 import { v4 as uuid4 } from 'uuid';
@@ -63,7 +65,7 @@ const App = () => {
 						...state,
 						estatusActual,
 						cartaCantada,
-						mensaje,
+						mensaje: `jugar`,
 					}));
 					break;
 				case 'ganar':
@@ -126,7 +128,7 @@ const App = () => {
 
 	return (
 		<div className="App">
-			<div>{mensaje}</div>
+			<div style={{color: 'gray', fontSize: 15, marginBottom: 20}}>{mensaje}</div>
 			{!g
 				? (
 					<BuscarJuego
@@ -141,23 +143,23 @@ const App = () => {
 				) : estatusActual === estatus.registrar
 					? (
 						<div>
-							<p>Lobby</p>
-							<p>estatus: {estatusActual}</p>
-							<ul>jugadores:
-								{g.jugadores.map(jugador => (
-									<li key={jugador}>{jugador}</li>
-								))}
-							</ul>
-							<button onClick={iniciar}>iniciar</button>
+							<Cuadros jugadores={g.jugadores} />
+							<Lobby
+								estatusActual={estatusActual}
+								iniciar={iniciar}
+							/>
 						</div>
 					) : (
-						<Juego
-							g={g}
-							cartaCantada={cartaCantada}
-							tablaDimension={4}
-							marcar={marcar}
-							marcadas={marcadas}
-						/>
+						<div>
+							<Cuadros jugadores={g.jugadores} />
+							<Juego
+								g={g}
+								cartaCantada={cartaCantada}
+								tablaDimension={4}
+								marcar={marcar}
+								marcadas={marcadas}
+							/>
+						</div>
 					)
 			}
 		</div>
