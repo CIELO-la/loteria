@@ -17,8 +17,6 @@ import { estatus } from './estatus';
 class Cantor {
 	constructor(barajaId, jugadorId, isHost=false) {
 
-		console.log(this.colorear(jugadorId));
-
 		// remote store
 		this.deposito = null;
 
@@ -36,7 +34,7 @@ class Cantor {
 		this.tabla = [];
 
 		this.jugadorId = jugadorId;
-		this.jugadoresColores = []; 	// [[jugadorId, colorHex], ...]
+		this.jugadores = []; 	// [[jugadorId, colorHex], ...]
 
 		this.cantadas = 0;
 

@@ -34,10 +34,10 @@ export const dbSub = async (gameId, gameStateCallback) => {
 	  // read and return docs in collection
 	  const gameSnapshot = await getDoc(doc(gamesCollection, gameDocId));
 	  if (gameSnapshot.exists()) {
-	    console.log("Document data:", gameSnapshot.ref);
+	    console.log("Game store document data:", gameSnapshot.ref);
 	  } else {
-	    // doc.data() will be undefined in this case
-	    console.log("No such document!");
+	    // doc.data() left undefined
+	    console.log("No such game document!");
 	  }
 	  return gameSnapshot;
 	}

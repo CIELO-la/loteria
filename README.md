@@ -19,11 +19,13 @@ Por ahora realizado con `React`, y custom `js` en `./src/Game`. Antes con `board
 
 - [ ] lobby
 	- [X] mostrar los jugadores en el lobby
-	- [ ] y más opciones para juntar o ¿nomás selecciona host?
+	- [ ] solo host inicia el juego y después nadie más se puede conectar
 	- [X] mostrar algo para cada jugador (imagen, cuadro)
 	- [X] separar la configuración del inicio en `.iniciar`
 	- [X] los joiners leen la barajaId cuando conectan
 	- [X] crea el host y se juntan los joiners
+
+- [ ] DRY los objetos switch/case if/else en Juego, App
 
 - [ ] búsqueda
 	- [ ] los joiners buscan juegos actuales antes de juntarse en el lobby
@@ -35,6 +37,8 @@ Por ahora realizado con `React`, y custom `js` en `./src/Game`. Antes con `board
 
 - [ ] diseño
 	- ...tareas CSS/HTML
+
+## Aprendizaje improvisado
 
 - [X] pero ¿por qué una vez funcionó el reductor con las entradas al revés?
 	- ver la función `Juego.verificar` (_un aparte_)
@@ -99,4 +103,71 @@ console.log(didWin);
 // - no marcar nada => false
 // - marcar cada condición menos Juego.condiciones[penúltima] => false
 // - marcar la condición penúltima => true
+```
+
+- [ ] y ¿cómo hacerlo para que el depósito firestore no se quede en modo de prueba?
+	- lectura: https://firebase.google.com/docs/firestore/security/get-started
+```
+// v2 para usar consultas de base
+rules_version = '2';
+
+// abrir un bloque de reglas
+service cloud.firestore { }
+
+// `match` identifica documento, `allow` autoriza acceso
+match /databases/{database}/documents {
+	match /<path>/ {
+	  allow <action>: if <condition>;
+	}
+}
+
+// ruta progresiva o sea son equivalentes:
+// `match /ciudades/{ciudad} { match /hitos/{hito} {`
+// `match /cities/{ciudad}/hitos/{hito} {`
+
+// {nombre=**} para comodín con recursión
+// esta ** también busca correspondencias hondas
+
+// acciones permitidas
+allow <action>:
+// valores posibles
+allow read, write, create, get, update, list, delete:
+
+// condiciones
+allow <action>: if <condition>
+// ej si es usuario autorizado
+allow read, write: if request.auth != null;
+// ej solo para los datos propios del usuario
+allow read, update, delete: if request.auth != null && request.auth.uid == userId;
+
+// condición que se basa en datos del depósito
+allow update: if request.resource.data.miVariable == 'valor'
+
+// condición que se basa en la presencia de otros documentos
+// aquí solo crear si existe id del usuario en otro documento
+allow create: if request.auth != null && exists(/databases/$(database)/documents/usuarios/$(request.auth.uid))
+
+// este ejemplo les permite a todos los usuarios escribir y leer todos los documentos
+match /databases/{database}/documents {
+	match /{document=**} {
+	  allow read, write: if request.auth != null;
+	}
+}
+
+// función para envolver la condición
+match /databases/{database}/documents {
+	function esUsuario() {
+		return request.auth != null || resource.data.visibilidad == 'público'
+	}
+	match /ciudades/{ciudad} {
+		allow read: if esUsuario();
+	}
+	...
+}
+// no son filtros - una consulta amplísima no está permitida - en el ej anterior
+// Sí:
+db.collection('ciudades').where('visibilidad', '==', 'público').get()...
+// No:
+db.collection('ciudades').get()...
+
 ```
