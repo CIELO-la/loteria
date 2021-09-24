@@ -1,8 +1,6 @@
-# Lotería
+# Lotería pero en su lengua
 
 El juego de cartas de lotería mexicana.
-
-(TAREA: documentar el proyecto aquí)
 
 ## Implementacíon
 
@@ -26,6 +24,10 @@ Por ahora realizado con `React`, y custom `js` en `./src/Game`. Antes con `board
 	- [X] crea el host y se juntan los joiners
 
 - [ ] DRY los objetos switch/case if/else en Juego, App
+
+- [ ] router
+	- [ ] app de una sola página con `react-router-dom`
+	- [ ] pasar referencia al documento del depósito
 
 - [ ] búsqueda
 	- [ ] los joiners buscan juegos actuales antes de juntarse en el lobby
