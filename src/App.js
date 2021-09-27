@@ -147,6 +147,7 @@ const App = () => {
 							<Cuadros jugadores={g.jugadores} />
 							<Lobby
 								jugadorId={jugadorId}
+								isHost={g.isHost}
 								jugadores={g.jugadores}
 								estatusActual={estatusActual}
 								iniciar={iniciar}

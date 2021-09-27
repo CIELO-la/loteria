@@ -15,9 +15,9 @@ Por ahora realizado con `React`, y custom `js` en `./src/Game`. Antes con `board
 	- [X] ROTO ya que muchas veces no se llega a verificar hasta las cartas muy últimas
 	- [X] uno puede declararse ganador después del empate
 
-- [ ] lobby
+- [X] lobby
 	- [X] mostrar los jugadores en el lobby
-	- [ ] solo host inicia el juego y después nadie más se puede conectar
+	- [X] solo host inicia el juego
 	- [X] mostrar algo para cada jugador (imagen, cuadro)
 	- [X] separar la configuración del inicio en `.iniciar`
 	- [X] los joiners leen la barajaId cuando conectan
@@ -31,6 +31,8 @@ Por ahora realizado con `React`, y custom `js` en `./src/Game`. Antes con `board
 
 - [ ] búsqueda
 	- [ ] los joiners buscan juegos actuales antes de juntarse en el lobby
+
+- [ ] prohibir más conexiones si tiene cierto estatus (¿`jugar`/`ganar`/`empate`?)
 
 - [ ] demo
 	- [ ] crear imágenes, audio para la baraja

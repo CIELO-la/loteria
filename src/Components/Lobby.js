@@ -1,25 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
-const Lobby = ({ jugadorId, jugadores, estatusActual, iniciar }) => {
-	const [areReady, setReady] = useState([]);
+const Lobby = ({ jugadorId, isHost, jugadores, estatusActual, iniciar }) => {
 	const [isStarting, setStarting] = useState(false);
-
-	const handleReady = checkedPlayerId => {
-		if (!checkedPlayerId === jugadorId) {
-			console.log(`is not player`)
-			return;
-		}
-		!checkReady(checkedPlayerId)
-			? setReady(prevReadies => [
-				...prevReadies,
-				checkedPlayerId
-			]) : setReady(prevReadies => prevReadies.filter(
-				readyPlayerId => checkedPlayerId !== readyPlayerId
-			))
-		;
-	};
-
-	const checkReady = checkedPlayerId => areReady.includes(checkedPlayerId);
 
 	const leaveLobbyStartGame = () => {
 		setStarting(true);
@@ -31,17 +13,9 @@ const Lobby = ({ jugadorId, jugadores, estatusActual, iniciar }) => {
 			<p>Lobby</p>
 			<p>estatus: {estatusActual}</p>
 			<div>
-				<div>listos: {areReady.length}/{jugadores.length}</div>
 				{jugadores.map(jugadorIdColor => (
 					<div key={jugadorIdColor[0]}>
-						<label>
-							<span style={{color: jugadorIdColor[1]}}>■</span>
-							<input
-								type="checkbox"
-								checked={checkReady(jugadorIdColor[0])}
-								onChange={() => handleReady(jugadorIdColor[0])}
-							/>
-						</label>
+						<span style={{color: jugadorIdColor[1]}}>■</span>
 					</div>
 				))}
 			</div>
@@ -49,8 +23,8 @@ const Lobby = ({ jugadorId, jugadores, estatusActual, iniciar }) => {
 				{!isStarting
 					? <button
 						onClick={leaveLobbyStartGame}
-						disabled={areReady.length !== jugadores.length}
-					  >iniciar</button>
+						disabled={!isHost}
+					  >iniciar (HOST)</button>
 					: <button disabled>Iniciando...</button>
 				}
 			</div>
