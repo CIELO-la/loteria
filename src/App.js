@@ -36,6 +36,7 @@ const App = () => {
 		registrar(barajaId, false);
 	};
 
+	// TODO: access (allow/disallow depending on joined game status)
 	const registrar = async (deckId, isHost) => {
 		//TODO: get barajaId from host
 		const g = new Cantor(deckId, jugadorId, isHost);
@@ -145,6 +146,8 @@ const App = () => {
 						<div>
 							<Cuadros jugadores={g.jugadores} />
 							<Lobby
+								jugadorId={jugadorId}
+								jugadores={g.jugadores}
 								estatusActual={estatusActual}
 								iniciar={iniciar}
 							/>
