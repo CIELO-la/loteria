@@ -41,56 +41,46 @@ const App = () => {
 		//TODO: get barajaId from host
 		const g = new Cantor(deckId, jugadorId, isHost);
 
-		const joinedGameId = await g.registrar(isHost ? null : gameId, datos => {
-			// TODO: d.r.y. map status:function aquí y en Juego.js .registrar
-			const { estatusActual, barajaId, cartaCantada, ganador } = datos;
-			switch(estatusActual) {
-				case 'registrar':
-					setState(state => ({
-						...state,
+		const joinedGameId = await g.registrar(
+			isHost ? null : gameId,
+			// callback for game to update app state depending on status
+			datos => {
+				const { estatusActual, barajaId, cartaCantada, ganador } = datos;
+				const estatusEstados = {
+					registrar: {
 						estatusActual,
 						barajaId,
 						mensaje: `registrar - en el lobby`,
-					}));
-					break;
-				case 'iniciar':
-					setState(state => ({
-						...state,
+					},
+					iniciar: {
 						estatusActual,
 						barajaId,					
 						mensaje: `iniciar`,
-					}));
-					break;
-				case 'jugar':
-					setState(state => ({
-						...state,
+					},
+					jugar: {
 						estatusActual,
 						cartaCantada,
 						mensaje: `jugar`,
-					}));
-					break;
-				case 'ganar':
-					setState(state => ({
-						...state,
+					},
+					ganar: {
 						estatusActual,
 						mensaje: `ganar - ganó el jugador ${ganador}`,
-					}));
-					break;
-				case 'empate':
-					setState(state => ({
-						...state,
+					},
+					empate: {
 						estatusActual,
 						mensaje: `empate - no ganó nadie`,
-					}));
-					break;
-				default:
-					// Nothing to do
-					break;
+					},
+				};
+				setState(prevState => ({
+					...prevState,
+					...estatusEstados[estatusActual],
+				}));
 			}
-		});
+		);
 
-		setState(state => ({
-			...state,
+		// initial game state in app
+		setState(prevState => ({
+			...prevState,
 			gameId: joinedGameId,
 			g,
 			cartaCantada: {},
@@ -100,7 +90,7 @@ const App = () => {
 
 		return () => {
 			g.stop();
-			setState(state => ({ ...state, g: null }));
+			setState(currentState => ({ ...currentState, g: null }));
 		};
 	};
 

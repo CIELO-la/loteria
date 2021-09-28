@@ -100,72 +100,82 @@ class Cantor {
 		// objeto con métodos para leer y modificar - véase el db.js
 		this.deposito = await dbSub(juegoId, gameDoc => {
 			const datos = gameDoc.data();
-			// lobby y configuración inicial
-			if (datos.estatus === estatus.registrar) {
-				// almacenar datos locales del juego
-				this.barajaId = datos.barajaId;
-				this.jugadores = datos.jugadores.map(jugadorId => [
-					jugadorId,
-					this.colorear(jugadorId),
-				]);
-				// elegir baraja y barajar cartas para tabla
-				if (!barajas[this.barajaId]) {
-					// TAREA: salir del juego si no hay baraja
-					console.log(`baraja no definida: ${this.barajaId}`);
-				}
-				this.tabla = this.crearTabla();
-				// mostrar lobby
-				return callback({
+
+			// mapa estatus: mensaje
+			const estatusFlujo = {
+				// lobby y configuración inicial
+				[estatus.registrar]: () => {
+					// almacenar datos locales del juego
+					this.barajaId = datos.barajaId;
+					this.jugadores = datos.jugadores.map(jugadorId => [
+						jugadorId,
+						this.colorear(jugadorId),
+					]);
+					// elegir baraja y barajar cartas para tabla
+					if (!barajas[this.barajaId]) {
+						// TAREA: salir del juego si no hay baraja
+						console.log(`baraja no definida: ${this.barajaId}`);
+					}
+					this.tabla = this.crearTabla();
+					// mostrar lobby
+					return callback({
+						estatusActual: datos.estatus,
+						barajaId: datos.barajaId,
+						cartaCantada: {},
+						ganador: datos.ganador,
+					});
+				},
+				// iniciar
+				[estatus.iniciar]: () => {
+					this.barajaId = datos.barajaId;
+					return callback({
+						estatusActual: datos.estatus,
+						barajaId: datos.barajaId,
+						cartaCantada: {},
+						ganador: datos.ganador,
+					});
+				},
+				// jugar
+				[estatus.jugar]: () => {
+					this.cantadas = datos.cantadas;
+					return callback({
+						estatusActual: datos.estatus,
+						barajaId: datos.barajaId,
+						cartaCantada: this.leerCartaCantada(),
+						ganador: datos.ganador,
+					});
+				},
+				// ganador
+				[estatus.ganar]: () => {
+					this.parar();
+					return callback({
+						estatusActual: datos.estatus,
+						barajaId: datos.barajaId,
+						cartaCantada: {},
+						ganador: datos.ganador,
+					});
+				},
+				// resultó empate
+				[estatus.empate]: () => {
+					this.parar();
+					return callback({
+						estatusActual: datos.estatus,
+						barajaId: datos.barajaId,
+						cartaCantada: {},
+						ganador: null,
+					});
+				},
+				aparte: () => callback({
 					estatusActual: datos.estatus,
 					barajaId: datos.barajaId,
-					cartaCantada: {},
 					ganador: datos.ganador,
-				});
-			}
-			// empezar
-			if (datos.estatus === estatus.iniciar) {
-				this.jugadores = datos.jugadores.map(jugadorId => [
-					jugadorId,
-					this.colorear(jugadorId),
-				]);
-				this.barajaId = datos.barajaId;
-				return callback({
-					estatusActual: datos.estatus,
-					barajaId: datos.barajaId,
-					cartaCantada: {},
-					ganador: datos.ganador,
-				});
-			}
-			// ganador
-			else if (datos.estatus === estatus.ganar) {
-				this.parar();
-				return callback({
-					estatusActual: datos.estatus,
-					barajaId: datos.barajaId,
-					cartaCantada: {},
-					ganador: datos.ganador,
-				});
-			}
-			// resultó empate
-			else if (datos.estatus === estatus.empate) {
-				this.parar();
-				return callback({
-					estatusActual: datos.estatus,
-					barajaId: datos.barajaId,
-					cartaCantada: {},
-					ganador: datos.ganador,
-				});
-			}
-			// jugar
-			else {
-				this.cantadas = datos.cantadas;
-				return callback({
-					estatusActual: datos.estatus,
-					barajaId: datos.barajaId,
-					cartaCantada: this.leerCartaCantada(),
-					ganador: datos.ganador,
-				});
-			}
+				})
+			};
+			
+			return datos.estatus
+				? estatusFlujo[datos.estatus]()
+				: estatusFlujo.aparte()
+			;
 		});
 
 		// primera lectura, primera actualización

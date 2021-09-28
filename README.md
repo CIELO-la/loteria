@@ -23,7 +23,7 @@ Por ahora realizado con `React`, y custom `js` en `./src/Game`. Antes con `board
 	- [X] los joiners leen la barajaId cuando conectan
 	- [X] crea el host y se juntan los joiners
 
-- [ ] DRY los objetos switch/case if/else en Juego, App
+- [X] DRY los objetos switch/case if/else en Juego, App
 
 - [ ] router
 	- [ ] app de una sola página con `react-router-dom`
