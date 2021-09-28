@@ -171,7 +171,7 @@ class Cantor {
 					ganador: datos.ganador,
 				})
 			};
-			
+
 			return datos.estatus
 				? estatusFlujo[datos.estatus]()
 				: estatusFlujo.aparte()
