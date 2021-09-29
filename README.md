@@ -25,9 +25,13 @@ Por ahora realizado con `React`, y custom `js` en `./src/Game`. Antes con `board
 
 - [X] DRY los objetos switch/case if/else en Juego, App
 
-- [ ] router
-	- [ ] app de una sola página con `react-router-dom`
-	- [ ] pasar referencia al documento del depósito
+- [X] router
+	- [X] app de una sola página con `react-router-dom`
+	- [X] pasar referencia al documento del depósito
+	- [X] repensar porque el enrutador no se relaciona bien con la registración
+		- arreglar atribución retrasada de `g` (`g === undefined`)
+		- `history.push` en `useEffect(f, [..., g])`
+		- leer params de la ruta en `useEffect(f, [])`
 
 - [ ] búsqueda
 	- [ ] los joiners buscan juegos actuales antes de juntarse en el lobby
@@ -41,6 +45,10 @@ Por ahora realizado con `React`, y custom `js` en `./src/Game`. Antes con `board
 
 - [ ] diseño
 	- ...tareas CSS/HTML
+
+- [ ] ARREGLAR: navegador se desconecta y `g === null` al cliquear en otro app
+- [ ] ARREGLAR: usuario agrega nuevos jugadorIds cuando refresque la página
+	- cuando la ruta ya tiene param `:juegoId`
 
 ## Aprendizaje improvisado
 

@@ -7,8 +7,8 @@ import Cuadros from './Components/Cuadros';
 import Lobby from './Components/Lobby';
 import { barajas } from './Juego/barajas';
 import { estatus } from './Juego/estatus';
-import './App.css';
 import { v4 as uuid4 } from 'uuid';
+import './App.css';
 
 const App = () => {
 	// app state for game
@@ -24,7 +24,7 @@ const App = () => {
 	});
 
 	// router hooks
-	const { juegoIdParam } = useParams();
+	//const { juegoIdParam } = useParams();
 	const location = useLocation();
 	const history = useHistory();
 
@@ -100,8 +100,7 @@ const App = () => {
 			marcadas: [],
 			estatusActual: estatus.registrar,
 		}));
-
-		console.log(`this message before awaiting`);
+		
 		return () => {
 			g.stop();
 			setState(currentState => ({ ...currentState, g: null }));
@@ -135,12 +134,31 @@ const App = () => {
 		}));
 	};
 
-	// TODO: rethink playerID registration. Same playerID can register multiple times
-	// (see firestore data)
-
 	// reroute depending on status changes
 	useEffect(() => {
-		// register guest from URI 
+		// route to lobby
+		if (estatusActual === estatus.registrar && gameId) {
+			history.push(`/${gameId}`);
+		}
+		// route to tabla
+		else if (estatusActual === estatus.iniciar && gameId) {
+			history.push(`/jugar`);
+		}
+		// route on win
+		// else if (estatusActual === estatus.ganar && gameId) {
+		// 	history.push(`/ganar`);
+		// }
+
+		// cleanup
+		return () => {};
+	}, [estatusActual, gameId, history, g]);
+
+	// register players joining game via link
+	//
+	// TODO: fix same player can register multiple times
+	// 	- reloading app adds a player to firestore `jugadores` array
+	// 	- use sessionStorage/localStorage
+	useEffect(() => {
 		const match = matchPath(location.pathname, {
 			path: '/:juegoIdParam',
 			exact: true,
@@ -149,17 +167,7 @@ const App = () => {
 		if (match && !g) {
 			registrar(match.params.juegoIdParam, null, false);
 		}
-
-		// route to lobby
-		else if (estatusActual === estatus.registrar && gameId) {
-			history.push(`/${gameId}`);
-		}
-		
-		// route to tabla
-		else if (estatusActual === estatus.iniciar && gameId) {
-			history.push(`/jugar`);
-		}
-	}, [estatusActual, gameId, history, g]);
+	}, []);
 
 	return (
 		<div className="App">
