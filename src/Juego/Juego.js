@@ -192,13 +192,17 @@ class Cantor {
 				ganador: null
 			});
 		} else {
+			// guardar datos iniciales del db
 			const game = this.deposito.read();
 			this.barajaId = game.barajaId;
 			this.cartas = game.cartas;
 			this.cantadas = game.cantadas;
-			await this.deposito.update({
-				jugadores: [...game.jugadores, this.jugadorId]
-			});
+			// actualizar lista db si ésta excluye al jugador
+			if (!game.jugadores.includes(this.jugadorId)) {
+				await this.deposito.update({
+					jugadores: [...game.jugadores, this.jugadorId]
+				});
+			}
 		}
 
 		return this.deposito.id();

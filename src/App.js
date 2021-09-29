@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useLocalStorage } from './utils/localStorage';
 import { Switch, Route, useHistory, useParams, useLocation, matchPath } from 'react-router-dom';
 import Cantor from './Juego/Juego';
 import Juego from './Components/Juego';
@@ -13,7 +14,6 @@ import './App.css';
 const App = () => {
 	// app state for game
 	const [state, setState] = useState({
-		jugadorId: uuid4(),
 		gameId: '',
 		barajaId: '',
 		g: null,
@@ -22,6 +22,11 @@ const App = () => {
 		estatusActual: '',
 		mensaje: '',
 	});
+	// local storage for browser recall
+	const [jugadorId, setJugadorId] = useLocalStorage(
+		'loteriaJugadorId', // localStorage key
+		uuid4()				// default id if none locally
+	);
 
 	// router hooks
 	//const { juegoIdParam } = useParams();
@@ -30,7 +35,7 @@ const App = () => {
 
 	// game and app state references
 	const barajaIds = [...Object.keys(barajas)];
-	const { jugadorId, gameId, g, cartaCantada, marcadas, mensaje, estatusActual } = state;
+	const { gameId, g, cartaCantada, marcadas, mensaje, estatusActual } = state;
 	// TODO: read do not manipulate deck id
 	const barajaId = !state.barajaId ? barajaIds[0] : state.barajaId;
 
@@ -46,9 +51,10 @@ const App = () => {
 
 	// TODO: access (allow/disallow depending on joined game status)
 	const registrar = async (juegoId, deckId, isHost) => {
-		//TODO: get barajaId from host
+		// start local game instance
 		const g = new Cantor(deckId, jugadorId, isHost);
 
+		// connect game to db and cb on status change
 		const joinedGameId = await g.registrar(
 			isHost ? null : juegoId,
 			// callback for game to update app state depending on status
@@ -100,7 +106,7 @@ const App = () => {
 			marcadas: [],
 			estatusActual: estatus.registrar,
 		}));
-		
+
 		return () => {
 			g.stop();
 			setState(currentState => ({ ...currentState, g: null }));
@@ -154,11 +160,8 @@ const App = () => {
 	}, [estatusActual, gameId, history, g]);
 
 	// register players joining game via link
-	//
-	// TODO: fix same player can register multiple times
-	// 	- reloading app adds a player to firestore `jugadores` array
-	// 	- use sessionStorage/localStorage
 	useEffect(() => {
+		// register joiner
 		const match = matchPath(location.pathname, {
 			path: '/:juegoIdParam',
 			exact: true,

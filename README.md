@@ -47,8 +47,13 @@ Por ahora realizado con `React`, y custom `js` en `./src/Game`. Antes con `board
 	- ...tareas CSS/HTML
 
 - [ ] ARREGLAR: navegador se desconecta y `g === null` al cliquear en otro app
-- [ ] ARREGLAR: usuario agrega nuevos jugadorIds cuando refresque la página
-	- cuando la ruta ya tiene param `:juegoId`
+	- ¿usar `localStorage` una vez más para grabar la `g` entera?
+
+- [X] ARREGLAR: usuario agrega nuevos jugadorIds cuando refresque la página
+	- esto pasa si la ruta ya tiene param `:juegoId`
+	- leer `jugadorId` en `localStorage`
+
+- [ ] ARREGLAR: si el host refresca la página ya no hay host
 
 ## Aprendizaje improvisado
 
