@@ -16,12 +16,14 @@ import { estatus } from './estatus';
 
 class Cantor {
 	constructor(barajaId, jugadorId, isHost=false) {
-
 		// remote store
 		this.deposito = null;
 
 		// TODO: placeholder for authorization!
 		this.isHost = isHost;
+
+		// identificar jugador durante sesión
+		this.jugadorId = jugadorId;
 
 		// referencia a las cartas no barajadas
 		this.barajaId = isHost ? barajaId : null;
@@ -33,7 +35,6 @@ class Cantor {
 		// véase las funciones .iniciar, .crearTabla y el depósito
 		this.tabla = [];
 
-		this.jugadorId = jugadorId;
 		this.jugadores = []; 	// [[jugadorId, colorHex], ...]
 
 		this.cantadas = 0;

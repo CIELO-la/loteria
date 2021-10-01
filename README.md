@@ -46,6 +46,8 @@ Por ahora realizado con `React`, y custom `js` en `./src/Game`. Antes con `board
 - [ ] diseño
 	- ...tareas CSS/HTML
 
+- [ ] ¿límite de jugadores en `Juego`, db, buscar?
+
 - [ ] ARREGLAR: navegador se desconecta y `g === null` al cliquear en otro app
 	- ¿usar `localStorage` una vez más para grabar la `g` entera?
 

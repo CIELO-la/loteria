@@ -48,6 +48,7 @@ export const dbSub = async (gameId, gameStateCallback) => {
 		id: () => gameDocId,
 		// Attach listener for updates
 		// callback gets passed gameDoc => gameDoc.data()
+	 	// onSnapshot returns function to call to unattach
 		unsub: onSnapshot(gameRef, gameStateCallback),
 		// get game data
 		read: () => game.data(),

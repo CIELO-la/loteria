@@ -11,6 +11,49 @@ import { estatus } from './Juego/estatus';
 import { v4 as uuid4 } from 'uuid';
 import './App.css';
 
+// App flow:
+// 	- Main: instantiate game, connect to db
+// 		- Host: create new gameid, pass to game and db
+// 		- Join: read gameid from uri
+// 		- Search: read gameids from db list
+//
+// Rework:
+//	- db.js
+//	 	- do not require game id to start
+// 			- sub instead fetches, bases return obj on games collection
+// 		- returned methods object should contain more methods to
+// 			- get a doc
+// 			- add a new doc
+// 			- sub to a doc c callback
+// 			- update a doc
+// 			- read list of open docs
+// 			- snapshot
+// 	- Juego.js
+// 	 	- initialize s game id but
+// 			- break initial values into f reset?/config?/clear?
+// 		- conectar db deposito
+// 		- buscar find and list games
+// 		- registrar get game id, snapshot subscribe
+// 		- iniciar have game id and play that game
+// 	- App.js
+// 		- g onEffect run once: instantiate, connect
+// 		- link to host: create and send to /:gid, onEffect get game doc
+// 			- registrar, subscribing c all the status-options happens here
+// 		- link to join: send to /:gid, onEffect get game doc
+// 			- same, do the registrar stuff
+// 		- link to find: send to /buscar, onEffect or sublink Juego.buscar
+// 			- listing and linking to lobbies
+// 			- game status 'registrar', less than max players
+
+// TODO: separate out into Components
+// 	- [ ] <Link to=""> host, buscar, options
+// 	- [ ] generate new uuid->juegoId each link to Hostear
+// 	- [ ] capture juegoId in join lobby
+//
+// TODO: búsqueda queries for list 
+// 	- [ ] either pull out db from living inside game instance entirely
+// 	- [ ] or make g object on load app
+	
 const App = () => {
 	// app state for game
 	const [state, setState] = useState({
@@ -24,8 +67,8 @@ const App = () => {
 	});
 	// local storage for browser recall
 	const [jugadorId, setJugadorId] = useLocalStorage(
-		'loteriaJugadorId', // localStorage key
-		uuid4()				// default id if none locally
+		'jugadorId',	// localStorage key
+		uuid4()			// default id if none locally
 	);
 
 	// router hooks
@@ -168,6 +211,7 @@ const App = () => {
 			strict: false,
 		});
 		if (match && !g) {
+			// non-host joiner
 			registrar(match.params.juegoIdParam, null, false);
 		}
 	}, []);
@@ -178,6 +222,14 @@ const App = () => {
 			
 			<Switch>
 				<Route exact path="/">
+					<div>
+						<ul>
+							<li><Link to="">hostear</Link></li>
+							<li><Link to="/buscar">buscar</Link></li>
+						</ul>
+					</div>
+				</Route>
+				<Route path="/buscar">
 					<BuscarJuego
 						hostGame={hostGame}
 						joinGame={joinGame}
@@ -202,7 +254,7 @@ const App = () => {
 				</Route>
 				<Route path="/:juegoIdParam">
 					{g 
-						? 
+						? // Lobby if game instantiated and player registered
 							<div>
 								<Cuadros jugadores={g.jugadores} />
 								<Lobby
@@ -213,7 +265,7 @@ const App = () => {
 									iniciar={iniciar}
 								/>
 							</div>
-						:
+						: // wait for player to register
 							<div>
 								Conectándose...
 							</div>
