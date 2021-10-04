@@ -1,5 +1,5 @@
 import { barajas } from './barajas';
-import { dbSub } from './db';
+import { gameSub, dbSub } from './db';
 import { estatus } from './estatus';
 
 /* Game-db interactions
@@ -99,7 +99,7 @@ class Cantor {
 		}
 
 		// objeto con métodos para leer y modificar - véase el db.js
-		this.deposito = await dbSub(juegoId, gameDoc => {
+		this.deposito = await gameSub(juegoId, gameDoc => {
 			const datos = gameDoc.data();
 
 			// mapa estatus: mensaje
@@ -242,6 +242,7 @@ class Cantor {
 	parar = () => {
 		this.isHost && clearInterval(this.timer);
 		this.seAcabo = true;
+		this.deposito.unsub();
 	};
 
 	barajar = cartas => {

@@ -1,5 +1,4 @@
 export const barajas = {
-	'zapo-01': {},
 	'es-demo': {
 		'01': {
 			nombre: 'el gallo',
@@ -99,4 +98,5 @@ export const barajas = {
 		},
 		// ... hasta el 54
 	},
+	'zapo-01': {},
 };

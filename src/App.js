@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useLocalStorage } from './utils/localStorage';
-import { Switch, Route, useHistory, useParams, useLocation, matchPath } from 'react-router-dom';
+import { Switch, Route, Link, useHistory, useParams, useLocation, matchPath } from 'react-router-dom';
 import Cantor from './Juego/Juego';
 import Juego from './Components/Juego';
 import BuscarJuego from './Components/BuscarJuego';
@@ -224,7 +224,7 @@ const App = () => {
 				<Route exact path="/">
 					<div>
 						<ul>
-							<li><Link to="">hostear</Link></li>
+							<li><Link to="/" onClick={hostGame}>hostear</Link></li>
 							<li><Link to="/buscar">buscar</Link></li>
 						</ul>
 					</div>

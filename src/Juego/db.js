@@ -1,5 +1,8 @@
 import { initializeApp } from 'firebase/app';
-import { getFirestore, collection, doc, getDoc, setDoc, onSnapshot } from 'firebase/firestore';
+import {
+	getFirestore, collection, doc, getDoc, setDoc, deleteDoc, onSnapshot,
+	query, where, limit, getDocs
+} from 'firebase/firestore';
 import { v4 as uuid4 } from 'uuid';
 
 // TODO: Add SDKs for Firebase products that you want to use
@@ -18,8 +21,57 @@ const firebaseConfig = {
 const fireapp = initializeApp(firebaseConfig);
 const firestore = getFirestore(fireapp);
 
+export const dbSub = async collectionName => {
+	const games = collection(firestore, collectionName);
+
+	// closure for doc ref
+	let gameRef = null;
+	let gameDocId = null;
+	let unsub = () => null;
+
+	// object for client db access
+	return ({
+		create: async gameId => (
+			// create new empty document
+			await setDoc(doc(games, gameId), {}, { merge : false })
+		),
+		remove: async gameId => await deleteDoc(doc(games, gameId)),
+		sub: async (gameId, gameStateCallback) => {
+			// read doc from collection
+			const gameSnapshot = await getDoc(doc(games, gameId));
+			if (!gameSnapshot.exists()) {
+				console.log(`No such game document: ${gameId}`);
+				return;
+			}
+			// remember doc and listen for updates 
+			gameRef = gameSnapshot.ref;
+			gameDocId = gameId;
+			unsub = onSnapshot(gameRef, gameStateCallback);
+		},
+		unsub: async () => {
+			// run onSnapshot return function
+			await unsub();
+			// clear game and listener assignments
+			gameRef = null;
+			gameDocId = null;
+			unsub = () => null;
+		},
+		update: async gameData => await setDoc(gameRef, gameData, { merge : true }),
+		// local fetch
+		read: () => gameRef ? gameRef.data() : null,
+		id: () => gameDocId,
+		// TODO: list to find/browse games
+		list: async () => {
+			const q = query(games, where("jugadores", "<", 6), limit(5));
+			const qSnapshot = await getDocs(q);
+			qSnapshot.map(gDoc => console.log(gDoc.id, " contains ", gDoc.data()));
+			return qSnapshot.map(gDoc => gDoc.id);
+		},
+	});
+};
+
 // Firestore initial read
-export const dbSub = async (gameId, gameStateCallback) => {
+export const gameSub = async (gameId, gameStateCallback) => {
 	// new or joined game
 	const isNewGame = gameId === null;
 	const gameDocId = isNewGame ? uuid4() : gameId;
