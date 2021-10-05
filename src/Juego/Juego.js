@@ -89,7 +89,17 @@ class Cantor {
 		]
 	);
 
+	// objeto con métodos para leer y modificar - véase el db.js
+	conectar = async () => {
+		this.deposito = await dbSub();
+	};
+
 	registrar = async (juegoId, callback) => {
+		if (!this.deposito) {
+			console.log(`no está conectado al depósito`);
+			return;
+		}
+
 		// TAREA: error de vuelta si no hay juego
 		if (!this.isHost && !juegoId) {
 			console.log(`Game.js -- no hay ni host ni juego`);
@@ -98,8 +108,13 @@ class Cantor {
 			console.log(`leyendo juego ${!juegoId ? 'nuevo' : juegoId}`);
 		}
 
-		// objeto con métodos para leer y modificar - véase el db.js
-		this.deposito = await gameSub(juegoId, gameDoc => {
+		// crear registro con nuevo {}
+		if (this.isHost) {
+			this.deposito.create(juegoId);
+		}
+
+		// cb para escuchar y modificar depósito
+		await this.deposito.sub(juegoId, gameDoc => {
 			const datos = gameDoc.data();
 
 			// mapa estatus: mensaje

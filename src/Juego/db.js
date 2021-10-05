@@ -21,22 +21,31 @@ const firebaseConfig = {
 const fireapp = initializeApp(firebaseConfig);
 const firestore = getFirestore(fireapp);
 
-export const dbSub = async collectionName => {
+export const dbSub = async () => {
+	// read firestore collection
+	const collectionName = 'games';
 	const games = collection(firestore, collectionName);
 
-	// closure for doc ref
-	let gameRef = null;
-	let gameDocId = null;
-	let unsub = () => null;
+	// closure/local storage for individual game doc -- intended READ ONLY
+	const gameStore = {
+		id: null,
+		ref: null,
+		unsub: () => null,
+	};
 
 	// object for client db access
 	return ({
+		// individual docs
 		create: async gameId => (
 			// create new empty document
 			await setDoc(doc(games, gameId), {}, { merge : false })
 		),
-		remove: async gameId => await deleteDoc(doc(games, gameId)),
+		remove: async gameId => await deleteDoc(doc(games, gameId.toString())),
 		sub: async (gameId, gameStateCallback) => {
+			if (!gameId) {
+				console.log(`cannot sub to document with gameId: ${gameId}`);
+				return;
+			}
 			// read doc from collection
 			const gameSnapshot = await getDoc(doc(games, gameId));
 			if (!gameSnapshot.exists()) {
@@ -44,22 +53,32 @@ export const dbSub = async collectionName => {
 				return;
 			}
 			// remember doc and listen for updates 
-			gameRef = gameSnapshot.ref;
-			gameDocId = gameId;
-			unsub = onSnapshot(gameRef, gameStateCallback);
+			gameStore.id = gameId;
+			gameStore.ref = gameSnapshot.ref;
+			gameStore.unsub = await onSnapshot(
+				gameStore.ref,
+				gameStateCallback
+			);
+			return gameStore.unsub;
 		},
 		unsub: async () => {
 			// run onSnapshot return function
-			await unsub();
+			await gameStore.unsub();
 			// clear game and listener assignments
-			gameRef = null;
-			gameDocId = null;
-			unsub = () => null;
+			gameStore.id = null;
+			gameStore.ref = null;
+			gameStore.unsub = () => null;
 		},
-		update: async gameData => await setDoc(gameRef, gameData, { merge : true }),
+		update: async gameData => {
+			if (!gameStore.ref) {
+				console.log(`Failed to update - invalid game doc ref: ${gameStore.ref}`);
+				return;
+			};
+			await setDoc(gameStore.ref, gameData, { merge : true });
+		},
 		// local fetch
-		read: () => gameRef ? gameRef.data() : null,
-		id: () => gameDocId,
+		read: () => gameStore.ref ? gameStore.ref.data() : null,
+		id: () => gameStore.id,
 		// TODO: list to find/browse games
 		list: async () => {
 			const q = query(games, where("jugadores", "<", 6), limit(5));

@@ -85,7 +85,9 @@ const App = () => {
 	// wrap game registration for host (create game id) vs guest (follow id)
 	const hostGame = e => {
 		e.preventDefault();
-		registrar(null, barajaId, true);
+		// temp gameId if hosting a new game otherwise passed-in id
+		const newGameId = uuid4();
+		registrar(newGameId, barajaId, true);
 	};
 	const joinGame = e => {
 		e.preventDefault();
@@ -97,9 +99,12 @@ const App = () => {
 		// start local game instance
 		const g = new Cantor(deckId, jugadorId, isHost);
 
+		// TODO: separate connecting (on g start) from registering (to single game)
+		await g.conectar();
+
 		// connect game to db and cb on status change
 		const joinedGameId = await g.registrar(
-			isHost ? null : juegoId,
+			juegoId,
 			// callback for game to update app state depending on status
 			datos => {
 				// pull apart data
