@@ -24,6 +24,7 @@ class Cantor {
 		// véase las funciones .iniciar, .crearTabla y el depósito
 		this.tabla = [];
 
+		// TAREA: quizá 
 		this.jugadores = []; 	// [[jugadorId, colorHex], ...]
 
 		this.cantadas = 0;
@@ -296,8 +297,6 @@ class Cantor {
 		const tablaValores = this.tabla.map(carta => (
 			carta[1] && indicesCantados.includes(carta[0])
 		));
-
-		console.log("Verificando valores tabla:", tablaValores);
 		
 		// si ganó
 		const esGanador = this.condiciones.reduce(
@@ -307,8 +306,6 @@ class Cantor {
 			]),
 			[]
 		).includes(true);
-
-		console.log("es ganador:", esGanador);
 		
 		// se acaba el juego
 		if (esGanador) {

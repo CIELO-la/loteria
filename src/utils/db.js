@@ -26,10 +26,12 @@ export const dbConnect = async collectionName => {
 	const docsCollection = collection(firestore, collectionName);
 
 	// closure/local storage for individual doc
-	const localStore = {
-		id: null,
-		ref: null,
-		unsub: () => null,
+	const localStore = {};
+	const resetLocalStore = () => {
+		localStore.id = null;
+		localStore.ref = null;
+		localStore.data = {};
+		localStore.unsub = () => {};
 	};
 
 	// object for client db access
@@ -54,6 +56,7 @@ export const dbConnect = async collectionName => {
 			// remember doc and listen for updates 
 			localStore.id = docId;
 			localStore.ref = docSnapshot.ref;
+			localStore.data = docSnapshot.data();
 			localStore.unsub = await onSnapshot(
 				localStore.ref,
 				stateCallback
@@ -64,9 +67,7 @@ export const dbConnect = async collectionName => {
 			// run onSnapshot return function
 			await localStore.unsub();
 			// clear doc and listener assignments
-			localStore.id = null;
-			localStore.ref = null;
-			localStore.unsub = () => null;
+			resetLocalStore();
 		},
 		update: async newData => {
 			if (!localStore.ref) {
@@ -75,8 +76,8 @@ export const dbConnect = async collectionName => {
 			};
 			await setDoc(localStore.ref, newData, { merge : true });
 		},
-		// local fetch
-		read: () => localStore.ref ? localStore.ref.data() : null,
+		// local sync fetch
+		read: () => localStore.data,
 		id: () => localStore.id,
 		// TODO: list to find/browse docs
 		list: async () => {
