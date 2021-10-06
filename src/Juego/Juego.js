@@ -4,7 +4,7 @@ import { dbConnect } from '../utils/db';
 
 // NOTE: véase el archivo db para interacciones Juego-db
 class Cantor {
-	constructor(barajaId, jugadorId, isHost=false) {
+	constructor(jugadorId, isHost=false) {
 		// remote store
 		this.deposito = null;
 
@@ -15,7 +15,7 @@ class Cantor {
 		this.jugadorId = jugadorId;
 
 		// referencia a las cartas no barajadas
-		this.barajaId = isHost ? barajaId : null;
+		this.barajaId = null;
 
 		// las cartaIds
 		this.cartas = [];
@@ -68,6 +68,23 @@ class Cantor {
 	   		('00' + ((txtHash >> (i * 8)) & 0xFF).toString(16)).substr(-2)
 	    )).join('');
 	    return color;
+	};
+
+	asignarHost = isHost => {
+		this.isHost = isHost;
+		return this.isHost;
+	};
+
+	seleccionarBaraja = barajaId => {
+		if (!this.isHost) {
+			console.log(`hostear un juego (Juego.asignarHost) para seleccionar baraja`);
+			return;
+		}
+		this.barajaId = this.isHost && barajas[barajaId] ? barajaId : null;
+		if (this.isHost && !this.barajaId) {
+			console.log(`ninguna baraja seleccionada - no existe ${barajaId}`);
+		}
+		return this.barajaId;
 	};
 
 	crearTabla = () => (

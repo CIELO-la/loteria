@@ -37,10 +37,10 @@ export const dbConnect = async collectionName => {
 	// object for client db access
 	return ({
 		// individual docs
-		create: async docId => (
+		create: async docId => {
 			// create new empty document
-			await setDoc(doc(docsCollection, docId), {}, { merge : false })
-		),
+			await setDoc(doc(docsCollection, docId), {}, { merge : false });
+		},
 		remove: async docId => await deleteDoc(doc(docsCollection, docId.toString())),
 		sub: async (docId, stateCallback) => {
 			if (!docId) {

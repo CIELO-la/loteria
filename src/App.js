@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useLocalStorage } from './utils/localStorage';
-import { Switch, Route, Link, useHistory, useParams, useLocation, matchPath } from 'react-router-dom';
+import { Switch, Route, useHistory } from 'react-router-dom';
 import Cantor from './Juego/Juego';
 import Juego from './Components/Juego';
+import Menu from './Components/Menu';
 import BuscarJuego from './Components/BuscarJuego';
 import Cuadros from './Components/Cuadros';
 import Lobby from './Components/Lobby';
@@ -41,6 +42,7 @@ import './App.css';
 // 			- registrar, subscribing c all the status-options happens here
 // 		- link to join: send to /:gid, onEffect get game doc
 // 			- same, do the registrar stuff
+// 			- but isHost is false so you don't write new collection doc
 // 		- link to find: send to /buscar, onEffect or sublink Juego.buscar
 // 			- listing and linking to lobbies
 // 			- game status 'registrar', less than max players
@@ -72,8 +74,7 @@ const App = () => {
 	);
 
 	// router hooks
-	//const { juegoIdParam } = useParams();
-	const location = useLocation();
+	//const { juegoIdParam } = useParams();	
 	const history = useHistory();
 
 	// game and app state references
@@ -83,26 +84,27 @@ const App = () => {
 	const barajaId = !state.barajaId ? barajaIds[0] : state.barajaId;
 
 	// wrap game registration for host (create game id) vs guest (follow id)
-	const hostGame = e => {
+	const hostGame = async (e, newGameId) => {
 		e.preventDefault();
-		// temp gameId if hosting a new game otherwise passed-in id
-		const newGameId = uuid4();
-		registrar(newGameId, barajaId, true);
+		g.asignarHost(true);
+		g.seleccionarBaraja(barajaId);
+		history.push(`/${newGameId}`);
 	};
-	const joinGame = e => {
+	const joinGame = async e => {
 		e.preventDefault();
-		registrar(gameId, barajaId, false);
+		g.asignarHost(false);
+		history.push(`/${gameId}`);
 	};
 
 	// TODO: access (allow/disallow depending on joined game status)
-	const registrar = async (juegoId, deckId, isHost) => {
-		// start local game instance
-		const g = new Cantor(deckId, jugadorId, isHost);
+	// TODO: route 404 if g failed to connect or register
+	const registrar = async juegoId => {
+		// connect to remote db
+		if (!g.deposito) {
+			await g.conectar();
+		}
 
-		// TODO: separate connecting (on g start) from registering (to single game)
-		await g.conectar();
-
-		// connect game to db and cb on status change
+		// attach listener to db with cb on status change
 		const joinedGameId = await g.registrar(
 			juegoId,
 			// callback for game to update app state depending on status
@@ -142,8 +144,6 @@ const App = () => {
 				}));
 			}
 		);
-
-		// TODO: route 404 if g failed to register
 
 		// initial game state in app
 		setState(prevState => ({
@@ -188,14 +188,23 @@ const App = () => {
 		}));
 	};
 
+	// connect to game
+	useEffect(() => {
+		// start local game instance
+		setState(prevState => ({
+			...prevState,
+			g: new Cantor(jugadorId)
+		}));
+	}, [jugadorId]);
+
 	// reroute depending on status changes
 	useEffect(() => {
-		// route to lobby
-		if (estatusActual === estatus.registrar && gameId) {
-			history.push(`/${gameId}`);
-		}
+		// // route to lobby
+		// if (estatusActual === estatus.registrar && gameId) {
+		// 	history.push(`/${gameId}`);
+		// }
 		// route to tabla
-		else if (estatusActual === estatus.iniciar && gameId) {
+		if (estatusActual === estatus.iniciar && gameId) {
 			history.push(`/jugar`);
 		}
 		// route on win
@@ -207,43 +216,25 @@ const App = () => {
 		return () => {};
 	}, [estatusActual, gameId, history, g]);
 
-	// register players joining game via link
-	useEffect(() => {
-		// register joiner
-		const match = matchPath(location.pathname, {
-			path: '/:juegoIdParam',
-			exact: true,
-			strict: false,
-		});
-		if (match && !g) {
-			// non-host joiner
-			registrar(match.params.juegoIdParam, null, false);
-		}
-	}, []);
-
 	return (
 		<div className="App">
 			<div style={{color: 'gray', fontSize: 15, marginBottom: 20}}>{mensaje}</div>
 			
 			<Switch>
 				<Route exact path="/">
-					<div>
-						<ul>
-							<li><Link to="/" onClick={hostGame}>hostear</Link></li>
-							<li><Link to="/buscar">buscar</Link></li>
-						</ul>
-					</div>
-				</Route>
-				<Route path="/buscar">
-					<BuscarJuego
+					<Menu
 						hostGame={hostGame}
 						joinGame={joinGame}
 						gameId={gameId}
 						handleGameIdInput={handleGameIdInput}
+						handleBarajaIdInput={handleBarajaIdInput}
 						barajaId={barajaId}
 						barajaIds={barajaIds}
-						handleBarajaIdInput={handleBarajaIdInput}
 					/>
+				</Route>
+				<Route path="/buscar">
+					{/* TODO: remake into a finder not a host/join menu */}
+					<BuscarJuego />
 				</Route>
 				<Route path="/jugar">
 					<div>
@@ -257,12 +248,13 @@ const App = () => {
 						/>
 					</div>
 				</Route>
-				<Route path="/:juegoIdParam">
+				<Route path={`/${gameId}`}>
 					{g 
 						? // Lobby if game instantiated and player registered
 							<div>
 								<Cuadros jugadores={g.jugadores} />
 								<Lobby
+									registrar={registrar}
 									jugadorId={jugadorId}
 									isHost={g.isHost}
 									jugadores={g.jugadores}

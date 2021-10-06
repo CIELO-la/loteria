@@ -21,3 +21,12 @@ a {
 	height: 40px;
 	width: 40px;
 }
+
+.menu-enlaces {
+	padding-left: 0;
+	list-style-type: none;
+}
+
+.menu-enlaces li {
+	margin-bottom: 10px;
+}
