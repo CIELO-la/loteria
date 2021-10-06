@@ -1,19 +1,8 @@
 import { barajas } from './barajas';
-import { gameSub, dbSub } from './db';
 import { estatus } from './estatus';
+import { dbConnect } from '../utils/db';
 
-/* Game-db interactions
- * 1) lock someone in as writer when load
- * 2) writer's Cantor writes the barajaId and shuffled cartaIds
- * 3) everyone reads barajaId and shuffled cartaIds from db
- * 4) writer's Cantor updates the cantada index each call and checks status
- * 		- latest card called was previous card (i-1); total called slice up to i
- * 		- if status is win go to 6
- * 5) everyone gets snapshot with updated cantada index (necessary?)
- * 6) ganar status
- * 7) empate status
- */
-
+// NOTE: véase el archivo db para interacciones Juego-db
 class Cantor {
 	constructor(barajaId, jugadorId, isHost=false) {
 		// remote store
@@ -91,7 +80,7 @@ class Cantor {
 
 	// objeto con métodos para leer y modificar - véase el db.js
 	conectar = async () => {
-		this.deposito = await dbSub();
+		this.deposito = await dbConnect('games');
 	};
 
 	registrar = async (juegoId, callback) => {
