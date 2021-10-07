@@ -11,8 +11,12 @@ const Lobby = ({ g, jugadorId, estatusActual, registrar, iniciar }) => {
 	const location = useLocation();
 
 	// move to game startup
-	const leaveLobbyStartGame = () => {
+	const leaveLobbyStartGame = e => {
+		e.preventDefault();
+		if (!g.isHost) { return; }
+		// pre-game starting state (NOTE: currently for host only)
 		setStarting(true);
+		// message status so players route to /juego
 		setTimeout(iniciar, 2000);
 	};
 
@@ -48,10 +52,9 @@ const Lobby = ({ g, jugadorId, estatusActual, registrar, iniciar }) => {
 							))}
 						</div>
 						<div>
-							<Link to="">
+							<Link to="/juego" onClick={leaveLobbyStartGame}>
 								{!isStarting
 									? <button
-										onClick={leaveLobbyStartGame}
 										disabled={!g.isHost}
 									  >iniciar (HOST)</button>
 									: <button disabled>Iniciando...</button>
