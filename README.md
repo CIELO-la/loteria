@@ -34,7 +34,9 @@ Por ahora realizado con `React`, y custom `js` en `./src/Game`. Antes con `board
 		- leer params de la ruta en `useEffect(f, [])`
 
 - [ ] búsqueda
-	- [ ] los joiners buscan juegos actuales antes de juntarse en el lobby
+	- [X] revisar funciones db para leer colección entera (lista de docs)
+	- [ ] componente de búsqueda
+	- [ ] buscar juegos actuales y unirse
 
 - [ ] prohibir más conexiones si tiene cierto estatus (¿`jugar`/`ganar`/`empate`?)
 

@@ -21,7 +21,6 @@ const Menu = ({ hostGame, joinGame, gameId, handleBarajaIdInput, handleGameIdInp
 
 	return (
 		<div>
-			<p>Lotería</p>
 			<ul className="menu-enlaces">
 				<li>
 					<Link

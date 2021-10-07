@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation, matchPath } from 'react-router-dom';
+import Cuadros from './Cuadros';
 
-const Lobby = ({ jugadorId, isHost, jugadores, estatusActual, registrar, iniciar }) => {
+const Lobby = ({ g, jugadorId, estatusActual, registrar, iniciar }) => {
 	// lobby control flow
 	const [isStarting, setStarting] = useState(false);
 	const [isRegistering, setRegistering] = useState(false);
@@ -17,7 +18,7 @@ const Lobby = ({ jugadorId, isHost, jugadores, estatusActual, registrar, iniciar
 
 	// immediately register players from uri
 	useEffect(() => {
-		if (isRegistering) { return; }
+		if (!g || isRegistering) { return; }
 		const registerOnLoad = async () => {
 			const match = matchPath(location.pathname, {
 				path: '/:juegoIdParam',
@@ -29,17 +30,18 @@ const Lobby = ({ jugadorId, isHost, jugadores, estatusActual, registrar, iniciar
 		}
 		registerOnLoad();
 		return () => {};
-	}, [registrar, location, isRegistering]);
+	}, [g, registrar, location, isRegistering]);
 
 	return (
 		<div>
 			<p>Lobby</p>
-			{isRegistering
+			{g && isRegistering
 				? (
-					<>
+					<>{/* Lobby if game instantiated and player registered */}
+						<Cuadros jugadores={g.jugadores} />
 						<p>estatus: {estatusActual}</p>
 						<div>
-							{jugadores.map(jugadorIdColor => (
+							{g.jugadores.map(jugadorIdColor => (
 								<div key={jugadorIdColor[0]}>
 									<span style={{color: jugadorIdColor[1]}}>■</span>
 								</div>
@@ -50,7 +52,7 @@ const Lobby = ({ jugadorId, isHost, jugadores, estatusActual, registrar, iniciar
 								{!isStarting
 									? <button
 										onClick={leaveLobbyStartGame}
-										disabled={!isHost}
+										disabled={!g.isHost}
 									  >iniciar (HOST)</button>
 									: <button disabled>Iniciando...</button>
 								}
@@ -58,7 +60,9 @@ const Lobby = ({ jugadorId, isHost, jugadores, estatusActual, registrar, iniciar
 						</div>
 					</>
 				) : (
-					<p>Registering...</p>
+					<>{/* Wait for players to register*/}
+						<p>Conectándose...</p>
+					</>
 				)
 			}
 		</div>

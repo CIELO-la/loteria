@@ -1,8 +1,10 @@
 import React from 'react';
+import Cuadros from './Cuadros';
 import Tabla from './Tabla';
 
 const Juego = ({ g, cartaCantada, tablaDimension, marcar, marcadas }) => (
 	<>
+		<Cuadros jugadores={g.jugadores} />
 		<div>{g.isHost ? `HOST` : `GUEST`}</div>
 		<div>
 			{cartaCantada && cartaCantada.nombre

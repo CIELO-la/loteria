@@ -108,12 +108,6 @@ class Cantor {
 		}
 
 		// TAREA: error de vuelta si no hay juego
-		if (!this.isHost && !juegoId) {
-			console.log(`Game.js -- no hay ni host ni juego`);
-			return;
-		} else {
-			console.log(`leyendo juego ${!juegoId ? 'nuevo' : juegoId}`);
-		}
 
 		// crear registro con nuevo {}
 		if (this.isHost) {
