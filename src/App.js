@@ -36,6 +36,7 @@ const App = () => {
 		cartaCantada: {},
 		marcadas: [],
 		estatusActual: '',
+		ganador: '',
 		mensaje: '',
 	});
 	// local storage for browser recall
@@ -50,7 +51,7 @@ const App = () => {
 
 	// game and app state references
 	const barajaIds = [...Object.keys(barajas)];
-	const { gameId, g, cartaCantada, marcadas, mensaje, estatusActual } = state;
+	const { gameId, g, cartaCantada, marcadas, estatusActual, ganador, mensaje } = state;
 	// TODO: read do not manipulate deck id
 	const barajaId = !state.barajaId ? barajaIds[0] : state.barajaId;
 
@@ -101,6 +102,7 @@ const App = () => {
 					},
 					[estatus.ganar]: {
 						estatusActual,
+						ganador,
 						mensaje: `ganar - ganó el jugador ${ganador}`,
 					},
 					[estatus.empate]: {
@@ -208,6 +210,7 @@ const App = () => {
 						tablaDimension={4}
 						marcar={marcar}
 						marcadas={marcadas}
+						ganador={ganador}
 					/>
 				</Route>
 				<Route path={`/${gameId}`}>

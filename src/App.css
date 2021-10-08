@@ -32,6 +32,12 @@ a {
 	width: 40px;
 }
 
+.cuadro-ganador {
+	border-color: yellow;
+	border-width: 4px;
+	border-style: dashed;
+}
+
 .menu-enlaces {
 	padding-left: 0;
 	list-style-type: none;

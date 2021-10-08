@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link, useLocation, matchPath } from 'react-router-dom';
 import Cuadros from './Cuadros';
 
+// TODO: handle or 404 cold joiners who lack g
 const Lobby = ({ g, jugadorId, estatusActual, registrar, iniciar }) => {
 	// lobby control flow
 	const [isStarting, setStarting] = useState(false);
