@@ -46,3 +46,11 @@ a {
 .menu-enlaces li {
 	margin-bottom: 10px;
 }
+
+.carta-imagen {
+	width: 75px;
+}
+
+.carta-marcada {
+	opacity: 0.25;
+}

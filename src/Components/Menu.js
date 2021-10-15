@@ -30,7 +30,7 @@ const Menu = ({ hostGame, joinGame, gameId, handleBarajaIdInput, handleGameIdInp
 							: prepareHost
 						}
 					>
-						<input type="button" value="Hostear" />
+						<input type="button" value="Crear juego" />
 					</Link>
 					{isHosting && (
 						<div>

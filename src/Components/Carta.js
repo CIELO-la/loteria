@@ -6,7 +6,11 @@ export const Carta = ({ carta, slot, marcar, marcada, estilo }) => (
 			disabled={marcada}
 			onClick={() => marcar(slot)}
 		>
-			{carta.nombre}
+			<img
+				className={`carta-imagen ${marcada ? 'carta-marcada' : ''}`}
+				src={carta.imagen}
+				alt={carta.nombre}
+			/>
 		</button>
 	</td>
 );
