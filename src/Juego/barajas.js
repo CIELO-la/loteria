@@ -1,5 +1,5 @@
 export const barajas = {
-	'es-mx-demo': {
+	es01: {
 		'01': {
 			nombre: 'el gallo',
 			imagen: '/barajas/es-mx-demo/01-gallo.jpg',
@@ -271,5 +271,5 @@ export const barajas = {
 			audio: '',
 		},
 	},
-	'zapo-01': {},
+	za01: {},
 };

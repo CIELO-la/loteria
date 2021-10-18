@@ -31,7 +31,6 @@ const App = () => {
 	// app state for game
 	const [state, setState] = useState({
 		gameId: '',
-		barajaId: '',
 		g: null,
 		cartaCantada: {},
 		marcadas: [],
@@ -39,27 +38,32 @@ const App = () => {
 		ganador: '',
 		mensaje: '',
 	});
-	// local storage for browser recall
+	// local browser storage for player id
 	const jugadorId = useLocalStorage(
-		'jugadorId',	// localStorage key
+		'jugadorId',	// localStorage player key
 		uuid4()			// default id if none locally
 	)[0];
+
+	// reference all decks
+	const barajaIds = [...Object.keys(barajas)];
+	// recall browser selection of deck id
+	const [localBarajaId, setLocalBarajaId] = useLocalStorage(
+		'barajaId',		// localStorage deck key
+		barajaIds[0] 	// default to first deck
+	);
 
 	// router hooks
 	//const { juegoIdParam } = useParams();	
 	const history = useHistory();
 
-	// game and app state references
-	const barajaIds = [...Object.keys(barajas)];
+	// app state references
 	const { gameId, g, cartaCantada, marcadas, estatusActual, ganador, mensaje } = state;
-	// TODO: read do not manipulate deck id
-	const barajaId = !state.barajaId ? barajaIds[0] : state.barajaId;
 
 	// wrap game registration for host (create game id) vs guest (follow id)
 	const hostGame = async (e, newGameId) => {
 		e.preventDefault();
 		g.asignarHost(true);
-		g.seleccionarBaraja(barajaId);
+		g.seleccionarBaraja(localBarajaId);
 		history.push(`/${newGameId}`);
 	};
 	const joinGame = async e => {
@@ -160,9 +164,7 @@ const App = () => {
 	// dropdown selected deck id
 	const handleBarajaIdInput = event => {
 		event.preventDefault();
-		event.target.value && setState(state => ({
-			...state, barajaId: event.target.value
-		}));
+		setLocalBarajaId(event.target.value);
 	};
 
 	// connect to game
@@ -200,7 +202,7 @@ const App = () => {
 						gameId={gameId}
 						handleGameIdInput={handleGameIdInput}
 						handleBarajaIdInput={handleBarajaIdInput}
-						barajaId={barajaId}
+						barajaId={localBarajaId}
 						barajaIds={barajaIds}
 					/>
 				</Route>

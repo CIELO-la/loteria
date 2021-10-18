@@ -80,8 +80,8 @@ class Cantor {
 			console.log(`hostear un juego (Juego.asignarHost) para seleccionar baraja`);
 			return;
 		}
-		this.barajaId = this.isHost && barajas[barajaId] ? barajaId : null;
-		if (this.isHost && !this.barajaId) {
+		this.barajaId = barajas[barajaId] ? barajaId : null;
+		if (!this.barajaId) {
 			console.log(`ninguna baraja seleccionada - no existe ${barajaId}`);
 		}
 		return this.barajaId;

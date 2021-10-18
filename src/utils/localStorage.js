@@ -26,7 +26,12 @@ export const useLocalStorage = (localKey, defaultValue) => {
 		;
 		// store value in app and in browser
 		setStateValue(valueToSet);
-		localStorage.setItem(localKey, JSON.stringify(valueToSet));
+		localStorage.setItem(
+			localKey,
+			typeof valueToSet === typeof {}
+				? JSON.stringify(valueToSet)
+				: valueToSet
+		);
 	};
 	return [localValue, setLocalValue];
 };

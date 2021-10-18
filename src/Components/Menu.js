@@ -6,18 +6,17 @@ const Menu = ({ hostGame, joinGame, gameId, handleBarajaIdInput, handleGameIdInp
 	// temp gameId if hosting a new game
 	const newGameId = uuid4();
 
-	const [isJoining, setJoining] = useState(false);
-	const [isHosting, setHosting] = useState(false);
-
-	const prepareHost = e => {
+	// toggle flow for displaying/hiding button options
+	const [isLanguaging, setLanguaging] = useState(false);
+	const prepareLanguaging = e => {
 		e.preventDefault();
-		setHosting(!isHosting)
+		setLanguaging(!isLanguaging)
 	};
-
-	const prepareJoin = e => {
-		e.preventDefault();
-		setJoining(!isJoining);
-	};
+	// const [isJoining, setJoining] = useState(false);
+	// const prepareJoin = e => {
+	// 	e.preventDefault();
+	// 	setJoining(!isJoining);
+	// };
 
 	return (
 		<div>
@@ -25,53 +24,62 @@ const Menu = ({ hostGame, joinGame, gameId, handleBarajaIdInput, handleGameIdInp
 				<li>
 					<Link
 						to={`/${newGameId}`}
-						onClick={isHosting && barajaId
-							? e => hostGame(e, newGameId)
-							: prepareHost
-						}
+						onClick={e => hostGame(e, newGameId)}
 					>
 						<input type="button" value="Crear juego" />
 					</Link>
-					{isHosting && (
-						<div>
-							<label>
-								barajaId:
-								<select onChange={handleBarajaIdInput} value={barajaId}>
-									{barajaIds.map(baraja => (
-										<option key={baraja} value={baraja}>{baraja}</option>
-									))}
-								</select>
-							</label>
-						</div>
-					)}
 				</li>
+				{/* // Unirse
+					<li>
+						<Link
+							to={`/${gameId}`}
+							onClick={isJoining && gameId
+								? joinGame
+								: prepareJoin
+							}
+						>
+							<input type="button" value="Unirse" />
+						</Link>
+						{isJoining && (
+							<div>
+								<label>
+									gameId:
+									<input
+										type="text"
+										value={gameId}
+										onChange={handleGameIdInput}
+									/>
+								</label>
+							</div>
+						)}
+					</li>
+				*/}
+				{/* // Buscar
+					<li>
+						<Link to="/buscar">
+							<input type="button" value="Buscar" />
+						</Link>
+					</li>
+				*/}
 				<li>
-					<Link
-						to={`/${gameId}`}
-						onClick={isJoining && gameId
-							? joinGame
-							: prepareJoin
-						}
-					>
-						<input type="button" value="Unirse" />
-					</Link>
-					{isJoining && (
-						<div>
-							<label>
-								gameId:
-								<input
-									type="text"
-									value={gameId}
-									onChange={handleGameIdInput}
-								/>
-							</label>
-						</div>
-					)}
-				</li>
-				<li>
-					<Link to="/buscar">
-						<input type="button" value="Buscar" />
-					</Link>
+					{!isLanguaging ?
+						(
+							<Link to="/" onClick={prepareLanguaging}>
+								<input type="button" value={`Idioma (${barajaId})`} />
+							</Link>
+						) : (
+							<div>
+								<label>
+									barajaId:
+									<select onClick={e => setLanguaging(false)} onChange={handleBarajaIdInput} value={barajaId}>
+										{barajaIds.map(baraja => (
+											<option key={baraja} value={baraja}>{baraja}</option>
+										))}
+									</select>
+								</label>
+							</div>
+						)
+					}
 				</li>
 			</ul>
 		</div>

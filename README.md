@@ -58,7 +58,7 @@ Por ahora realizado con `React`, y custom `js` en `./src/Game`. Antes con `board
 
 - [ ] selección de baraja/idioma
 	- [ ] modo de enfatizar los idiomas
-	- [ ] usar `localStorage`
+	- [X] usar `localStorage`
 	- [ ] ¿en opciones o al iniciar?
 	- [ ] solo buscar juego que tenga la misma baraja
 
