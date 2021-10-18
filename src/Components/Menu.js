@@ -12,6 +12,10 @@ const Menu = ({ hostGame, joinGame, gameId, handleBarajaIdInput, handleGameIdInp
 		e.preventDefault();
 		setLanguaging(!isLanguaging)
 	};
+	const changeBaraja = e => {
+		setLanguaging(false);
+		handleBarajaIdInput(e);
+	};
 	// const [isJoining, setJoining] = useState(false);
 	// const prepareJoin = e => {
 	// 	e.preventDefault();
@@ -71,7 +75,7 @@ const Menu = ({ hostGame, joinGame, gameId, handleBarajaIdInput, handleGameIdInp
 							<div>
 								<label>
 									barajaId:
-									<select onClick={e => setLanguaging(false)} onChange={handleBarajaIdInput} value={barajaId}>
+									<select onChange={changeBaraja} value={barajaId}>
 										{barajaIds.map(baraja => (
 											<option key={baraja} value={baraja}>{baraja}</option>
 										))}
