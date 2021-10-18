@@ -41,7 +41,7 @@ Por ahora realizado con `React`, y custom `js` en `./src/Game`. Antes con `board
 - [ ] prohibir más conexiones si tiene cierto estatus (¿`jugar`/`ganar`/`empate`?)
 
 - [ ] demo
-	- [ ] crear imágenes, audio para la baraja
+	- [X] crear imágenes, audio para la baraja
 	- [ ] haz que el setTimeout/.timer espere por el audio
 	- [ ] elegir baraja, opciones en una página de arranque
 
@@ -49,6 +49,18 @@ Por ahora realizado con `React`, y custom `js` en `./src/Game`. Antes con `board
 	- ...tareas CSS/HTML
 
 - [ ] ¿límite de jugadores en `Juego`, db, buscar?
+
+- [ ] menú
+	- jugar solo: juego público (crear/unirse)
+	- jugar con amigos: crear juego privado (unirse con enlace)
+
+- [X] acceso público, privado en el depósito
+
+- [ ] selección de baraja/idioma
+	- [ ] modo de enfatizar los idiomas
+	- [ ] usar `localStorage`
+	- [ ] ¿en opciones o al iniciar?
+	- [ ] solo buscar juego que tenga la misma baraja
 
 - [ ] ARREGLAR: navegador se desconecta y `g === null` al cliquear en otro app
 	- ¿usar `localStorage` una vez más para grabar la `g` entera?

@@ -101,7 +101,7 @@ class Cantor {
 		this.deposito = await dbConnect('games');
 	};
 
-	registrar = async (juegoId, callback) => {
+	registrar = async (juegoId, callback, privado=false) => {
 		if (!this.deposito) {
 			console.log(`no está conectado al depósito`);
 			return;
@@ -206,7 +206,8 @@ class Cantor {
 				cantadas: 0,
 				estatus: estatus.registrar,
 				jugadores: [this.jugadorId],
-				ganador: null
+				ganador: null,
+				privado
 			});
 		} else {
 			// guardar datos iniciales del db

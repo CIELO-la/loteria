@@ -76,6 +76,9 @@ const App = () => {
 			await g.conectar();
 		}
 
+		// TODO: set and read access flow (in store: { ..., privado: bool })
+		const privado = g.isHost;
+
 		// attach listener to db with cb on status change
 		const joinedGameId = await g.registrar(
 			juegoId,
@@ -115,7 +118,8 @@ const App = () => {
 					...prevState,
 					...estatusEstados[estatusActual],
 				}));
-			}
+			},
+			privado
 		);
 
 		// initial game state in app
