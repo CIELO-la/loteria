@@ -101,12 +101,16 @@ class Cantor {
 		this.deposito = await dbConnect('games');
 	};
 
+	buscar = async cb => {
+		const listaDeJuegos = await this.deposito.list();
+		cb(listaDeJuegos);
+		return listaDeJuegos;
+	};
+
 	registrar = async (juegoId, callback, privado=false) => {
 		if (!this.deposito) {
 			console.log(`no está conectado al depósito`);
-			return;
 		}
-
 		// TAREA: error de vuelta si no hay juego
 
 		// crear registro con nuevo {}
