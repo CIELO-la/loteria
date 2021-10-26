@@ -208,7 +208,7 @@ class Cantor {
 		// primera lectura, primera actualización
 		if (this.isHost) {
 			this.cartas = this.barajar([
-				...Object.keys(barajas[this.barajaId])
+				...Object.keys(barajas[this.barajaId].cartas)
 			]);
 			await this.deposito.update({
 				barajaId: this.barajaId,
@@ -298,7 +298,7 @@ class Cantor {
 		: this.leerCarta(this.cartas[this.cantadas-1])
 	);
 
-	leerCarta = cartaId => ({...barajas[this.barajaId][cartaId]});
+	leerCarta = cartaId => ({...barajas[this.barajaId].cartas[cartaId]});
 
 	yaCantadas = () => [...this.cartas.slice(0, this.cantadas)];
 

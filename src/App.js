@@ -44,12 +44,12 @@ const App = () => {
 		uuid4()			// default id if none locally
 	)[0];
 
-	// reference all decks
-	const barajaIds = [...Object.keys(barajas)];
 	// recall browser selection of deck id
 	const [localBarajaId, setLocalBarajaId] = useLocalStorage(
-		'barajaId',		// localStorage deck key
-		barajaIds[0] 	// default to first deck
+		// localStorage deck key
+		'barajaId',
+		// default to first deck
+		[ ...Object.keys(barajas) ][0]
 	);
 
 	// router hooks
@@ -205,7 +205,7 @@ const App = () => {
 						handleGameIdInput={handleGameIdInput}
 						handleBarajaIdInput={handleBarajaIdInput}
 						barajaId={localBarajaId}
-						barajaIds={barajaIds}
+						barajas={barajas}
 					/>
 				</Route>
 				<Route path="/buscar">	
@@ -214,6 +214,7 @@ const App = () => {
 				<Route path="/jugar">
 					<Juego
 						g={g}
+						baraja={barajas[localBarajaId]}
 						cartaCantada={cartaCantada}
 						tablaDimension={4}
 						marcar={marcar}

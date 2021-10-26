@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { v4 as uuid4 } from 'uuid';
 
-const Menu = ({ hostGame, joinGame, gameId, handleBarajaIdInput, handleGameIdInput, barajaId, barajaIds }) => {
+const Menu = ({ hostGame, joinGame, gameId, handleBarajaIdInput, handleGameIdInput, barajaId, barajas }) => {
 	// temp gameId if hosting a new game
 	const newGameId = uuid4();
 
@@ -22,6 +22,8 @@ const Menu = ({ hostGame, joinGame, gameId, handleBarajaIdInput, handleGameIdInp
 	// 	setJoining(!isJoining);
 	// };
 
+	const baraja = barajas[barajaId];
+
 	return (
 		<div>
 			<ul className="menu-enlaces">
@@ -30,7 +32,7 @@ const Menu = ({ hostGame, joinGame, gameId, handleBarajaIdInput, handleGameIdInp
 						to={`/${newGameId}`}
 						onClick={e => hostGame(e, newGameId)}
 					>
-						<input type="button" value="Crear juego" />
+						<input type="button" value={baraja.botones.crear} />
 					</Link>
 				</li>
 				{/* // Unirse
@@ -69,15 +71,14 @@ const Menu = ({ hostGame, joinGame, gameId, handleBarajaIdInput, handleGameIdInp
 					{!isLanguaging ?
 						(
 							<Link to="/" onClick={prepareLanguaging}>
-								<input type="button" value={`Idioma (${barajaId})`} />
+								<input type="button" value={`Baraja: ${baraja.nombre}`} />
 							</Link>
 						) : (
 							<div>
 								<label>
-									barajaId:
 									<select onChange={changeBaraja} value={barajaId}>
-										{barajaIds.map(baraja => (
-											<option key={baraja} value={baraja}>{baraja}</option>
+										{Object.entries(barajas).map(([bId, bObj]) => (
+											<option key={bId} value={bId}>{bObj.nombre}</option>
 										))}
 									</select>
 								</label>

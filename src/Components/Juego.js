@@ -2,8 +2,8 @@ import React from 'react';
 import Cuadros from './Cuadros';
 import Tabla from './Tabla';
 
-const Juego = ({ g, cartaCantada, tablaDimension, marcar, marcadas, ganador }) => (
-	<>
+const Juego = ({ g, baraja, cartaCantada, tablaDimension, marcar, marcadas, ganador }) => (
+	<div className="juego">
 		<Cuadros jugadores={g.jugadores} ganador={ganador} />
 		<div>{g.isHost ? `HOST` : `GUEST`}</div>
 		<div>
@@ -20,9 +20,9 @@ const Juego = ({ g, cartaCantada, tablaDimension, marcar, marcadas, ganador }) =
 				marcar={marcar}
 				marcadas={marcadas}
 			/>
-			<button onClick={() => g.verificar()}>¡¿pues gané?!</button>
+			<button onClick={() => g.verificar()}>{baraja.botones.ganar}</button>
 		</div>
-	</>
+	</div>
 );
 
 export default Juego;
