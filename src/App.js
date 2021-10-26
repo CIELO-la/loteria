@@ -72,17 +72,10 @@ const App = () => {
 		history.push(`/${gameId}`);
 	};
 
-	// wrap game-db connection
-	const conectar = async () => {
-		if (!g) { return; }
-		await g.conectar();
-		return g.deposito;
-	};
-
 	// TODO: access (allow/disallow depending on joined game status)
 	// TODO: route 404 if g failed to connect or register
 	const registrar = async juegoId => {
-		// connect to remote db
+		// connect to remote db if registering before connecting (see useEffect)
 		if (!g.deposito) {
 			await g.conectar();
 		}
@@ -174,14 +167,15 @@ const App = () => {
 		setLocalBarajaId(event.target.value);
 	};
 
-	// start game and connect game-db
+	// start game and connect game-db on app start
 	useEffect(() => {
 		const gameInstance = new Cantor(jugadorId);
-		gameInstance.conectar();
-		setState(prevState => ({
-			...prevState,
-			g: gameInstance
-		}));
+		gameInstance.conectar(db => (
+			setState(prevState => ({
+				...prevState,
+				g: gameInstance
+			}))
+		));
 	}, [jugadorId]);
 
 	// reroute depending on status changes
@@ -215,7 +209,7 @@ const App = () => {
 					/>
 				</Route>
 				<Route path="/buscar">	
-					<BuscarJuego g={g} conectar={conectar} />
+					<BuscarJuego g={g} />
 				</Route>
 				<Route path="/jugar">
 					<Juego

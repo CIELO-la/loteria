@@ -1,34 +1,27 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
-const BuscarJuego = (g, conectar) => {
+const BuscarJuego = ({ g }) => {
+	// fetch list of open games from game db
 	const [gameList, setGameList] = useState([]);
-
-	// wrap db search
-	const buscar = async () => {
-		if (!g) {
-			return;
-		}
-		if (!g.deposito) {
-			await g.conectar();
-		}
-		console.log(g);
-		const newList = await g.buscar(n => {});
-		setGameList(newList);
-	};
-
-	console.log(gameList);
-
-	useEffect(() => {
-		buscar();
-	}, [g]);
+	useEffect(() => (
+		g && g.buscar(newList => setGameList(newList))
+	), [g]);
 
 	return (
 		<div>
-			{!g
-				? <p>TAREA: buscar juego</p>
-				: <p>{gameList[0]}</p>
-			}
+			<ul>
+				{gameList.map(gameDoc => (
+					<li key={gameDoc.id}>
+						<Link to={`/${gameDoc.id}`}>
+							baraja: {`${gameDoc.data().barajaId}`},
+							estatus: {`${gameDoc.data().estatus}`},
+							privado: {`${gameDoc.data().privado}`},
+							jugadores: {`${gameDoc.data().jugadores.length}`}
+						</Link>
+					</li>
+				))}
+			</ul>
 			<Link to="/">volver</Link>
 		</div>
 	);

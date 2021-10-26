@@ -35,7 +35,7 @@ Por ahora realizado con `React`, y custom `js` en `./src/Game`. Antes con `board
 
 - [ ] búsqueda
 	- [X] revisar funciones db para leer colección entera (lista de docs)
-	- [ ] componente de búsqueda
+	- [X] componente de búsqueda
 	- [ ] buscar juegos actuales y unirse
 
 - [ ] prohibir más conexiones si tiene cierto estatus (¿`jugar`/`ganar`/`empate`?)
@@ -57,6 +57,7 @@ Por ahora realizado con `React`, y custom `js` en `./src/Game`. Antes con `board
 - [X] acceso público, privado en el depósito
 
 - [ ] selección de baraja/idioma
+	- [ ] datos del objeto: nombre de baraja, audio, corre/buena
 	- [ ] modo de enfatizar los idiomas
 	- [X] usar `localStorage`
 	- [ ] ¿en opciones o al iniciar?

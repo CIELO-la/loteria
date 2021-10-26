@@ -97,12 +97,18 @@ class Cantor {
 	);
 
 	// objeto con métodos para leer y modificar - véase el db.js
-	conectar = async () => {
+	conectar = async cb => {
 		this.deposito = await dbConnect('games');
+		cb(this.deposito);
+		return this.deposito;
 	};
 
 	buscar = async cb => {
-		const listaDeJuegos = await this.deposito.list();
+		const listaDeJuegos = await this.deposito.list(
+			["estatus" , "==", "registrar"], // ["privado", "==", false],
+			5
+		);
+		// TAREA: filtrar lista
 		cb(listaDeJuegos);
 		return listaDeJuegos;
 	};

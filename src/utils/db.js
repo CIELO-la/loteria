@@ -79,12 +79,13 @@ export const dbConnect = async collectionName => {
 		// local sync fetch
 		read: () => localStore.data,
 		id: () => localStore.id,
-		// TODO: list to find/browse docs
-		list: async () => {
-			const q = query(docsCollection, where("jugadores", "<", 6), limit(5));
+		// list to find/browse docs
+		list: async (whereClause, limitMax) => {
+			// expect limitMax int, whereClause ['k', 'operator', value] array
+			const q = query(docsCollection, where(...whereClause), limit(limitMax));
 			const qSnapshot = await getDocs(q);
-			qSnapshot.map(doc => console.log(doc.id, " contains ", doc.data()));
-			return qSnapshot.map(doc => doc.id);
+			//qSnapshot.docs.map(doc => console.log(doc.id, " contains ", doc.data()));
+			return qSnapshot.docs;
 		},
 	});
 };
