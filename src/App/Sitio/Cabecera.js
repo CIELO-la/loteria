@@ -1,4 +1,4 @@
-const Header = ({ mensaje }) => (
+const Cabecera = ({ mensaje }) => (
 	<>
 		<div className="header-titulo">Lotería</div>
 		<div className="header-subtitulo">juego de cartas y de palabras</div>
@@ -6,4 +6,4 @@ const Header = ({ mensaje }) => (
 	</>
 );
 
-export default Header;
+export default Cabecera;

@@ -1,23 +1,24 @@
 import React, { useState, useEffect } from 'react';
-import { useLocalStorage } from './utils/localStorage';
 import { Switch, Route, useHistory } from 'react-router-dom';
-import Cantor from './Juego/Loteria';
-import Header from './Components/Header';
-import Juego from './Components/Juego';
-import Menu from './Components/Menu';
-import BuscarJuego from './Components/BuscarJuego';
-import Lobby from './Components/Lobby';
-import { barajas } from './Juego/barajas';
-import { estatus } from './Juego/estatus';
+import Cabecera from './Sitio/Cabecera';
+import Menu from './Sitio/Menu';
+import Pie from './Sitio/Pie';
+import Busqueda from './Busqueda';
+import Sala from './Sala';
+import Juego from './Juego';
+import Cantor from '../Loteria';
+import { barajas } from '../Loteria/barajas';
+import { estatus } from '../Loteria/estatus';
+import { useLocalStorage } from '../utils/localStorage';
 import { v4 as uuid4 } from 'uuid';
 import './App.css';
 
-// flow:
+// flujo:
 // - App.js <-> Juego.js
 // 		(- barajas, estatus)
-// 		- Menu -> BuscarJuego, Lobby
-// 		- BuscarJuego -> Lobby
-// 		- Lobby -> Juego
+// 		- Menú -> Búsqueda, Sala
+// 		- BuscarJuego -> Sala
+// 		- Sala -> Juego
 // 			- Cuadros
 // 		- Juego
 // 			- Cuadros, Tabla
@@ -195,7 +196,7 @@ const App = () => {
 
 	return (
 		<div className="App">
-			<Header mensaje={mensaje} />
+			<Cabecera mensaje={mensaje} />
 			<Switch>
 				<Route exact path="/">
 					<Menu
@@ -209,7 +210,7 @@ const App = () => {
 					/>
 				</Route>
 				<Route path="/buscar">	
-					<BuscarJuego g={g} />
+					<Busqueda g={g} />
 				</Route>
 				<Route path="/jugar">
 					<Juego
@@ -223,7 +224,7 @@ const App = () => {
 					/>
 				</Route>
 				<Route path={`/${gameId}`}>
-					<Lobby
+					<Sala
 						g={g}
 						jugadorId={jugadorId}
 						estatusActual={estatusActual}
@@ -232,6 +233,7 @@ const App = () => {
 					/>
 				</Route>
 			</Switch>
+			<Pie />
 		</div>
 	);
 };

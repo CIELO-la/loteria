@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
-const BuscarJuego = ({ g }) => {
+const Busqueda = ({ g }) => {
 	// fetch list of open games from game db
 	const [gameList, setGameList] = useState([]);
 	useEffect(() => (
@@ -27,4 +27,4 @@ const BuscarJuego = ({ g }) => {
 	);
 };
 
-export default BuscarJuego;
+export default Busqueda;
