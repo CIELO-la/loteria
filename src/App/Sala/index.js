@@ -39,19 +39,11 @@ const Sala = ({ g, jugadorId, estatusActual, registrar, iniciar }) => {
 
 	return (
 		<div>
-			<p>Lobby</p>
 			{g && isRegistering
 				? (
 					<>{/* Lobby if game instantiated and player registered */}
 						<Cuadros jugadores={g.jugadores} />
 						<p>estatus: {estatusActual}</p>
-						<div>
-							{g.jugadores.map(jugadorIdColor => (
-								<div key={jugadorIdColor[0]}>
-									<span style={{color: jugadorIdColor[1]}}>■</span>
-								</div>
-							))}
-						</div>
 						<div>
 							<Link to="/juego" onClick={leaveLobbyStartGame}>
 								{!isStarting

@@ -7,11 +7,12 @@ import Busqueda from './Busqueda';
 import Sala from './Sala';
 import Juego from './Juego';
 import Cantor from '../Loteria';
+import Mensaje from './Sitio/Mensaje';
 import { barajas } from '../Loteria/barajas';
 import { estatus } from '../Loteria/estatus';
 import { useLocalStorage } from '../utils/localStorage';
 import { v4 as uuid4 } from 'uuid';
-import './App.css';
+import './styles.css';
 
 // flujo:
 // - App.js <-> Juego.js
@@ -196,9 +197,10 @@ const App = () => {
 
 	return (
 		<div className="App">
-			<Cabecera mensaje={mensaje} />
+			<Mensaje mensaje={mensaje} />
 			<Switch>
 				<Route exact path="/">
+					<Cabecera baraja={barajas[localBarajaId]} />
 					<Menu
 						hostGame={hostGame}
 						joinGame={joinGame}
@@ -209,7 +211,7 @@ const App = () => {
 						barajas={barajas}
 					/>
 				</Route>
-				<Route path="/buscar">	
+				<Route path="/buscar">
 					<Busqueda g={g} />
 				</Route>
 				<Route path="/jugar">

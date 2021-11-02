@@ -5,7 +5,6 @@ import Tabla from './Tabla';
 const Juego = ({ g, baraja, cartaCantada, tablaDimension, marcar, marcadas, ganador }) => (
 	<div className="juego">
 		<Cuadros jugadores={g.jugadores} ganador={ganador} />
-		<div>{g.isHost ? `HOST` : `GUEST`}</div>
 		<div>
 			{cartaCantada && cartaCantada.nombre
 				? <div>{cartaCantada.nombre}</div>

@@ -1,23 +1,45 @@
+/* sitio */
+
 .App {
 	text-align: center;
-}
-
-table {
-	margin: 0 auto;
 }
 
 a {
 	color: #61dafb;
 }
 
-.header-titulo {
-	color: green;
-	font-size: 25px;
+input, select, button {
+	font-size: 22px;
 }
 
-.header-subtitulo {
+.mensaje {
+	color: #bbb;
+	font-size: 12;
+	margin-bottom: 20;
+}
+
+.cabecera {
+	margin: 56px 0;
+}
+
+.titulo {
+	color: green;
+	font-size: 50px;
+}
+
+.subtitulo {
 	color: red;
-	font-size: 20px;
+	font-size: 30px;
+}
+
+.pie {
+	margin-top: 56px;
+}
+
+/* tabla */
+
+table {
+	margin: 0 auto;
 }
 
 .cuadros-jugadores {

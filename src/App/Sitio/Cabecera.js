@@ -1,9 +1,8 @@
-const Cabecera = ({ mensaje }) => (
-	<>
-		<div className="header-titulo">Lotería</div>
-		<div className="header-subtitulo">juego de cartas y de palabras</div>
-		<div style={{color: 'gray', fontSize: 15, marginBottom: 20}}>{mensaje}</div>
-	</>
+const Cabecera = () => (
+	<div className="cabecera">
+		<div className="titulo">la Lotería</div>
+		<div className="subtitulo">juego de cartas y de palabras</div>
+	</div>
 );
 
 export default Cabecera;
