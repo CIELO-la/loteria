@@ -205,3 +205,12 @@ db.collection('ciudades').where('visibilidad', '==', 'público').get()...
 db.collection('ciudades').get()...
 
 ```
+
+## Running Locally
+
+- Ensure you have [Node.js](https://nodejs.org/en/) installed
+- Clone this repo
+- Run `npm install`
+- Run `npm start`
+- A local version of the app will be available at http://localhost:3000
+
