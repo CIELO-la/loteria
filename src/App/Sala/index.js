@@ -1,9 +1,12 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation, matchPath } from "react-router-dom";
 import Cuadros from "../Juego/Cuadros";
+import { useTranslation } from "react-i18next";
 
 // TODO: handle or 404 cold joiners who lack g
 const Sala = ({ g, jugadorId, estatusActual, registrar, iniciar }) => {
+  const { t } = useTranslation();
+
   // lobby control flow
   const [isStarting, setStarting] = useState(false);
   const [isRegistering, setRegistering] = useState(false);
@@ -47,13 +50,15 @@ const Sala = ({ g, jugadorId, estatusActual, registrar, iniciar }) => {
         <>
           {/* Lobby if game instantiated and player registered */}
           <Cuadros jugadores={g.jugadores} />
-          <p>estatus: {estatusActual}</p>
+          <p>
+            {t("estatus")}: {estatusActual}
+          </p>
           <div>
             <Link to="/juego" onClick={leaveLobbyStartGame}>
               {!isStarting ? (
-                <button disabled={!g.isHost}>iniciar (HOST)</button>
+                <button disabled={!g.isHost}>{t("hostIniciar")}</button>
               ) : (
-                <button disabled>Iniciando...</button>
+                <button disabled>{t("iniciando")}</button>
               )}
             </Link>
           </div>

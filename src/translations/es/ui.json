@@ -1,0 +1,17 @@
+{
+  "titulo": "la Lotería",
+  "subtitulo": "juego de cartas y de palabras",
+  "cielo": "CIELO - Comunidades Indígenas en Liderazgo",
+  "baraja": "Baraja",
+  "crearJuego": "Crear juego",
+  "idomas": "Idioma",
+  "registrar": "registrar - en el lobby",
+  "iniciar": "iniciar",
+  "jugar": "jugar",
+  "ganar": "ganar - ganó el jugador {{ganador}}",
+  "empate": "empate - no ganó nadie",
+  "iniciando": "Iniciando...",
+  "hostIniciar": "iniciar (HOST)",
+  "estatus": "estatus",
+  "conectándose": "Conectándose..."
+}

@@ -1,0 +1,17 @@
+{
+  "titulo": "The Lottery",
+  "subtitulo": "card and word game",
+  "cielo": "CIELO - Center for Indigenous Language and Power",
+  "baraja": "Deck",
+  "crearJuego": "Create game",
+  "idiomas": "Language",
+  "registrar": "register - in the lobby",
+  "iniciar": "start",
+  "jugar": "play",
+  "ganar": "winner - the player {{ganador}} won",
+  "empate": "tie - no one won",
+  "iniciando": "Starting...",
+  "hostIniciar": "start (HOST)",
+  "estatus": "status",
+  "Conectándose": "Connecting..."
+}

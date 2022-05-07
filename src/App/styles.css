@@ -38,6 +38,10 @@ button {
   margin-top: 56px;
 }
 
+.idomas button {
+  margin: 0 4px;
+}
+
 /* tabla */
 
 table {

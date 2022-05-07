@@ -12,6 +12,7 @@ import { barajas } from "../Loteria/barajas";
 import { estatus } from "../Loteria/estatus";
 import { useLocalStorage } from "../utils/localStorage";
 import { v4 as uuid4 } from "uuid";
+import { useTranslation } from "react-i18next";
 import "./styles.css";
 
 // flujo:
@@ -30,6 +31,8 @@ import "./styles.css";
 // 		- estatus
 
 const App = () => {
+  const { t } = useTranslation();
+
   // app state for game
   const [state, setState] = useState({
     gameId: "",
@@ -98,26 +101,26 @@ const App = () => {
           [estatus.registrar]: {
             estatusActual,
             barajaId,
-            mensaje: `registrar - en el lobby`,
+            mensaje: t("registrar"),
           },
           [estatus.iniciar]: {
             estatusActual,
             barajaId,
-            mensaje: `iniciar`,
+            mensaje: t("iniciar"),
           },
           [estatus.jugar]: {
             estatusActual,
             cartaCantada,
-            mensaje: `jugar`,
+            mensaje: t("jugar"),
           },
           [estatus.ganar]: {
             estatusActual,
             ganador,
-            mensaje: `ganar - ganó el jugador ${ganador}`,
+            mensaje: t("ganar", { ganador: ganador }),
           },
           [estatus.empate]: {
             estatusActual,
-            mensaje: `empate - no ganó nadie`,
+            mensaje: t("empate"),
           },
         };
         // update state based on status state options
@@ -217,7 +220,7 @@ const App = () => {
           />
         </Route>
         <Route path="/buscar">
-          <Busqueda g={g} />
+                  <Busqueda g={g} />
         </Route>
         <Route path="/jugar">
           <Juego
@@ -234,7 +237,7 @@ const App = () => {
           <Sala
             g={g}
             jugadorId={jugadorId}
-            estatusActual={estatusActual}
+            estatusActual={t(estatusActual)}
             registrar={registrar}
             iniciar={iniciar}
           />
