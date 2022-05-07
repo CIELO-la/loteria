@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { v4 as uuid4 } from "uuid";
+import { useTranslation } from "react-i18next";
+import Idiomas from "./Idiomas";
 
 const Menu = ({
   hostGame,
@@ -11,6 +13,8 @@ const Menu = ({
   barajaId,
   barajas,
 }) => {
+  const { t } = useTranslation();
+
   // temp gameId if hosting a new game
   const newGameId = uuid4();
 
@@ -37,7 +41,7 @@ const Menu = ({
       <ul className="menu-enlaces">
         <li>
           <Link to={`/${newGameId}`} onClick={(e) => hostGame(e, newGameId)}>
-            <input type="button" value={baraja.botones.crear} />
+            <input type="button" value={t("crearJuego")} />
           </Link>
         </li>
         {/* // Unirse
@@ -75,7 +79,7 @@ const Menu = ({
         <li>
           {!isLanguaging ? (
             <Link to="/" onClick={prepareLanguaging}>
-              <input type="button" value={`Baraja: ${baraja.nombre}`} />
+              <input type="button" value={`${t("baraja")}: ${baraja.nombre}`} />
             </Link>
           ) : (
             <div>
@@ -92,6 +96,7 @@ const Menu = ({
           )}
         </li>
       </ul>
+      <Idiomas />
     </div>
   );
 };

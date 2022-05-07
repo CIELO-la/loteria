@@ -2,7 +2,6 @@ export const barajas = {
   es01: {
     nombre: "español de MX",
     botones: {
-      crear: "crear juego",
       ganar: "¡lotería!",
     },
     cartas: {
@@ -281,7 +280,6 @@ export const barajas = {
   za01: {
     nombre: "Dilla Xhon",
     botones: {
-      crear: "",
       ganar: "!",
     },
     cartas: {},
