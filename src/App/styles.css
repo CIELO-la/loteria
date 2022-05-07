@@ -1,84 +1,85 @@
 /* sitio */
 
 .App {
-	text-align: center;
+  text-align: center;
 }
 
 a {
-	color: #61dafb;
+  color: #61dafb;
 }
 
-input, select, button {
-	font-size: 22px;
+input,
+select,
+button {
+  font-size: 22px;
 }
 
 .mensaje {
-	color: #bbb;
-	font-size: 12;
-	margin-bottom: 20;
+  color: #bbb;
+  font-size: 12;
+  margin-bottom: 20;
 }
 
 .cabecera {
-	margin: 56px 0;
+  margin: 56px 0;
 }
 
 .titulo {
-	color: green;
-	font-size: 50px;
+  color: green;
+  font-size: 50px;
 }
 
 .subtitulo {
-	color: red;
-	font-size: 30px;
+  color: red;
+  font-size: 30px;
 }
 
 .pie {
-	margin-top: 56px;
+  margin-top: 56px;
 }
 
 /* tabla */
 
 table {
-	margin: 0 auto;
+  margin: 0 auto;
 }
 
 .cuadros-jugadores {
-	display: inline-flex;
-	flex-flow: row wrap;
-	gap: 10px;
-	justify-content: flex-start;
+  display: inline-flex;
+  flex-flow: row wrap;
+  gap: 10px;
+  justify-content: flex-start;
 }
 
 .cuadro-jugador {
-	height: 40px;
-	width: 40px;
+  height: 40px;
+  width: 40px;
 }
 
 .cuadro-ganador {
-	border-color: yellow;
-	border-width: 4px;
-	border-style: dashed;
+  border-color: yellow;
+  border-width: 4px;
+  border-style: dashed;
 }
 
 .menu-enlaces {
-	padding-left: 0;
-	list-style-type: none;
+  padding-left: 0;
+  list-style-type: none;
 }
 
 .menu-enlaces li {
-	margin-bottom: 10px;
+  margin-bottom: 10px;
 }
 
 .carta-imagen {
-	width: 75px;
-	height: 120px;
+  width: 75px;
+  height: 120px;
 }
 
 .carta-marcada {
-	opacity: 0.25;
+  opacity: 0.25;
 }
 
 .juego {
-	margin-bottom: 20px;
+  margin-bottom: 20px;
 }
-

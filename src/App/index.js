@@ -1,18 +1,18 @@
-import React, { useState, useEffect } from 'react';
-import { Switch, Route, useHistory } from 'react-router-dom';
-import Cabecera from './Sitio/Cabecera';
-import Menu from './Sitio/Menu';
-import Pie from './Sitio/Pie';
-import Busqueda from './Busqueda';
-import Sala from './Sala';
-import Juego from './Juego';
-import Cantor from '../Loteria';
-import Mensaje from './Sitio/Mensaje';
-import { barajas } from '../Loteria/barajas';
-import { estatus } from '../Loteria/estatus';
-import { useLocalStorage } from '../utils/localStorage';
-import { v4 as uuid4 } from 'uuid';
-import './styles.css';
+import React, { useState, useEffect } from "react";
+import { Switch, Route, useHistory } from "react-router-dom";
+import Cabecera from "./Sitio/Cabecera";
+import Menu from "./Sitio/Menu";
+import Pie from "./Sitio/Pie";
+import Busqueda from "./Busqueda";
+import Sala from "./Sala";
+import Juego from "./Juego";
+import Cantor from "../Loteria";
+import Mensaje from "./Sitio/Mensaje";
+import { barajas } from "../Loteria/barajas";
+import { estatus } from "../Loteria/estatus";
+import { useLocalStorage } from "../utils/localStorage";
+import { v4 as uuid4 } from "uuid";
+import "./styles.css";
 
 // flujo:
 // - App.js <-> Juego.js
@@ -30,214 +30,219 @@ import './styles.css';
 // 		- estatus
 
 const App = () => {
-	// app state for game
-	const [state, setState] = useState({
-		gameId: '',
-		g: null,
-		cartaCantada: {},
-		marcadas: [],
-		estatusActual: '',
-		ganador: '',
-		mensaje: '',
-	});
-	// local browser storage for player id
-	const jugadorId = useLocalStorage(
-		'jugadorId',	// localStorage player key
-		uuid4()			// default id if none locally
-	)[0];
+  // app state for game
+  const [state, setState] = useState({
+    gameId: "",
+    g: null,
+    cartaCantada: {},
+    marcadas: [],
+    estatusActual: "",
+    ganador: "",
+    mensaje: "",
+  });
+  // local browser storage for player id
+  const jugadorId = useLocalStorage(
+    "jugadorId", // localStorage player key
+    uuid4() // default id if none locally
+  )[0];
 
-	// recall browser selection of deck id
-	const [localBarajaId, setLocalBarajaId] = useLocalStorage(
-		// localStorage deck key
-		'barajaId',
-		// default to first deck
-		[ ...Object.keys(barajas) ][0]
-	);
+  // recall browser selection of deck id
+  const [localBarajaId, setLocalBarajaId] = useLocalStorage(
+    // localStorage deck key
+    "barajaId",
+    // default to first deck
+    [...Object.keys(barajas)][0]
+  );
 
-	// router hooks
-	//const { juegoIdParam } = useParams();	
-	const history = useHistory();
+  // router hooks
+  //const { juegoIdParam } = useParams();
+  const history = useHistory();
 
-	// app state references
-	const { gameId, g, cartaCantada, marcadas, estatusActual, ganador, mensaje } = state;
+  // app state references
+  const { gameId, g, cartaCantada, marcadas, estatusActual, ganador, mensaje } =
+    state;
 
-	// wrap game registration for host (create game id) vs guest (follow id)
-	const hostGame = async (e, newGameId) => {
-		e.preventDefault();
-		g.asignarHost(true);
-		g.seleccionarBaraja(localBarajaId);
-		history.push(`/${newGameId}`);
-	};
-	const joinGame = async e => {
-		e.preventDefault();
-		g.asignarHost(false);
-		history.push(`/${gameId}`);
-	};
+  // wrap game registration for host (create game id) vs guest (follow id)
+  const hostGame = async (e, newGameId) => {
+    e.preventDefault();
+    g.asignarHost(true);
+    g.seleccionarBaraja(localBarajaId);
+    history.push(`/${newGameId}`);
+  };
+  const joinGame = async (e) => {
+    e.preventDefault();
+    g.asignarHost(false);
+    history.push(`/${gameId}`);
+  };
 
-	// TODO: access (allow/disallow depending on joined game status)
-	// TODO: route 404 if g failed to connect or register
-	const registrar = async juegoId => {
-		// connect to remote db if registering before connecting (see useEffect)
-		if (!g.deposito) {
-			await g.conectar();
-		}
+  // TODO: access (allow/disallow depending on joined game status)
+  // TODO: route 404 if g failed to connect or register
+  const registrar = async (juegoId) => {
+    // connect to remote db if registering before connecting (see useEffect)
+    if (!g.deposito) {
+      await g.conectar();
+    }
 
-		// TODO: set and read access flow (in store: { ..., privado: bool })
-		const privado = g.isHost;
+    // TODO: set and read access flow (in store: { ..., privado: bool })
+    const privado = g.isHost;
 
-		// attach listener to db with cb on status change
-		const joinedGameId = await g.registrar(
-			juegoId,
-			// callback for game to update app state depending on status
-			datos => {
-				// pull apart data
-				const { estatusActual, barajaId, cartaCantada, ganador } = datos;
-				// state options
-				const estatusEstados = {
-					[estatus.registrar]: {
-						estatusActual,
-						barajaId,
-						mensaje: `registrar - en el lobby`,
-					},
-					[estatus.iniciar]: {
-						estatusActual,
-						barajaId,					
-						mensaje: `iniciar`,
-					},
-					[estatus.jugar]: {
-						estatusActual,
-						cartaCantada,
-						mensaje: `jugar`,
-					},
-					[estatus.ganar]: {
-						estatusActual,
-						ganador,
-						mensaje: `ganar - ganó el jugador ${ganador}`,
-					},
-					[estatus.empate]: {
-						estatusActual,
-						mensaje: `empate - no ganó nadie`,
-					},
-				};
-				// update state based on status state options
-				setState(prevState => ({
-					...prevState,
-					...estatusEstados[estatusActual],
-				}));
-			},
-			privado
-		);
+    // attach listener to db with cb on status change
+    const joinedGameId = await g.registrar(
+      juegoId,
+      // callback for game to update app state depending on status
+      (datos) => {
+        // pull apart data
+        const { estatusActual, barajaId, cartaCantada, ganador } = datos;
+        // state options
+        const estatusEstados = {
+          [estatus.registrar]: {
+            estatusActual,
+            barajaId,
+            mensaje: `registrar - en el lobby`,
+          },
+          [estatus.iniciar]: {
+            estatusActual,
+            barajaId,
+            mensaje: `iniciar`,
+          },
+          [estatus.jugar]: {
+            estatusActual,
+            cartaCantada,
+            mensaje: `jugar`,
+          },
+          [estatus.ganar]: {
+            estatusActual,
+            ganador,
+            mensaje: `ganar - ganó el jugador ${ganador}`,
+          },
+          [estatus.empate]: {
+            estatusActual,
+            mensaje: `empate - no ganó nadie`,
+          },
+        };
+        // update state based on status state options
+        setState((prevState) => ({
+          ...prevState,
+          ...estatusEstados[estatusActual],
+        }));
+      },
+      privado
+    );
 
-		// initial game state in app
-		setState(prevState => ({
-			...prevState,
-			gameId: joinedGameId,
-			g,
-			cartaCantada: {},
-			marcadas: [],
-			estatusActual: estatus.registrar,
-		}));
+    // initial game state in app
+    setState((prevState) => ({
+      ...prevState,
+      gameId: joinedGameId,
+      g,
+      cartaCantada: {},
+      marcadas: [],
+      estatusActual: estatus.registrar,
+    }));
 
-		return () => {
-			g.stop();
-			setState(currentState => ({ ...currentState, g: null }));
-		};
-	};
+    return () => {
+      g.stop();
+      setState((currentState) => ({ ...currentState, g: null }));
+    };
+  };
 
-	// wrap game startup
-	const iniciar = async () => {
-		await g.iniciar();
-	};
+  // wrap game startup
+  const iniciar = async () => {
+    await g.iniciar();
+  };
 
-	// mark a called slot on tabla
-	const marcar = slotId => {
-		const marcada = g.marcar(slotId);
-		marcada && !marcadas.includes(slotId) && setState(state => ({
-			...state,
-			marcadas: [...marcadas, slotId]
-		}));
-	};
+  // mark a called slot on tabla
+  const marcar = (slotId) => {
+    const marcada = g.marcar(slotId);
+    marcada &&
+      !marcadas.includes(slotId) &&
+      setState((state) => ({
+        ...state,
+        marcadas: [...marcadas, slotId],
+      }));
+  };
 
-	// text input when searching for game
-	const handleGameIdInput = event => setState(state => ({
-		...state, gameId: event.target.value.trim()
-	}));
+  // text input when searching for game
+  const handleGameIdInput = (event) =>
+    setState((state) => ({
+      ...state,
+      gameId: event.target.value.trim(),
+    }));
 
-	// dropdown selected deck id
-	const handleBarajaIdInput = event => {
-		event.preventDefault();
-		setLocalBarajaId(event.target.value);
-	};
+  // dropdown selected deck id
+  const handleBarajaIdInput = (event) => {
+    event.preventDefault();
+    setLocalBarajaId(event.target.value);
+  };
 
-	// start game and connect game-db on app start
-	useEffect(() => {
-		const gameInstance = new Cantor(jugadorId);
-		gameInstance.conectar(db => (
-			setState(prevState => ({
-				...prevState,
-				g: gameInstance
-			}))
-		));
-	}, [jugadorId]);
+  // start game and connect game-db on app start
+  useEffect(() => {
+    const gameInstance = new Cantor(jugadorId);
+    gameInstance.conectar((db) =>
+      setState((prevState) => ({
+        ...prevState,
+        g: gameInstance,
+      }))
+    );
+  }, [jugadorId]);
 
-	// reroute depending on status changes
-	useEffect(() => {
-		// route to tabla
-		if (estatusActual === estatus.iniciar && gameId) {
-			history.push(`/jugar`);
-		}
-		// route on win
-		// else if (estatusActual === estatus.ganar && gameId) {
-		// 	history.push(`/ganar`);
-		// }
+  // reroute depending on status changes
+  useEffect(() => {
+    // route to tabla
+    if (estatusActual === estatus.iniciar && gameId) {
+      history.push(`/jugar`);
+    }
+    // route on win
+    // else if (estatusActual === estatus.ganar && gameId) {
+    // 	history.push(`/ganar`);
+    // }
 
-		// cleanup
-		return () => {};
-	}, [estatusActual, gameId, history]);
+    // cleanup
+    return () => {};
+  }, [estatusActual, gameId, history]);
 
-	return (
-		<div className="App">
-			<Mensaje mensaje={mensaje} />
-			<Switch>
-				<Route exact path="/">
-					<Cabecera baraja={barajas[localBarajaId]} />
-					<Menu
-						hostGame={hostGame}
-						joinGame={joinGame}
-						gameId={gameId}
-						handleGameIdInput={handleGameIdInput}
-						handleBarajaIdInput={handleBarajaIdInput}
-						barajaId={localBarajaId}
-						barajas={barajas}
-					/>
-				</Route>
-				<Route path="/buscar">
-					<Busqueda g={g} />
-				</Route>
-				<Route path="/jugar">
-					<Juego
-						g={g}
-						baraja={barajas[localBarajaId]}
-						cartaCantada={cartaCantada}
-						tablaDimension={4}
-						marcar={marcar}
-						marcadas={marcadas}
-						ganador={ganador}
-					/>
-				</Route>
-				<Route path={`/${gameId}`}>
-					<Sala
-						g={g}
-						jugadorId={jugadorId}
-						estatusActual={estatusActual}
-						registrar={registrar}
-						iniciar={iniciar}
-					/>
-				</Route>
-			</Switch>
-			<Pie />
-		</div>
-	);
+  return (
+    <div className="App">
+      <Mensaje mensaje={mensaje} />
+      <Switch>
+        <Route exact path="/">
+          <Cabecera baraja={barajas[localBarajaId]} />
+          <Menu
+            hostGame={hostGame}
+            joinGame={joinGame}
+            gameId={gameId}
+            handleGameIdInput={handleGameIdInput}
+            handleBarajaIdInput={handleBarajaIdInput}
+            barajaId={localBarajaId}
+            barajas={barajas}
+          />
+        </Route>
+        <Route path="/buscar">
+          <Busqueda g={g} />
+        </Route>
+        <Route path="/jugar">
+          <Juego
+            g={g}
+            baraja={barajas[localBarajaId]}
+            cartaCantada={cartaCantada}
+            tablaDimension={4}
+            marcar={marcar}
+            marcadas={marcadas}
+            ganador={ganador}
+          />
+        </Route>
+        <Route path={`/${gameId}`}>
+          <Sala
+            g={g}
+            jugadorId={jugadorId}
+            estatusActual={estatusActual}
+            registrar={registrar}
+            iniciar={iniciar}
+          />
+        </Route>
+      </Switch>
+      <Pie />
+    </div>
+  );
 };
 
 export default App;
