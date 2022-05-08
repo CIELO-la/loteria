@@ -24,7 +24,7 @@ const Menu = ({ hostGame, joinGame, gameId, handleGameIdInput }) => {
   }
 
   return (
-    <div class="menu">
+    <div>
       <Row>
         <Button onClick={(e) => goToHostingScreen(e)} className="col-4">
           {t("crearJuego")}

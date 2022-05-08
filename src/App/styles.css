@@ -88,6 +88,49 @@ table {
   margin-bottom: 20px;
 }
 
+/* Main page logo */
+
+.logo {
+  width: 313px;
+}
+
+.logoCards {
+  white-space: nowrap;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.logoCarta {
+  width: 150px;
+  border: 2px solid white;
+  border-radius: 10px;
+  margin: 32px -15px;
+}
+
+.placeholderCard {
+  /* The actual cards are positioned absolutely for centering when overflowed. 
+  We add an empty div to take up the space underneath them. */
+  height: 234px;
+  margin: 32px;
+}
+
+.lowLeft {
+  transform: rotate(-10.4deg) translateY(17px);
+}
+
+.midRight {
+  transform: rotate(12.92deg) translateY(5px);
+}
+
+.lowRight {
+  transform: rotate(12.92deg) translateY(17px);
+}
+
+.up {
+  transform: translateY(-17px);
+}
+
 /* Common element styling */
 
 .row {
