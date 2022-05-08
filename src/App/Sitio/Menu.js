@@ -31,6 +31,12 @@ const Menu = ({ hostGame, joinGame, gameId, handleGameIdInput }) => {
         </Button>
       </Row>
       <Row>
+        <Button variant="secondary" className="col-4">
+          {/* TODO actually implement this */}
+          {t("imprimir")}
+        </Button>
+      </Row>
+      <Row>
         <Button variant="info" href="https://mycielo.org/" className="col-4">
           {t("cielo")}
         </Button>

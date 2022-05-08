@@ -13,5 +13,6 @@
   "iniciando": "Starting...",
   "hostIniciar": "start (HOST)",
   "estatus": "status",
-  "Conectándose": "Connecting..."
+  "Conectándose": "Connecting...",
+  "imprimir": "Print version"
 }
