@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Switch, Route, useHistory } from "react-router-dom";
 import Cabecera from "./Sitio/Cabecera";
+import Container from "react-bootstrap/Container";
 import Menu from "./Sitio/Menu";
-import Pie from "./Sitio/Pie";
 import Busqueda from "./Busqueda";
 import Sala from "./Sala";
 import Juego from "./Juego";
@@ -172,9 +172,9 @@ const App = () => {
     }));
 
   // dropdown selected deck id
-  const handleBarajaIdInput = (event) => {
-    event.preventDefault();
-    setLocalBarajaId(event.target.value);
+  const handleBarajaIdInput = (id) => {
+    // event.preventDefault();
+    setLocalBarajaId(id);
   };
 
   // start game and connect game-db on app start
@@ -204,7 +204,7 @@ const App = () => {
   }, [estatusActual, gameId, history]);
 
   return (
-    <div className="App">
+    <Container className="App">
       <Mensaje mensaje={mensaje} />
       <Switch>
         <Route exact path="/">
@@ -220,7 +220,7 @@ const App = () => {
           />
         </Route>
         <Route path="/buscar">
-                  <Busqueda g={g} />
+          <Busqueda g={g} />
         </Route>
         <Route path="/jugar">
           <Juego
@@ -243,8 +243,7 @@ const App = () => {
           />
         </Route>
       </Switch>
-      <Pie />
-    </div>
+    </Container>
   );
 };
 

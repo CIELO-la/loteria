@@ -1,10 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Work+Sans:wght@700&display=swap");
 /* sitio */
 
 .App {
   text-align: center;
-  font-family: 'Work Sans', "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Helvetica Neue",
-    sans-serif;
+  font-family: "Work Sans", "Segoe UI", "Roboto", "Oxygen", "Ubuntu",
+    "Helvetica Neue", sans-serif;
 }
 
 a {
@@ -69,15 +69,6 @@ table {
   border-style: dashed;
 }
 
-.menu-enlaces {
-  padding-left: 0;
-  list-style-type: none;
-}
-
-.menu-enlaces li {
-  margin-bottom: 10px;
-}
-
 .carta-imagen {
   width: 75px;
   height: 120px;
@@ -93,6 +84,15 @@ table {
 
 /* Common element styling */
 
+.row {
+  margin: 16px 0;
+}
+
+.row > * {
+  float: none;
+  margin: 0 auto;
+}
+
 .btn {
   box-sizing: border-box;
   padding: 10px 10px 12px;
@@ -101,58 +101,66 @@ table {
   border: 1px solid;
   box-shadow: 0px 4px 0px;
   border-radius: 6px;
-  color:  black;
+  color: black;
   font-size: 18px;
 }
 
 .btn-primary {
-  background: #FDF06E;
-  border-color: #CB3805;
-  color:  #CB3805;
+  background: #fdf06e;
+  border-color: #cb3805;
+  color: #cb3805;
 }
 
-.btn-primary:active, .btn-primary:hover, .btn-primary:focus {
-  background: #CB3805;
-  border-color: #CB3805;
+.btn-primary:active,
+.btn-primary:hover,
+.btn-primary:focus {
+  background: #cb3805;
+  border-color: #cb3805;
   box-shadow: 0px 4px 0px #842029;
 }
 
 .btn-secondary {
-  background: #F3D2CD;
-  border-color: #D9647C;
-  box-shadow: 0px 4px 0px #D9647C;
-  color:  #CB0505;
+  background: #f3d2cd;
+  border-color: #d9647c;
+  box-shadow: 0px 4px 0px #d9647c;
+  color: #cb0505;
 }
 
-.btn-secondary:active, .btn-secondary:hover, .btn-secondary:focus {
-  background: #D9647C;
+.btn-secondary:active,
+.btn-secondary:hover,
+.btn-secondary:focus {
+  background: #d9647c;
   border-color: #842029;
   box-shadow: 0px 4px 0px #842029;
 }
 
 .btn-info {
-  background: #D9E7DE;
-  border-color: #446F9A;
-  color:  #446F9A;
+  background: #d9e7de;
+  border-color: #446f9a;
+  color: #446f9a;
 }
 
-.btn-info:active, .btn-info:hover, .btn-info:focus {
-  background: #446F9A;
+.btn-info:active,
+.btn-info:hover,
+.btn-info:focus {
+  background: #446f9a;
   border-color: #084298;
   box-shadow: 0px 4px 0px #084298;
-  color:  white;
+  color: white;
 }
 
 .btn-light {
   background: white;
-  border-color: #DF6D45;
-  box-shadow: 0px 4px 0px #DF6D45;
-  color:  #CB3805;
+  border-color: #df6d45;
+  box-shadow: 0px 4px 0px #df6d45;
+  color: #cb3805;
 }
 
-.btn-light:active, .btn-light:hover, .btn-light:focus {
-  background: #DF6D45;
-  border-color: #CB3805;
-  box-shadow: 0px 4px 0px #CB3805;
-  color:  white;
+.btn-light:active,
+.btn-light:hover,
+.btn-light:focus {
+  background: #df6d45;
+  border-color: #cb3805;
+  box-shadow: 0px 4px 0px #cb3805;
+  color: white;
 }
