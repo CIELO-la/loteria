@@ -8,6 +8,7 @@ import Sala from "./Sala";
 import Juego from "./Juego";
 import Cantor from "../Loteria";
 import Mensaje from "./Sitio/Mensaje";
+import BarajaButton from "./Sitio/BarajaButton";
 import { barajas } from "../Loteria/barajas";
 import { estatus } from "../Loteria/estatus";
 import { useLocalStorage } from "../utils/localStorage";
@@ -208,15 +209,17 @@ const App = () => {
       <Mensaje mensaje={mensaje} />
       <Switch>
         <Route exact path="/">
+          <BarajaButton
+            handleBarajaIdInput={handleBarajaIdInput}
+            barajaId={localBarajaId}
+            barajas={barajas}
+          />
           <Cabecera baraja={barajas[localBarajaId]} />
           <Menu
             hostGame={hostGame}
             joinGame={joinGame}
             gameId={gameId}
             handleGameIdInput={handleGameIdInput}
-            handleBarajaIdInput={handleBarajaIdInput}
-            barajaId={localBarajaId}
-            barajas={barajas}
           />
         </Route>
         <Route path="/buscar">
