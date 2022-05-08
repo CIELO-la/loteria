@@ -1,6 +1,10 @@
 @import url("https://fonts.googleapis.com/css2?family=Work+Sans:wght@700&display=swap");
 /* sitio */
 
+body {
+  background: #f7e9a2;
+}
+
 .App {
   text-align: center;
   font-family: "Work Sans", "Segoe UI", "Roboto", "Oxygen", "Ubuntu",

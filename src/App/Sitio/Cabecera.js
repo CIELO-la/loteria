@@ -5,8 +5,7 @@ const Cabecera = () => {
 
   return (
     <div className="cabecera">
-      <div className="titulo">{t("titulo")}</div>
-      <div className="subtitulo">{t("subtitulo")}</div>
+      <img className="logo" src="/¡Loteria!.png" alt={t("titulo")} />
     </div>
   );
 };
