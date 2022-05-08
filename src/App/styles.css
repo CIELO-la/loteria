@@ -57,16 +57,37 @@ table {
   margin: 0 auto;
 }
 
+.jugador {
+  width: 100%;
+  margin: 12px 0;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  display: flex;
+  align-items: flex-start;
+}
+
 .cuadros-jugadores {
-  display: inline-flex;
-  flex-flow: row wrap;
-  gap: 10px;
-  justify-content: flex-start;
+  padding: 24px;
+  background: white;
+  border: 1px solid #cb3805;
+  border-radius: 6px;
+  margin: 14px auto;
+}
+
+.jugador-id {
+  flex: 1;
+  padding-left: 12px;
+  line-height: 40px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .cuadro-jugador {
   height: 40px;
   width: 40px;
+  border-radius: 9px;
 }
 
 .cuadro-ganador {
@@ -86,6 +107,42 @@ table {
 
 .juego {
   margin-bottom: 20px;
+}
+
+/* Sala - game lobby */
+
+.sala-header {
+  margin-top: 60px;
+  color: #df6d45;
+  font-size: 24px;
+  line-height: 32px;
+}
+
+.sala-code {
+  background: white;
+  border: 1px solid #cb3805;
+  border-radius: 6px;
+  margin: 14px auto;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 10px 24px;
+  color: #cb3805;
+}
+
+.sala-subtitle {
+  color: #df6d45;
+  font-size: 12px;
+  line-height: 19px;
+  margin-bottom: 24px;
+  margin-top: 16px;
+}
+
+.debug {
+  margin: 16px;
+  color: #df6d45;
+  font-size: 12px;
+  opacity: 0.8;
 }
 
 /* Main page logo */
@@ -154,7 +211,12 @@ table {
   font-size: 18px;
 }
 
-.btn-primary {
+.btn:disabled {
+  opacity: 0.4;
+}
+
+.btn-primary,
+.btn-primary:disabled {
   background: #fdf06e;
   border-color: #cb3805;
   color: #cb3805;
@@ -168,7 +230,8 @@ table {
   box-shadow: 0px 4px 0px #842029;
 }
 
-.btn-secondary {
+.btn-secondary,
+.btn-secondary:disabled {
   background: #f3d2cd;
   border-color: #d9647c;
   box-shadow: 0px 4px 0px #d9647c;
@@ -183,7 +246,8 @@ table {
   box-shadow: 0px 4px 0px #842029;
 }
 
-.btn-info {
+.btn-info,
+.btn-info:disabled {
   background: #d9e7de;
   border-color: #446f9a;
   color: #446f9a;
@@ -198,7 +262,8 @@ table {
   color: white;
 }
 
-.btn-light {
+.btn-light,
+.btn-light:disabled {
   background: white;
   border-color: #df6d45;
   box-shadow: 0px 4px 0px #df6d45;

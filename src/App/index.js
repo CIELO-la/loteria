@@ -7,7 +7,6 @@ import Busqueda from "./Busqueda";
 import Sala from "./Sala";
 import Juego from "./Juego";
 import Cantor from "../Loteria";
-import Mensaje from "./Sitio/Mensaje";
 import BarajaButton from "./Sitio/BarajaButton";
 import { barajas } from "../Loteria/barajas";
 import { estatus } from "../Loteria/estatus";
@@ -117,7 +116,6 @@ const App = () => {
           [estatus.ganar]: {
             estatusActual,
             ganador,
-            mensaje: t("ganar", { ganador: ganador }),
           },
           [estatus.empate]: {
             estatusActual,
@@ -206,7 +204,7 @@ const App = () => {
 
   return (
     <Container className="App">
-      <Mensaje mensaje={mensaje} />
+      {/* <Mensaje mensaje={mensaje} /> */}
       <Switch>
         <Route exact path="/">
           <BarajaButton

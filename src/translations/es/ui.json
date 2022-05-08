@@ -11,8 +11,12 @@
   "ganar": "ganar - ganó el jugador {{ganador}}",
   "empate": "empate - no ganó nadie",
   "iniciando": "Iniciando...",
-  "hostIniciar": "iniciar (HOST)",
+  "hostIniciar": "Iniciar",
   "estatus": "estatus",
   "conectándose": "Conectándose...",
-  "imprimir": "Versión impresa"
+  "imprimir": "Versión impresa",
+  "salaHeader": "Esperando jugadores...",
+  "salaHost": "Cuando todos los jugadores estén listos presione INICIAR",
+  "salaPlayer": "El anfitrión comenzará cuando todos los jugadores estén listos",
+  "salaCode": "Sala código:"
 }
