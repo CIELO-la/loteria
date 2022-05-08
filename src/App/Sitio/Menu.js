@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { v4 as uuid4 } from "uuid";
 import { useTranslation } from "react-i18next";
 import Idiomas from "./Idiomas";
+import Button from 'react-bootstrap/Button';
 
 const Menu = ({
   hostGame,
@@ -41,7 +42,9 @@ const Menu = ({
       <ul className="menu-enlaces">
         <li>
           <Link to={`/${newGameId}`} onClick={(e) => hostGame(e, newGameId)}>
-            <input type="button" value={t("crearJuego")} />
+            <Button>
+              {t("crearJuego")}
+            </Button>
           </Link>
         </li>
         {/* // Unirse
@@ -79,7 +82,9 @@ const Menu = ({
         <li>
           {!isLanguaging ? (
             <Link to="/" onClick={prepareLanguaging}>
-              <input type="button" value={`${t("baraja")}: ${baraja.nombre}`} />
+              <Button variant="light">
+                {`${t("baraja")}: ${baraja.nombre}`} 
+              </Button>
             </Link>
           ) : (
             <div>

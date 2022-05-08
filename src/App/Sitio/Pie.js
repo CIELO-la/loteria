@@ -1,11 +1,12 @@
 import { useTranslation } from "react-i18next";
+import Button from 'react-bootstrap/Button';
 
 const Pie = () => {
   const { t } = useTranslation();
 
   return (
     <div className="pie">
-      <a href="https://mycielo.org/">{t("cielo")}</a>
+      <Button variant="info" href="https://mycielo.org/">{t("cielo")}</Button>
     </div>
   );
 };

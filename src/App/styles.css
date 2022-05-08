@@ -1,7 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@700&display=swap');
 /* sitio */
 
 .App {
   text-align: center;
+  font-family: 'Work Sans', "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Helvetica Neue",
+    sans-serif;
 }
 
 a {
@@ -86,4 +89,70 @@ table {
 
 .juego {
   margin-bottom: 20px;
+}
+
+/* Common element styling */
+
+.btn {
+  box-sizing: border-box;
+  padding: 10px 10px 12px;
+
+  background: white;
+  border: 1px solid;
+  box-shadow: 0px 4px 0px;
+  border-radius: 6px;
+  color:  black;
+  font-size: 18px;
+}
+
+.btn-primary {
+  background: #FDF06E;
+  border-color: #CB3805;
+  color:  #CB3805;
+}
+
+.btn-primary:active, .btn-primary:hover, .btn-primary:focus {
+  background: #CB3805;
+  border-color: #CB3805;
+  box-shadow: 0px 4px 0px #842029;
+}
+
+.btn-secondary {
+  background: #F3D2CD;
+  border-color: #D9647C;
+  box-shadow: 0px 4px 0px #D9647C;
+  color:  #CB0505;
+}
+
+.btn-secondary:active, .btn-secondary:hover, .btn-secondary:focus {
+  background: #D9647C;
+  border-color: #842029;
+  box-shadow: 0px 4px 0px #842029;
+}
+
+.btn-info {
+  background: #D9E7DE;
+  border-color: #446F9A;
+  color:  #446F9A;
+}
+
+.btn-info:active, .btn-info:hover, .btn-info:focus {
+  background: #446F9A;
+  border-color: #084298;
+  box-shadow: 0px 4px 0px #084298;
+  color:  white;
+}
+
+.btn-light {
+  background: white;
+  border-color: #DF6D45;
+  box-shadow: 0px 4px 0px #DF6D45;
+  color:  #CB3805;
+}
+
+.btn-light:active, .btn-light:hover, .btn-light:focus {
+  background: #DF6D45;
+  border-color: #CB3805;
+  box-shadow: 0px 4px 0px #CB3805;
+  color:  white;
 }
