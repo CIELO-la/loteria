@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
 import { useLocation, matchPath, useHistory } from "react-router-dom";
 import Cuadros from "../Juego/Cuadros";
+import BackButton from "../Common/BackButton";
 import { useTranslation } from "react-i18next";
 import Button from "react-bootstrap/Button";
+import Row from "react-bootstrap/Row";
 
 // TODO: handle or 404 cold joiners who lack g
 const Sala = ({ g, jugadorId, estatusActual, registrar, iniciar }) => {
@@ -51,6 +53,12 @@ const Sala = ({ g, jugadorId, estatusActual, registrar, iniciar }) => {
 
   return (
     <div>
+      <Row>
+        <div className="col-2 salaBackCol">
+          <BackButton />
+        </div>
+        <div className="col-10" />
+      </Row>
       {g && isRegistering ? (
         <>
           {/* Lobby if game instantiated and player registered */}

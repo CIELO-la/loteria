@@ -138,6 +138,10 @@ table {
   margin-top: 16px;
 }
 
+.salaBackCol {
+  margin-left: 0;
+}
+
 .debug {
   margin: 16px;
   color: #df6d45;
@@ -213,6 +217,11 @@ table {
 
 .btn:disabled {
   opacity: 0.4;
+}
+
+.btn-sm {
+  padding: 4px 10px 4px;
+  font-size: 12px;
 }
 
 .btn-primary,
