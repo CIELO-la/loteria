@@ -73,7 +73,6 @@ const Sala = ({ g, jugadorId, estatusActual, registrar, iniciar }) => {
           </div>
           <Cuadros jugadores={g.jugadores} />
           <div>
-            {/* TODO Add disabled styling to custom button themes */}
             {!isStarting ? (
               <Button
                 disabled={!g.isHost}

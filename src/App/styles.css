@@ -54,7 +54,16 @@ button {
 /* tabla */
 
 table {
-  margin: 0 auto;
+  background: #ffffff;
+  border: 2px solid #cb3805;
+  border-radius: 8px;
+  padding: 14px;
+  border-spacing: 10px;
+  border-collapse: separate;
+}
+
+.loteria {
+  margin: 14px 0;
 }
 
 .jugador {
@@ -96,17 +105,42 @@ table {
   border-style: dashed;
 }
 
+.carta-button {
+  border: 1px solid #cb3805;
+  border-radius: 2px;
+}
+
+.carta-button:disabled {
+  border: 1px solid #e7b962;
+}
+
 .carta-imagen {
   width: 75px;
   height: 120px;
 }
 
 .carta-marcada {
-  opacity: 0.25;
+  opacity: 0.3;
 }
 
 .juego {
-  margin-bottom: 20px;
+  margin: 29px 24px;
+}
+
+.juego-back {
+  /*float: left;*/
+}
+
+.juego-start-header {
+}
+
+.carcartaCantadata {
+  width: 100px;
+  background: #cb3805;
+  border: 3px solid #cb3805;
+  border-radius: 16px;
+  box-shadow: 0px 16px 0px #cb3805;
+  margin: 32px 0;
 }
 
 /* Sala - game lobby */
