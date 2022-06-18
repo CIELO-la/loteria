@@ -226,6 +226,17 @@ table {
   transform: translateY(-17px);
 }
 
+/* Download */
+
+.downloadPage {
+  background: #FEECE9;
+}
+
+.prompt {
+  padding-top: 69px;
+  font-size: 24px;
+}
+
 /* Common element styling */
 
 .row {

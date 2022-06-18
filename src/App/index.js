@@ -6,6 +6,7 @@ import Menu from "./Sitio/Menu";
 import Busqueda from "./Busqueda";
 import Sala from "./Sala";
 import Juego from "./Juego";
+import Download from "./Download";
 import Cantor from "../Loteria";
 import BarajaButton from "./Sitio/BarajaButton";
 import { barajas } from "../Loteria/barajas";
@@ -233,6 +234,9 @@ const App = () => {
             marcadas={marcadas}
             ganador={ganador}
           />
+        </Route>
+        <Route path="/download">
+          <Download />
         </Route>
         <Route path={`/${gameId}`}>
           <Sala
