@@ -2,14 +2,6 @@ import React from "react";
 import { Carta } from "./Carta";
 
 const Tabla = ({ g, tabla, dimension, marcar, marcadas }) => {
-  const estilo = {
-    border: "1px solid #555",
-    width: "50px",
-    height: "50px",
-    lineHeight: "50px",
-    textAlign: "center",
-  };
-
   const anchura = Array(dimension).fill(null);
 
   return (
@@ -27,7 +19,6 @@ const Tabla = ({ g, tabla, dimension, marcar, marcadas }) => {
                   slot={slot}
                   marcar={marcar}
                   marcada={marcadas.includes(slot)}
-                  estilo={estilo}
                 />
               );
             })}

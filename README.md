@@ -8,74 +8,85 @@ Por ahora realizado con `React`, y custom `js` en `./src/Game`. Antes con `board
 
 ## Tareas
 
-- [X] leer (join) / elegir (host) la baraja antes de iniciar
+- [x] leer (join) / elegir (host) la baraja antes de iniciar
 
-- [X] ganar
-	- [X] la verificación parece tardar hasta el próximo `.cantar`
-	- [X] ROTO ya que muchas veces no se llega a verificar hasta las cartas muy últimas
-	- [X] uno puede declararse ganador después del empate
+- [x] ganar
 
-- [X] lobby
-	- [X] mostrar los jugadores en el lobby
-	- [X] solo host inicia el juego
-	- [X] mostrar algo para cada jugador (imagen, cuadro)
-	- [X] separar la configuración del inicio en `.iniciar`
-	- [X] los joiners leen la barajaId cuando conectan
-	- [X] crea el host y se juntan los joiners
+  - [x] la verificación parece tardar hasta el próximo `.cantar`
+  - [x] ROTO ya que muchas veces no se llega a verificar hasta las cartas muy últimas
+  - [x] uno puede declararse ganador después del empate
 
-- [X] DRY los objetos switch/case if/else en Juego, App
+- [x] lobby
 
-- [X] router
-	- [X] app de una sola página con `react-router-dom`
-	- [X] pasar referencia al documento del depósito
-	- [X] repensar porque el enrutador no se relaciona bien con la registración
-		- arreglar atribución retrasada de `g` (`g === undefined`)
-		- `history.push` en `useEffect(f, [..., g])`
-		- leer params de la ruta en `useEffect(f, [])`
+  - [x] mostrar los jugadores en el lobby
+  - [x] solo host inicia el juego
+  - [x] mostrar algo para cada jugador (imagen, cuadro)
+  - [x] separar la configuración del inicio en `.iniciar`
+  - [x] los joiners leen la barajaId cuando conectan
+  - [x] crea el host y se juntan los joiners
+
+- [x] DRY los objetos switch/case if/else en Juego, App
+
+- [x] router
+
+  - [x] app de una sola página con `react-router-dom`
+  - [x] pasar referencia al documento del depósito
+  - [x] repensar porque el enrutador no se relaciona bien con la registración
+    - arreglar atribución retrasada de `g` (`g === undefined`)
+    - `history.push` en `useEffect(f, [..., g])`
+    - leer params de la ruta en `useEffect(f, [])`
 
 - [ ] búsqueda
-	- [X] revisar funciones db para leer colección entera (lista de docs)
-	- [X] componente de búsqueda
-	- [ ] buscar juegos actuales y unirse
+
+  - [x] revisar funciones db para leer colección entera (lista de docs)
+  - [x] componente de búsqueda
+  - [ ] buscar juegos actuales y unirse
 
 - [ ] prohibir más conexiones si tiene cierto estatus (¿`jugar`/`ganar`/`empate`?)
 
 - [ ] demo
-	- [X] crear imágenes, audio para la baraja
-	- [ ] haz que el setTimeout/.timer espere por el audio
-	- [ ] elegir baraja, opciones en una página de arranque
+
+  - [x] crear imágenes, audio para la baraja
+  - [ ] haz que el setTimeout/.timer espere por el audio
+  - [ ] elegir baraja, opciones en una página de arranque
 
 - [ ] diseño
-	- ...tareas CSS/HTML
+
+  - ...tareas CSS/HTML
 
 - [ ] ¿límite de jugadores en `Juego`, db, buscar?
 
 - [ ] menú
-	- jugar solo: juego público (crear/unirse)
-	- jugar con amigos: crear juego privado (unirse con enlace)
 
-- [X] acceso público, privado en el depósito
+  - jugar solo: juego público (crear/unirse)
+  - jugar con amigos: crear juego privado (unirse con enlace)
+
+- [x] acceso público, privado en el depósito
 
 - [ ] selección de baraja/idioma
-	- [ ] datos del objeto: nombre de baraja, audio, corre/buena
-	- [ ] modo de enfatizar los idiomas
-	- [X] usar `localStorage`
-	- [ ] ¿en opciones o al iniciar?
-	- [ ] solo buscar juego que tenga la misma baraja
+
+  - [ ] datos del objeto: nombre de baraja, audio, corre/buena
+  - [ ] modo de enfatizar los idiomas
+  - [x] usar `localStorage`
+  - [ ] ¿en opciones o al iniciar?
+  - [ ] solo buscar juego que tenga la misma baraja
 
 - [ ] ARREGLAR: navegador se desconecta y `g === null` al cliquear en otro app
-	- ¿usar `localStorage` una vez más para grabar la `g` entera?
 
-- [X] ARREGLAR: usuario agrega nuevos jugadorIds cuando refresque la página
-	- esto pasa si la ruta ya tiene param `:juegoId`
-	- leer `jugadorId` en `localStorage`
+  - ¿usar `localStorage` una vez más para grabar la `g` entera?
+
+- [x] ARREGLAR: usuario agrega nuevos jugadorIds cuando refresque la página
+
+  - esto pasa si la ruta ya tiene param `:juegoId`
+  - leer `jugadorId` en `localStorage`
 
 - [ ] ARREGLAR: si el host refresca la página ya no hay host
 
 ## Aprendizaje improvisado
 
-- [X] pero ¿por qué una vez funcionó el reductor con las entradas al revés?
-	- ver la función `Juego.verificar` (_un aparte_)
+- [x] pero ¿por qué una vez funcionó el reductor con las entradas al revés?
+  - ver la función `Juego.verificar` (_un aparte_)
+
 ```
 // Ejemplo del error semántico
 const c = [[0, 1, 2], [1, 2, 3], [2, 3, 4]];
@@ -140,7 +151,8 @@ console.log(didWin);
 ```
 
 - [ ] y ¿cómo hacerlo para que el depósito firestore no se quede en modo de prueba?
-	- lectura: https://firebase.google.com/docs/firestore/security/get-started
+  - lectura: https://firebase.google.com/docs/firestore/security/get-started
+
 ```
 // v2 para usar consultas de base
 rules_version = '2';
@@ -213,4 +225,3 @@ db.collection('ciudades').get()...
 - Run `npm install`
 - Run `npm start`
 - A local version of the app will be available at http://localhost:3000
-

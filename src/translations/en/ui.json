@@ -1,7 +1,7 @@
 {
-  "titulo": "The Lottery",
+  "titulo": "¡Loteria!",
   "subtitulo": "card and word game",
-  "cielo": "CIELO - Center for Indigenous Language and Power",
+  "cielo": "About CIELO",
   "baraja": "Deck",
   "crearJuego": "Create game",
   "idiomas": "Language",
@@ -11,7 +11,12 @@
   "ganar": "winner - the player {{ganador}} won",
   "empate": "tie - no one won",
   "iniciando": "Starting...",
-  "hostIniciar": "start (HOST)",
+  "hostIniciar": "Start",
   "estatus": "status",
-  "Conectándose": "Connecting..."
+  "Conectándose": "Connecting...",
+  "imprimir": "Print version",
+  "salaHeader": "Waiting for players...",
+  "salaHost": "When all players are ready press START",
+  "salaPlayer": "The host can start when all players are ready",
+  "salaCode": "Room code:"
 }

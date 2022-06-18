@@ -1,6 +1,9 @@
 import React from "react";
-import Cuadros from "./Cuadros";
 import Tabla from "./Tabla";
+import BackButton from "../Common/BackButton";
+import Button from "react-bootstrap/Button";
+import Row from "react-bootstrap/Row";
+import Stack from "react-bootstrap/Stack";
 
 const Juego = ({
   g,
@@ -12,24 +15,40 @@ const Juego = ({
   ganador,
 }) => (
   <div className="juego">
-    <Cuadros jugadores={g.jugadores} ganador={ganador} />
-    <div>
-      {cartaCantada && cartaCantada.nombre ? (
-        <div>{cartaCantada.nombre}</div>
-      ) : (
-        <div>¡Corre y se va!</div>
-      )}
-    </div>
-    <div>
-      <Tabla
-        g={g}
-        tabla={g.tabla}
-        dimension={tablaDimension}
-        marcar={marcar}
-        marcadas={marcadas}
-      />
-      <button onClick={() => g.verificar()}>{baraja.botones.ganar}</button>
-    </div>
+    <Stack direction="horizontal">
+      <div className="col-3 align-self-start">
+        <div>
+          <BackButton className="juego-back" />
+        </div>
+      </div>
+      <div className="col-3 ms-auto justify-content-center text-center d-flex">
+        {cartaCantada && cartaCantada.nombre ? (
+          <div>
+            <img
+              className="carcartaCantadata"
+              src={cartaCantada.imagen}
+              alt={cartaCantada.nombre}
+            />
+          </div>
+        ) : (
+          <div className="juego-start-header">¡Corre y se va!</div>
+        )}
+      </div>
+    </Stack>
+    <Row>
+      <div className="col-8 justify-content-center text-center d-flex">
+        <Tabla
+          g={g}
+          tabla={g.tabla}
+          dimension={tablaDimension}
+          marcar={marcar}
+          marcadas={marcadas}
+        />
+      </div>
+    </Row>
+    <Button className="loteria col-3" onClick={() => g.verificar()}>
+      {baraja.botones.ganar}
+    </Button>
   </div>
 );
 

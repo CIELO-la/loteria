@@ -1,15 +1,20 @@
 import { useState, useEffect } from "react";
-import { Link, useLocation, matchPath } from "react-router-dom";
+import { useLocation, matchPath, useHistory } from "react-router-dom";
 import Cuadros from "../Juego/Cuadros";
+import BackButton from "../Common/BackButton";
 import { useTranslation } from "react-i18next";
+import Button from "react-bootstrap/Button";
+import Row from "react-bootstrap/Row";
 
 // TODO: handle or 404 cold joiners who lack g
 const Sala = ({ g, jugadorId, estatusActual, registrar, iniciar }) => {
   const { t } = useTranslation();
+  const history = useHistory();
 
   // lobby control flow
   const [isStarting, setStarting] = useState(false);
   const [isRegistering, setRegistering] = useState(false);
+  const [salaCode, setSalaCode] = useState(0);
 
   // uri for path matching
   const location = useLocation();
@@ -24,6 +29,7 @@ const Sala = ({ g, jugadorId, estatusActual, registrar, iniciar }) => {
     setStarting(true);
     // message status so players route to /juego
     setTimeout(iniciar, 2000);
+    history.push("/juego");
   };
 
   // immediately register players from uri
@@ -37,6 +43,7 @@ const Sala = ({ g, jugadorId, estatusActual, registrar, iniciar }) => {
         exact: true,
         strict: false,
       });
+      setSalaCode(match.params.juegoIdParam);
       setRegistering(true);
       await registrar(match.params.juegoIdParam);
     };
@@ -46,21 +53,39 @@ const Sala = ({ g, jugadorId, estatusActual, registrar, iniciar }) => {
 
   return (
     <div>
+      <Row>
+        <div className="col-2 salaBackCol">
+          <BackButton />
+        </div>
+        <div className="col-10" />
+      </Row>
       {g && isRegistering ? (
         <>
           {/* Lobby if game instantiated and player registered */}
-          <Cuadros jugadores={g.jugadores} />
-          <p>
-            {t("estatus")}: {estatusActual}
-          </p>
           <div>
-            <Link to="/juego" onClick={leaveLobbyStartGame}>
-              {!isStarting ? (
-                <button disabled={!g.isHost}>{t("hostIniciar")}</button>
-              ) : (
-                <button disabled>{t("iniciando")}</button>
-              )}
-            </Link>
+            <div className="sala-header">{t("salaHeader")}</div>
+            <div className="sala-subtitle">
+              {g.isHost ? t("salaHost") : t("salaPlayer")}
+            </div>
+          </div>
+          <div className="sala-code col-4">
+            {t("salaCode")} {salaCode}
+          </div>
+          <Cuadros jugadores={g.jugadores} />
+          <div>
+            {!isStarting ? (
+              <Button
+                disabled={!g.isHost}
+                className="col-4"
+                onClick={leaveLobbyStartGame}
+              >
+                {t("hostIniciar")}
+              </Button>
+            ) : (
+              <Button disabled className="col-4">
+                {t("iniciando")}
+              </Button>
+            )}
           </div>
         </>
       ) : (
@@ -69,6 +94,9 @@ const Sala = ({ g, jugadorId, estatusActual, registrar, iniciar }) => {
           <p>Conectándose...</p>
         </>
       )}
+      <div className="debug">
+        {t("estatus")}: {estatusActual}
+      </div>
     </div>
   );
 };

@@ -1,7 +1,14 @@
+@import url("https://fonts.googleapis.com/css2?family=Work+Sans:wght@700&display=swap");
 /* sitio */
+
+body {
+  background: #f7e9a2;
+}
 
 .App {
   text-align: center;
+  font-family: "Work Sans", "Segoe UI", "Roboto", "Oxygen", "Ubuntu",
+    "Helvetica Neue", sans-serif;
 }
 
 a {
@@ -34,8 +41,10 @@ button {
   font-size: 30px;
 }
 
-.pie {
+.idomas {
   margin-top: 56px;
+  color: #df6d45;
+  font-size: 24px;
 }
 
 .idomas button {
@@ -45,19 +54,49 @@ button {
 /* tabla */
 
 table {
-  margin: 0 auto;
+  background: #ffffff;
+  border: 2px solid #cb3805;
+  border-radius: 8px;
+  padding: 14px;
+  border-spacing: 10px;
+  border-collapse: separate;
+}
+
+.loteria {
+  margin: 14px 0;
+}
+
+.jugador {
+  width: 100%;
+  margin: 12px 0;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  display: flex;
+  align-items: flex-start;
 }
 
 .cuadros-jugadores {
-  display: inline-flex;
-  flex-flow: row wrap;
-  gap: 10px;
-  justify-content: flex-start;
+  padding: 24px;
+  background: white;
+  border: 1px solid #cb3805;
+  border-radius: 6px;
+  margin: 14px auto;
+}
+
+.jugador-id {
+  flex: 1;
+  padding-left: 12px;
+  line-height: 40px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .cuadro-jugador {
   height: 40px;
   width: 40px;
+  border-radius: 9px;
 }
 
 .cuadro-ganador {
@@ -66,13 +105,13 @@ table {
   border-style: dashed;
 }
 
-.menu-enlaces {
-  padding-left: 0;
-  list-style-type: none;
+.carta-button {
+  border: 1px solid #cb3805;
+  border-radius: 2px;
 }
 
-.menu-enlaces li {
-  margin-bottom: 10px;
+.carta-button:disabled {
+  border: 1px solid #e7b962;
 }
 
 .carta-imagen {
@@ -81,9 +120,204 @@ table {
 }
 
 .carta-marcada {
-  opacity: 0.25;
+  opacity: 0.3;
 }
 
 .juego {
-  margin-bottom: 20px;
+  margin: 29px 24px;
+}
+
+.juego-back {
+  /*float: left;*/
+}
+
+.juego-start-header {
+}
+
+.carcartaCantadata {
+  width: 100px;
+  background: #cb3805;
+  border: 3px solid #cb3805;
+  border-radius: 16px;
+  box-shadow: 0px 16px 0px #cb3805;
+  margin: 32px 0;
+}
+
+/* Sala - game lobby */
+
+.sala-header {
+  margin-top: 60px;
+  color: #df6d45;
+  font-size: 24px;
+  line-height: 32px;
+}
+
+.sala-code {
+  background: white;
+  border: 1px solid #cb3805;
+  border-radius: 6px;
+  margin: 14px auto;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 10px 24px;
+  color: #cb3805;
+}
+
+.sala-subtitle {
+  color: #df6d45;
+  font-size: 12px;
+  line-height: 19px;
+  margin-bottom: 24px;
+  margin-top: 16px;
+}
+
+.salaBackCol {
+  margin-left: 0;
+}
+
+.debug {
+  margin: 16px;
+  color: #df6d45;
+  font-size: 12px;
+  opacity: 0.8;
+}
+
+/* Main page logo */
+
+.logo {
+  width: 313px;
+}
+
+.logoCards {
+  white-space: nowrap;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.logoCarta {
+  width: 150px;
+  border: 2px solid white;
+  border-radius: 10px;
+  margin: 32px -15px;
+}
+
+.placeholderCard {
+  /* The actual cards are positioned absolutely for centering when overflowed. 
+  We add an empty div to take up the space underneath them. */
+  height: 234px;
+  margin: 32px;
+}
+
+.lowLeft {
+  transform: rotate(-10.4deg) translateY(17px);
+}
+
+.midRight {
+  transform: rotate(12.92deg) translateY(5px);
+}
+
+.lowRight {
+  transform: rotate(12.92deg) translateY(17px);
+}
+
+.up {
+  transform: translateY(-17px);
+}
+
+/* Common element styling */
+
+.row {
+  margin: 16px 0;
+}
+
+.row > * {
+  float: none;
+  margin: 0 auto;
+}
+
+.btn {
+  box-sizing: border-box;
+  padding: 10px 10px 12px;
+
+  background: white;
+  border: 1px solid;
+  box-shadow: 0px 4px 0px;
+  border-radius: 6px;
+  color: black;
+  font-size: 18px;
+}
+
+.btn:disabled {
+  opacity: 0.4;
+}
+
+.btn-sm {
+  padding: 4px 10px 4px;
+  font-size: 12px;
+}
+
+.btn-primary,
+.btn-primary:disabled {
+  background: #fdf06e;
+  border-color: #cb3805;
+  color: #cb3805;
+}
+
+.btn-primary:active,
+.btn-primary:hover,
+.btn-primary:focus {
+  background: #cb3805;
+  border-color: #cb3805;
+  box-shadow: 0px 4px 0px #842029;
+}
+
+.btn-secondary,
+.btn-secondary:disabled {
+  background: #f3d2cd;
+  border-color: #d9647c;
+  box-shadow: 0px 4px 0px #d9647c;
+  color: #cb0505;
+}
+
+.btn-secondary:active,
+.btn-secondary:hover,
+.btn-secondary:focus {
+  background: #d9647c;
+  border-color: #842029;
+  box-shadow: 0px 4px 0px #842029;
+}
+
+.btn-info,
+.btn-info:disabled {
+  background: #d9e7de;
+  border-color: #446f9a;
+  color: #446f9a;
+}
+
+.btn-info:active,
+.btn-info:hover,
+.btn-info:focus {
+  background: #446f9a;
+  border-color: #084298;
+  box-shadow: 0px 4px 0px #084298;
+  color: white;
+}
+
+.btn-light,
+.btn-light:disabled {
+  background: white;
+  border-color: #df6d45;
+  box-shadow: 0px 4px 0px #df6d45;
+  color: #cb3805;
+}
+
+.btn-light:active,
+.btn-light:hover,
+.btn-light:focus {
+  background: #df6d45;
+  border-color: #cb3805;
+  box-shadow: 0px 4px 0px #cb3805;
+  color: white;
 }

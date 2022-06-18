@@ -1,8 +1,12 @@
 import React from "react";
 
-export const Carta = ({ carta, slot, marcar, marcada, estilo }) => (
+export const Carta = ({ carta, slot, marcar, marcada }) => (
   <td>
-    <button disabled={marcada} onClick={() => marcar(slot)}>
+    <button
+      className="carta-button"
+      disabled={marcada}
+      onClick={() => marcar(slot)}
+    >
       <img
         className={`carta-imagen ${marcada ? "carta-marcada" : ""}`}
         src={carta.imagen}

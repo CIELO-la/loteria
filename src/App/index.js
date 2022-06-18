@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Switch, Route, useHistory } from "react-router-dom";
 import Cabecera from "./Sitio/Cabecera";
+import Container from "react-bootstrap/Container";
 import Menu from "./Sitio/Menu";
-import Pie from "./Sitio/Pie";
 import Busqueda from "./Busqueda";
 import Sala from "./Sala";
 import Juego from "./Juego";
 import Cantor from "../Loteria";
-import Mensaje from "./Sitio/Mensaje";
+import BarajaButton from "./Sitio/BarajaButton";
 import { barajas } from "../Loteria/barajas";
 import { estatus } from "../Loteria/estatus";
 import { useLocalStorage } from "../utils/localStorage";
@@ -116,7 +116,6 @@ const App = () => {
           [estatus.ganar]: {
             estatusActual,
             ganador,
-            mensaje: t("ganar", { ganador: ganador }),
           },
           [estatus.empate]: {
             estatusActual,
@@ -172,9 +171,9 @@ const App = () => {
     }));
 
   // dropdown selected deck id
-  const handleBarajaIdInput = (event) => {
-    event.preventDefault();
-    setLocalBarajaId(event.target.value);
+  const handleBarajaIdInput = (id) => {
+    // event.preventDefault();
+    setLocalBarajaId(id);
   };
 
   // start game and connect game-db on app start
@@ -204,23 +203,25 @@ const App = () => {
   }, [estatusActual, gameId, history]);
 
   return (
-    <div className="App">
-      <Mensaje mensaje={mensaje} />
+    <Container className="App">
+      {/* <Mensaje mensaje={mensaje} /> */}
       <Switch>
         <Route exact path="/">
+          <BarajaButton
+            handleBarajaIdInput={handleBarajaIdInput}
+            barajaId={localBarajaId}
+            barajas={barajas}
+          />
           <Cabecera baraja={barajas[localBarajaId]} />
           <Menu
             hostGame={hostGame}
             joinGame={joinGame}
             gameId={gameId}
             handleGameIdInput={handleGameIdInput}
-            handleBarajaIdInput={handleBarajaIdInput}
-            barajaId={localBarajaId}
-            barajas={barajas}
           />
         </Route>
         <Route path="/buscar">
-                  <Busqueda g={g} />
+          <Busqueda g={g} />
         </Route>
         <Route path="/jugar">
           <Juego
@@ -243,8 +244,7 @@ const App = () => {
           />
         </Route>
       </Switch>
-      <Pie />
-    </div>
+    </Container>
   );
 };
 

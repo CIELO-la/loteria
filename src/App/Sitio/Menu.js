@@ -1,101 +1,47 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { v4 as uuid4 } from "uuid";
 import { useTranslation } from "react-i18next";
 import Idiomas from "./Idiomas";
+import Button from "react-bootstrap/Button";
+import Row from "react-bootstrap/Row";
 
-const Menu = ({
-  hostGame,
-  joinGame,
-  gameId,
-  handleBarajaIdInput,
-  handleGameIdInput,
-  barajaId,
-  barajas,
-}) => {
+const Menu = ({ hostGame, joinGame, gameId, handleGameIdInput }) => {
   const { t } = useTranslation();
+  const history = useHistory();
 
   // temp gameId if hosting a new game
   const newGameId = uuid4();
 
-  // toggle flow for displaying/hiding button options
-  const [isLanguaging, setLanguaging] = useState(false);
-  const prepareLanguaging = (e) => {
-    e.preventDefault();
-    setLanguaging(!isLanguaging);
-  };
-  const changeBaraja = (e) => {
-    setLanguaging(false);
-    handleBarajaIdInput(e);
-  };
   // const [isJoining, setJoining] = useState(false);
   // const prepareJoin = e => {
   // 	e.preventDefault();
   // 	setJoining(!isJoining);
   // };
 
-  const baraja = barajas[barajaId];
+  function goToHostingScreen(event) {
+    history.push(`/${newGameId}`);
+    hostGame(event, newGameId);
+  }
 
   return (
     <div>
-      <ul className="menu-enlaces">
-        <li>
-          <Link to={`/${newGameId}`} onClick={(e) => hostGame(e, newGameId)}>
-            <input type="button" value={t("crearJuego")} />
-          </Link>
-        </li>
-        {/* // Unirse
-					<li>
-						<Link
-							to={`/${gameId}`}
-							onClick={isJoining && gameId
-								? joinGame
-								: prepareJoin
-							}
-						>
-							<input type="button" value="Unirse" />
-						</Link>
-						{isJoining && (
-							<div>
-								<label>
-									gameId:
-									<input
-										type="text"
-										value={gameId}
-										onChange={handleGameIdInput}
-									/>
-								</label>
-							</div>
-						)}
-					</li>
-				*/}
-        {/* // Buscar
-					<li>
-						<Link to="/buscar">
-							<input type="button" value="Buscar" />
-						</Link>
-					</li>
-				*/}
-        <li>
-          {!isLanguaging ? (
-            <Link to="/" onClick={prepareLanguaging}>
-              <input type="button" value={`${t("baraja")}: ${baraja.nombre}`} />
-            </Link>
-          ) : (
-            <div>
-              <label>
-                <select onChange={changeBaraja} value={barajaId}>
-                  {Object.entries(barajas).map(([bId, bObj]) => (
-                    <option key={bId} value={bId}>
-                      {bObj.nombre}
-                    </option>
-                  ))}
-                </select>
-              </label>
-            </div>
-          )}
-        </li>
-      </ul>
+      <Row>
+        <Button onClick={(e) => goToHostingScreen(e)} className="col-4">
+          {t("crearJuego")}
+        </Button>
+      </Row>
+      <Row>
+        <Button variant="secondary" className="col-4">
+          {/* TODO actually implement this */}
+          {t("imprimir")}
+        </Button>
+      </Row>
+      <Row>
+        <Button variant="info" href="https://mycielo.org/" className="col-4">
+          {t("cielo")}
+        </Button>
+      </Row>
+
       <Idiomas />
     </div>
   );
