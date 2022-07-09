@@ -2,9 +2,17 @@
 
 El juego de cartas de lotería mexicana.
 
-## Implementacíon
+## Implementación
 
 Por ahora realizado con `React`, y custom `js` en `./src/Game`. Antes con `boardgame.io` pero no tuvimos éxito porque nuestra concepto del juego no tiene ni turnos ni fases (aparte del cantor que nomás aumenta la gama de elecciones válidas).
+
+## Running Locally
+
+- Ensure you have [Node.js](https://nodejs.org/en/) installed
+- Clone this repo
+- Run `npm install`
+- Run `npm start`
+- A local version of the app will try to run at http://localhost:3000 (if this is not available you can start it on a specific port by [editing package.json](https://stackoverflow.com/a/41770848))
 
 ## Tareas
 
@@ -217,11 +225,3 @@ db.collection('ciudades').where('visibilidad', '==', 'público').get()...
 db.collection('ciudades').get()...
 
 ```
-
-## Running Locally
-
-- Ensure you have [Node.js](https://nodejs.org/en/) installed
-- Clone this repo
-- Run `npm install`
-- Run `npm start`
-- A local version of the app will be available at http://localhost:3000
