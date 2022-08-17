@@ -4,6 +4,7 @@ import BackButton from "../Common/BackButton";
 import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Row";
 import Stack from "react-bootstrap/Stack";
+import Sound from "./Sound";
 
 const Juego = ({
   g,
@@ -13,6 +14,7 @@ const Juego = ({
   marcar,
   marcadas,
   ganador,
+  playAudio
 }) => (
   <div className="juego">
     <Stack direction="horizontal">
@@ -25,9 +27,13 @@ const Juego = ({
         {cartaCantada && cartaCantada.nombre ? (
           <div>
             <img
-              className="carcartaCantadata"
+              className="cartaCantada"
               src={cartaCantada.imagen}
               alt={cartaCantada.nombre}
+            />
+            <Sound
+              playAudio={playAudio}
+              audioURI={cartaCantada.audio}
             />
           </div>
         ) : (
