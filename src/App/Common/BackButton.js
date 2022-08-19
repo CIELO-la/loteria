@@ -14,7 +14,7 @@ const BackButton = ({ useSecondaryStyle = false, className = "" }) => {
       className={className}
       onClick={() => history.push("/")}
     >
-      ← {t("Go back")}
+      ← {t("Return")}
     </Button>
   );
 };
