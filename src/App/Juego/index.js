@@ -18,15 +18,14 @@ const Juego = ({
 }) => (
   <div className="juego">
     <Stack direction="horizontal">
-      <Row>
-        <div className="col align-self-start">
-            <div>
-              <BackButton className="juego-back" />
-            </div>
+      <Row> 
+        <div>
+          <BackButton className="juego-back" />
         </div>
-        <div className="placeholderCard d-flex">
+        <div className="winCardHolder">
           <div className="winCard">
             <div>HOW TO WIN</div>
+            <div className="winCondition"></div>
           </div>
         </div>
       </Row>
@@ -42,24 +41,24 @@ const Juego = ({
         </div>
       </Row>
       <Row>
-        <div className="text-center d-flex">
-          {cartaCantada && cartaCantada.nombre ? (
-            <div>
-              <img
-                className="cartaCantada"
-                src={cartaCantada.imagen}
-                alt={cartaCantada.nombre}
-              />
-              <Sound
-                playAudio={playAudio}
-                audioURI={cartaCantada.audio}
-              />
-            </div>
-          ) : (
-            <div className="juego-start-header">¡Corre y se va!</div>
-          )}
-        </div>
-        <div className="d-flex">
+        <div className="cartaCantadaDiv">
+          <div className="text-center">
+            {cartaCantada && cartaCantada.nombre ? (
+              <div>
+                <img
+                  className="cartaCantada"
+                  src={cartaCantada.imagen}
+                  alt={cartaCantada.nombre}
+                />
+                <Sound
+                  playAudio={playAudio}
+                  audioURI={cartaCantada.audio}
+                />
+              </div>
+            ) : (
+              <div className="juego-start-header">¡Corre y se va!</div>
+            )}
+          </div>
           <Button className="loteria" onClick={() => g.verificar()}>
             {baraja.botones.ganar}
           </Button>
