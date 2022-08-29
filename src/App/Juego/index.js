@@ -18,43 +18,53 @@ const Juego = ({
 }) => (
   <div className="juego">
     <Stack direction="horizontal">
-      <div className="col-3 align-self-start">
+      <Row> 
         <div>
           <BackButton className="juego-back" />
         </div>
-      </div>
-      <div className="col-3 ms-auto justify-content-center text-center d-flex">
-        {cartaCantada && cartaCantada.nombre ? (
-          <div>
-            <img
-              className="cartaCantada"
-              src={cartaCantada.imagen}
-              alt={cartaCantada.nombre}
-            />
-            <Sound
-              playAudio={playAudio}
-              audioURI={cartaCantada.audio}
-            />
+        <div className="winCardHolder">
+          <div className="winCard">
+            <div>HOW TO WIN</div>
+            <div className="winCondition"></div>
           </div>
-        ) : (
-          <div className="juego-start-header">¡Corre y se va!</div>
-        )}
-      </div>
+        </div>
+      </Row>
+      <Row>
+        <div className="col">
+          <Tabla
+            g={g}
+            tabla={g.tabla}
+            dimension={tablaDimension}
+            marcar={marcar}
+            marcadas={marcadas}
+          />
+        </div>
+      </Row>
+      <Row>
+        <div className="cartaCantadaDiv">
+          <div className="text-center">
+            {cartaCantada && cartaCantada.nombre ? (
+              <div>
+                <img
+                  className="cartaCantada"
+                  src={cartaCantada.imagen}
+                  alt={cartaCantada.nombre}
+                />
+                <Sound
+                  playAudio={playAudio}
+                  audioURI={cartaCantada.audio}
+                />
+              </div>
+            ) : (
+              <div className="juego-start-header">¡Corre y se va!</div>
+            )}
+          </div>
+          <Button className="loteria" onClick={() => g.verificar()}>
+            {baraja.botones.ganar}
+          </Button>
+        </div>
+      </Row>
     </Stack>
-    <Row>
-      <div className="col-8 justify-content-center text-center d-flex">
-        <Tabla
-          g={g}
-          tabla={g.tabla}
-          dimension={tablaDimension}
-          marcar={marcar}
-          marcadas={marcadas}
-        />
-      </div>
-    </Row>
-    <Button className="loteria col-3" onClick={() => g.verificar()}>
-      {baraja.botones.ganar}
-    </Button>
   </div>
 );
 
