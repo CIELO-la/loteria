@@ -2,13 +2,13 @@ export const barajas = {
   za01: {
     nombre: "Dilla Xhon - Zoogocho",
     botones: {
-      ganar: "!lotería¡",
+      ganar: "¡Loteria!",
     },
     cartas: {
       "01": {
-        nombre: "yellhio",
-        imagen: "https://storage.googleapis.com/loteria-cielo/barajas/dx-zoogocho/01-yellhio.png",
-        audio: "https://storage.googleapis.com/loteria-cielo/audio/dx-zoogocho/01-yellhio.wav",
+        nombre: "yelllhio",
+        imagen: "https://storage.googleapis.com/loteria-cielo/barajas/dx-zoogocho/01-yelllhio.png",
+        audio: "https://storage.googleapis.com/loteria-cielo/audio/dx-zoogocho/01-yelllhio.wav",
         color: "",
         id: "01"
       },

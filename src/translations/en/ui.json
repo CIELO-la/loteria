@@ -18,5 +18,6 @@
   "salaHeader": "Waiting for players...",
   "salaHost": "When all players are ready press START",
   "salaPlayer": "The host can start when all players are ready",
-  "salaCode": "Room code:"
+  "salaCode": "Room code:",
+  "salaUrlCopy": "Lobby link copied"
 }

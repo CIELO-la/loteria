@@ -32,6 +32,15 @@ const Sala = ({ g, jugadorId, estatusActual, registrar, iniciar }) => {
     history.push("/juego");
   };
 
+  const copyRoomUrl = (e) => {
+    var roomUrl = document.URL;
+    navigator.clipboard
+      .writeText(roomUrl)
+      .then(() => {
+        alert(t("salaUrlCopy"));
+      });
+  };
+
   // immediately register players from uri
   useEffect(() => {
     if (!g || isRegistering) {
@@ -69,7 +78,7 @@ const Sala = ({ g, jugadorId, estatusActual, registrar, iniciar }) => {
             </div>
           </div>
           <div className="sala-code col-4">
-            {t("salaCode")} {salaCode}
+            <a onClick={copyRoomUrl}>{t("salaCode")} {salaCode}</a>
           </div>
           <Cuadros jugadores={g.jugadores} />
           <div>
