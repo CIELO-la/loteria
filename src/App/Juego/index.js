@@ -5,9 +5,11 @@ import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Row";
 import Stack from "react-bootstrap/Stack";
 import Sound from "./Sound";
+import FinDelJuego from "./FinDelJuego";
 
 const Juego = ({
   g,
+  jugadorId,
   baraja,
   cartaCantada,
   tablaDimension,
@@ -30,6 +32,14 @@ const Juego = ({
         </div>
       </Row>
       <Row>
+        {ganador ? (
+          <FinDelJuego
+            jugadorId={jugadorId}
+            ganador={ganador}
+          />
+        ) : (
+          <></>
+        )}
         <div className="col">
           <Tabla
             g={g}

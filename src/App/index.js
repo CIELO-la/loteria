@@ -236,6 +236,7 @@ const App = () => {
         <Route path="/jugar">
           <Juego
             g={g}
+            jugadorId={jugadorId}
             baraja={barajas[localBarajaId]}
             cartaCantada={cartaCantada}
             tablaDimension={4}
