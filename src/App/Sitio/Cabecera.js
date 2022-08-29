@@ -24,7 +24,7 @@ const Cabecera = () => {
 
   return (
     <div className="cabecera">
-      <img className="logo" src="/¡Loteria!.svg" alt={t("titulo: ¡Loteria!")} />
+      <img className="logo" src="/¡Loteria!.svg" alt={t("titulo")} />
       <div className="logoCards">{logoCards}</div>
       <div className="placeholderCard" />
     </div>
