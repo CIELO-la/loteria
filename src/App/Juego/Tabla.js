@@ -1,7 +1,7 @@
 import React from "react";
 import { Carta } from "./Carta";
 
-const Tabla = ({ g, tabla, dimension, marcar, marcadas }) => {
+const Tabla = ({ g, tabla, dimension, marcar, marcadas, componible }) => {
   const anchura = Array(dimension).fill(null);
 
   return (
@@ -19,6 +19,7 @@ const Tabla = ({ g, tabla, dimension, marcar, marcadas }) => {
                   slot={slot}
                   marcar={marcar}
                   marcada={marcadas.includes(slot)}
+                  componible={componible}
                 />
               );
             })}
