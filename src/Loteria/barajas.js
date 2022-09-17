@@ -1,6 +1,7 @@
 export const barajas = {
   za01: {
     nombre: "Dilla Xhon - Zoogocho",
+    componible: true,
     botones: {
       ganar: "¡Loteria!",
     },
@@ -8,406 +9,407 @@ export const barajas = {
       "01": {
         nombre: "yelllhio",
         imagen: "https://storage.googleapis.com/loteria-cielo/barajas/dx-zoogocho/01-yelllhio.png",
-        audio: "https://storage.googleapis.com/loteria-cielo/audio/dx-zoogocho/01-yelllhio.wav",
-        color: "",
+        audio: "https://storage.googleapis.com/loteria-cielo/audio/dx-zoogocho/01-yelllhio.mp3",
+        color: "yellow",
         id: "01"
       },
       "02": {
         nombre: "gwbill",
         imagen: "https://storage.googleapis.com/loteria-cielo/barajas/dx-zoogocho/02-gwbill.png",
         audio: "https://storage.googleapis.com/loteria-cielo/audio/dx-zoogocho/02-gwbill.wav",
-        color: "",
+        color: "blue",
         id: "02"
       },
       "03": {
         nombre: "bio'",
         imagen: "https://storage.googleapis.com/loteria-cielo/barajas/dx-zoogocho/03-bio'.png",
         audio: "https://storage.googleapis.com/loteria-cielo/audio/dx-zoogocho/03-bio'.wav",
-        color: "",
+        color: "blue",
         id: "03"
       },
       "04": {
         nombre: "beljw",
         imagen: "https://storage.googleapis.com/loteria-cielo/barajas/dx-zoogocho/04-beljw.png",
         audio: "https://storage.googleapis.com/loteria-cielo/audio/dx-zoogocho/04-beljw.wav",
-        color: "",
+        color: "red",
         id: "04"
       },
       "05": {
         nombre: "yaba",
         imagen: "https://storage.googleapis.com/loteria-cielo/barajas/dx-zoogocho/05-yaba.png",
         audio: "https://storage.googleapis.com/loteria-cielo/audio/dx-zoogocho/05-yaba.wav",
-        color: "",
+        color: "yellow",
         id: "05"
       },
       "06": {
         nombre: "bdoa",
         imagen: "https://storage.googleapis.com/loteria-cielo/barajas/dx-zoogocho/06-bdoa.png",
         audio: "https://storage.googleapis.com/loteria-cielo/audio/dx-zoogocho/06-bdoa.wav",
-        color: "",
+        color: "blue",
         id: "06"
       },
       "07": {
         nombre: "bej",
         imagen: "https://storage.googleapis.com/loteria-cielo/barajas/dx-zoogocho/07-bej.png",
         audio: "https://storage.googleapis.com/loteria-cielo/audio/dx-zoogocho/07-bej.wav",
-        color: "",
+        color: "red",
         id: "07"
       },
       "08": {
         nombre: "yelh",
         imagen: "https://storage.googleapis.com/loteria-cielo/barajas/dx-zoogocho/08-yelh.png",
         audio: "https://storage.googleapis.com/loteria-cielo/audio/dx-zoogocho/08-yelh.wav",
-        color: "",
+        color: "yellow",
         id: "08"
       },
       "09": {
         nombre: "ya'yego",
         imagen: "https://storage.googleapis.com/loteria-cielo/barajas/dx-zoogocho/09-ya'yego.png",
         audio: "https://storage.googleapis.com/loteria-cielo/audio/dx-zoogocho/09-ya'yego.wav",
-        color: "",
+        color: "blue",
         id: "09"
       },
       10: {
         nombre: "yag",
         imagen: "https://storage.googleapis.com/loteria-cielo/barajas/dx-zoogocho/10-yag.png",
         audio: "https://storage.googleapis.com/loteria-cielo/audio/dx-zoogocho/10-yag.wav",
-        color: "",
+        color: "blue",
         id: "10"
       },
       11: {
         nombre: "pita",
         imagen: "https://storage.googleapis.com/loteria-cielo/barajas/dx-zoogocho/11-pita.png",
         audio: "https://storage.googleapis.com/loteria-cielo/audio/dx-zoogocho/11-pita.wav",
-        color: "",
+        color: "yellow",
         id: "11"
       },
       12: {
         nombre: "da'",
         imagen: "https://storage.googleapis.com/loteria-cielo/barajas/dx-zoogocho/12-da'.png",
         audio: "https://storage.googleapis.com/loteria-cielo/audio/dx-zoogocho/12-da'.wav",
-        color: "",
+        color: "red",
         id: "12"
       },
       13: {
         nombre: "nhisdao",
         imagen: "https://storage.googleapis.com/loteria-cielo/barajas/dx-zoogocho/13-nhisdao.png",
         audio: "https://storage.googleapis.com/loteria-cielo/audio/dx-zoogocho/13-nhisdao.wav",
-        color: "",
+        color: "yellow",
         id: "13"
       },
       14: {
         nombre: "yeldao",
         imagen: "https://storage.googleapis.com/loteria-cielo/barajas/dx-zoogocho/14-yeldao.png",
         audio: "https://storage.googleapis.com/loteria-cielo/audio/dx-zoogocho/14-yeldao.wav",
-        color: "",
+        color: "yellow",
         id: "14"
       },
       15: {
         nombre: "beldao'",
         imagen: "https://storage.googleapis.com/loteria-cielo/barajas/dx-zoogocho/15-beldao'.png",
         audio: "https://storage.googleapis.com/loteria-cielo/audio/dx-zoogocho/15-beldao'.wav",
-        color: "",
+        color: "red",
         id: "15"
       },
       16: {
         nombre: "shojtao",
         imagen: "https://storage.googleapis.com/loteria-cielo/barajas/dx-zoogocho/16-shojtao.png",
         audio: "https://storage.googleapis.com/loteria-cielo/audio/dx-zoogocho/16-shojtao.wav",
-        color: "",
+        color: "red",
         id: "16"
       },
       17: {
         nombre: "bell",
         imagen: "https://storage.googleapis.com/loteria-cielo/barajas/dx-zoogocho/17-bell.png",
         audio: "https://storage.googleapis.com/loteria-cielo/audio/dx-zoogocho/17-bell.wav",
-        color: "",
+        color: "blue",
         id: "17"
       },
       18: {
         nombre: "yelh",
         imagen: "https://storage.googleapis.com/loteria-cielo/barajas/dx-zoogocho/18-yelh.png",
         audio: "https://storage.googleapis.com/loteria-cielo/audio/dx-zoogocho/18-yelh.wav",
-        color: "",
+        color: "yellow",
         id: "18"
       },
       19: {
         nombre: "yez",
         imagen: "https://storage.googleapis.com/loteria-cielo/barajas/dx-zoogocho/19-yez.png",
         audio: "https://storage.googleapis.com/loteria-cielo/audio/dx-zoogocho/19-yez.wav",
-        color: "",
+        color: "yellow",
         id: "19"
       },
       20: {
         nombre: "xhoa'",
         imagen: "https://storage.googleapis.com/loteria-cielo/barajas/dx-zoogocho/20-xhoa'.png",
         audio: "https://storage.googleapis.com/loteria-cielo/audio/dx-zoogocho/20-xhoa'.wav",
-        color: "",
+        color: "yellow",
         id: "20"
       },
       21: {
         nombre: "yan",
         imagen: "https://storage.googleapis.com/loteria-cielo/barajas/dx-zoogocho/21-yan.png",
         audio: "https://storage.googleapis.com/loteria-cielo/audio/dx-zoogocho/21-yan.wav",
-        color: "",
+        color: "blue",
         id: "21"
       },
       22: {
         nombre: "dao",
         imagen: "https://storage.googleapis.com/loteria-cielo/barajas/dx-zoogocho/22-dao.png",
         audio: "https://storage.googleapis.com/loteria-cielo/audio/dx-zoogocho/22-dao.wav",
-        color: "",
+        color: "yellow",
         id: "22"
       },
       23: {
         nombre: "yo'oba",
         imagen: "https://storage.googleapis.com/loteria-cielo/barajas/dx-zoogocho/23-yo'oba.png",
         audio: "https://storage.googleapis.com/loteria-cielo/audio/dx-zoogocho/23-yo'oba.wav",
-        color: "",
+        color: "blue",
         id: "23"
       },
       24: {
         nombre: "yalban",
         imagen: "https://storage.googleapis.com/loteria-cielo/barajas/dx-zoogocho/24-yalban.png",
         audio: "https://storage.googleapis.com/loteria-cielo/audio/dx-zoogocho/24-yalban.wav",
-        color: "",
+        color: "red",
         id: "24"
       },
       25: {
         nombre: "bllijw",
         imagen: "https://storage.googleapis.com/loteria-cielo/barajas/dx-zoogocho/25-bllijw.png",
         audio: "https://storage.googleapis.com/loteria-cielo/audio/dx-zoogocho/25-bllijw.wav",
-        color: "",
+        color: "yellow",
         id: "25"
       },
       26: {
         nombre: "nicachi",
         imagen: "https://storage.googleapis.com/loteria-cielo/barajas/dx-zoogocho/26-nicachi.png",
         audio: "https://storage.googleapis.com/loteria-cielo/audio/dx-zoogocho/26-nicachi.wav",
-        color: "",
+        color: "yellow",
         id: "26"
       },
       27: {
         nombre: "weya'a-binholhe",
         imagen: "https://storage.googleapis.com/loteria-cielo/barajas/dx-zoogocho/27-weya'a-binholhe.png",
         audio: "https://storage.googleapis.com/loteria-cielo/audio/dx-zoogocho/27-weya'a-binholhe.wav",
-        color: "",
+        color: "yellow",
         id: "27"
       },
       28: {
         nombre: "gwbej",
         imagen: "https://storage.googleapis.com/loteria-cielo/barajas/dx-zoogocho/28-gwbej.png",
         audio: "https://storage.googleapis.com/loteria-cielo/audio/dx-zoogocho/28-gwbej.wav",
-        color: "",
+        color: "blue",
         id: "28"
       },
       29: {
         nombre: "xtobia",
         imagen: "https://storage.googleapis.com/loteria-cielo/barajas/dx-zoogocho/29-xtobia.png",
         audio: "https://storage.googleapis.com/loteria-cielo/audio/dx-zoogocho/29-xtobia.wav",
-        color: "",
+        color: "yellow",
         id: "29"
       },
       30: {
         nombre: "berinke'",
         imagen: "https://storage.googleapis.com/loteria-cielo/barajas/dx-zoogocho/30-berinke'.png",
         audio: "https://storage.googleapis.com/loteria-cielo/audio/dx-zoogocho/30-berinke'.wav",
-        color: "",
+        color: "yellow",
         id: "30"
       },
       31: {
         nombre: "beza'",
         imagen: "https://storage.googleapis.com/loteria-cielo/barajas/dx-zoogocho/31-beza'.png",
         audio: "https://storage.googleapis.com/loteria-cielo/audio/dx-zoogocho/31-beza'.wav",
-        color: "",
+        color: "yellow",
         id: "31"
       },
       32: {
         nombre: "bllinha'-yixe'",
         imagen: "https://storage.googleapis.com/loteria-cielo/barajas/dx-zoogocho/32-bllinha'-yixe'.png",
         audio: "https://storage.googleapis.com/loteria-cielo/audio/dx-zoogocho/32-bllinha'-yixe'.wav",
-        color: "",
+        color: "red",
         id: "32"
       },
       33: {
         nombre: "bsia",
         imagen: "https://storage.googleapis.com/loteria-cielo/barajas/dx-zoogocho/33-bsia.png",
         audio: "https://storage.googleapis.com/loteria-cielo/audio/dx-zoogocho/33-bsia.wav",
-        color: "",
+        color: "blue",
         id: "33"
       },
       34: {
         nombre: "xbanyid",
         imagen: "https://storage.googleapis.com/loteria-cielo/barajas/dx-zoogocho/34-xbanyid.png",
         audio: "https://storage.googleapis.com/loteria-cielo/audio/dx-zoogocho/34-xbanyid.wav",
-        color: "",
+        color: "blue",
         id: "34"
       },
       35: {
         nombre: "beko'",
         imagen: "https://storage.googleapis.com/loteria-cielo/barajas/dx-zoogocho/35-beko'.png",
         audio: "https://storage.googleapis.com/loteria-cielo/audio/dx-zoogocho/35-beko'.wav",
-        color: "",
+        color: "red",
         id: "35"
       },
       36: {
         nombre: "biz",
         imagen: "https://storage.googleapis.com/loteria-cielo/barajas/dx-zoogocho/36-biz.png",
         audio: "https://storage.googleapis.com/loteria-cielo/audio/dx-zoogocho/36-biz.wav",
-        color: "",
+        color: "red",
         id: "36"
       },
       37: {
         nombre: "jia",
         imagen: "https://storage.googleapis.com/loteria-cielo/barajas/dx-zoogocho/37-jia.png",
         audio: "https://storage.googleapis.com/loteria-cielo/audio/dx-zoogocho/37-jia.wav",
-        color: "",
+        color: "blue",
         id: "37"
       },
       38: {
         nombre: "bxhobyi'",
         imagen: "https://storage.googleapis.com/loteria-cielo/barajas/dx-zoogocho/38-bxhobyi'.png",
         audio: "https://storage.googleapis.com/loteria-cielo/audio/dx-zoogocho/38-bxhobyi'.wav",
-        color: "",
+        color: "red",
         id: "38"
       },
       39: {
         nombre: "bexjonhi'",
         imagen: "https://storage.googleapis.com/loteria-cielo/barajas/dx-zoogocho/39-bexjonhi'.png",
         audio: "https://storage.googleapis.com/loteria-cielo/audio/dx-zoogocho/39-bexjonhi'.wav",
-        color: "",
+        color: "yellow",
         id: "39"
       },
       40: {
         nombre: "yetgo'-za",
         imagen: "https://storage.googleapis.com/loteria-cielo/barajas/dx-zoogocho/40-yetgo'-za.png",
         audio: "https://storage.googleapis.com/loteria-cielo/audio/dx-zoogocho/40-yetgo'-za.wav",
-        color: "",
+        color: "red",
         id: "40"
       },
       41: {
         nombre: "yet",
         imagen: "https://storage.googleapis.com/loteria-cielo/barajas/dx-zoogocho/41-yet.png",
         audio: "https://storage.googleapis.com/loteria-cielo/audio/dx-zoogocho/41-yet.wav",
-        color: "",
+        color: "red",
         id: "41"
       },
       42: {
         nombre: "yetxtilh",
         imagen: "https://storage.googleapis.com/loteria-cielo/barajas/dx-zoogocho/42-yetxtilh.png",
         audio: "https://storage.googleapis.com/loteria-cielo/audio/dx-zoogocho/42-yetxtilh.wav",
-        color: "",
+        color: "red",
         id: "42"
       },
-      // 43: {
-      //   nombre: "wene-ya'a",
-      //   imagen: "https://storage.googleapis.com/loteria-cielo/barajas/dx-zoogocho/43-wene-ya'a.png",
-      //   audio: "https://storage.googleapis.com/loteria-cielo/audio/dx-zoogocho/43-wene-ya'a.wav",
-      //   color: "",
-      //   id: "43"
-      // },
+      43: {
+        nombre: "wene-ya'a",
+        imagen: "https://storage.googleapis.com/loteria-cielo/barajas/dx-zoogocho/43-wene-ya'a.png",
+        audio: "https://storage.googleapis.com/loteria-cielo/audio/dx-zoogocho/43-wene-ya'a.wav",
+        color: "yellow",
+        id: "43"
+      },
       44: {
         nombre: "bibe'",
         imagen: "https://storage.googleapis.com/loteria-cielo/barajas/dx-zoogocho/44-bibe'.png",
         audio: "https://storage.googleapis.com/loteria-cielo/audio/dx-zoogocho/44-bibe'.wav",
-        color: "",
+        color: "red",
         id: "44"
       },
       45: {
         nombre: "ye'n-yo",
         imagen: "https://storage.googleapis.com/loteria-cielo/barajas/dx-zoogocho/45-ye'n-yo.png",
         audio: "https://storage.googleapis.com/loteria-cielo/audio/dx-zoogocho/45-ye'n-yo.wav",
-        color: "",
+        color: "yellow",
         id: "45"
       },
       46: {
         nombre: "yela'",
         imagen: "https://storage.googleapis.com/loteria-cielo/barajas/dx-zoogocho/46-yela'.png",
         audio: "https://storage.googleapis.com/loteria-cielo/audio/dx-zoogocho/46-yela'.wav",
-        color: "",
+        color: "blue",
         id: "46"
       },
       47: {
         nombre: "wiyej",
         imagen: "https://storage.googleapis.com/loteria-cielo/barajas/dx-zoogocho/47-wiyej.png",
         audio: "https://storage.googleapis.com/loteria-cielo/audio/dx-zoogocho/47-wiyej.wav",
-        color: "",
+        color: "yellow",
         id: "47"
       },
       48: {
         nombre: "nazia'",
         imagen: "https://storage.googleapis.com/loteria-cielo/barajas/dx-zoogocho/48-nazia'.png",
         audio: "https://storage.googleapis.com/loteria-cielo/audio/dx-zoogocho/48-nazia'.wav",
-        color: "",
+        color: "blue",
         id: "48"
       },
       49: {
         nombre: "pasonga'",
         imagen: "https://storage.googleapis.com/loteria-cielo/barajas/dx-zoogocho/49-pasonga'.png",
         audio: "https://storage.googleapis.com/loteria-cielo/audio/dx-zoogocho/49-pasonga'.wav",
-        color: "",
+        color: "blue",
         id: "49"
       },
       50: {
         nombre: "wi",
         imagen: "https://storage.googleapis.com/loteria-cielo/barajas/dx-zoogocho/50-wi.png",
         audio: "https://storage.googleapis.com/loteria-cielo/audio/dx-zoogocho/50-wi.wav",
-        color: "",
+        color: "blue",
         id: "50"
       },
       51: {
         nombre: "xhaga'",
         imagen: "https://storage.googleapis.com/loteria-cielo/barajas/dx-zoogocho/51-xhaga'.png",
         audio: "https://storage.googleapis.com/loteria-cielo/audio/dx-zoogocho/51-xhaga'.wav",
-        color: "",
+        color: "blue",
         id: "51"
       },
       52: {
         nombre: "zode'",
         imagen: "https://storage.googleapis.com/loteria-cielo/barajas/dx-zoogocho/52-zode'.png",
         audio: "https://storage.googleapis.com/loteria-cielo/audio/dx-zoogocho/52-zode'.wav",
-        color: "",
+        color: "red",
         id: "52"
       },
       53: {
         nombre: "bekoxho'",
         imagen: "https://storage.googleapis.com/loteria-cielo/barajas/dx-zoogocho/53-bekoxho'.png",
         audio: "https://storage.googleapis.com/loteria-cielo/audio/dx-zoogocho/53-bekoxho'.wav",
-        color: "",
+        color: "red",
         id: "53"
       },
       54: {
         nombre: "bayw",
         imagen: "https://storage.googleapis.com/loteria-cielo/barajas/dx-zoogocho/54-bayw.png",
         audio: "https://storage.googleapis.com/loteria-cielo/audio/dx-zoogocho/54-bayw.wav",
-        color: "",
+        color: "yellow",
         id: "54"
       },
       55: {
         nombre: "bio'",
         imagen: "https://storage.googleapis.com/loteria-cielo/barajas/dx-zoogocho/55-bio'.png",
         audio: "https://storage.googleapis.com/loteria-cielo/audio/dx-zoogocho/55-bio'.wav",
-        color: "",
+        color: "yellow",
         id: "55"
       },
       56: {
         nombre: "webej-sheb",
         imagen: "https://storage.googleapis.com/loteria-cielo/barajas/dx-zoogocho/56-webej-sheb.png",
         audio: "https://storage.googleapis.com/loteria-cielo/audio/dx-zoogocho/56-webej-sheb.wav",
-        color: "",
+        color: "blue",
         id: "56"
       },
       57: {
         nombre: "ngolh",
         imagen: "https://storage.googleapis.com/loteria-cielo/barajas/dx-zoogocho/57-ngolh.png",
         audio: "https://storage.googleapis.com/loteria-cielo/audio/dx-zoogocho/57-ngolh.wav",
-        color: "",
+        color: "yellow",
         id: "57"
       },
     },
   },
   es01: {
     nombre: "español de MX",
+    componible: false,
     botones: {
       ganar: "¡lotería!",
     },

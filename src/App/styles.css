@@ -104,6 +104,8 @@ table {
 .carta-button {
   border: 1px solid #cb3805;
   border-radius: 2px;
+  padding-top: 7px;
+  padding-bottom: 7px;
 }
 
 .carta-button:disabled {
@@ -112,7 +114,7 @@ table {
 
 .carta-imagen {
   width: 75px;
-  height: 120px;
+  height: 100px;
 }
 
 .carta-marcada {
@@ -347,4 +349,36 @@ table {
   border-color: #cb3805;
   box-shadow: 0px 4px 0px #cb3805;
   color: white;
+}
+
+.background-yellow {
+  background-color: #f7e9a2;
+  border: 2px solid #cb3805;
+  border-radius: 5px;
+}
+
+.background-red {
+  background-color: #f3d2cd;
+  border: 2px solid #d9647c;
+  border-radius: 5px;
+}
+
+.background-blue {
+  background-color: #d9e7de;
+  border: 2px solid #084298;
+  border-radius: 5px;
+}
+
+.carta-numero {
+  margin: 0;
+  text-align: left;
+  font-size: 0.60em;
+  line-height: 0.60em;
+}
+
+.carta-nombre {
+  margin: 0;
+  text-align: center;
+  font-size: 0.60em;
+  line-height: 0.60em;
 }

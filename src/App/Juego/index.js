@@ -47,6 +47,7 @@ const Juego = ({
             dimension={tablaDimension}
             marcar={marcar}
             marcadas={marcadas}
+            componible={baraja.componible}
           />
         </div>
       </Row>
