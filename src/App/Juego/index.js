@@ -16,18 +16,22 @@ const Juego = ({
   marcar,
   marcadas,
   ganador,
-  playAudio
+  playAudio,
+  winConditionHeader,
+  winConditionText
 }) => (
   <div className="juego">
     <Stack direction="horizontal">
-      <Row> 
+      <Row className="winRow">
         <div>
           <BackButton className="juego-back" />
         </div>
         <div className="winCardHolder">
           <div className="winCard">
-            <div>HOW TO WIN</div>
-            <div className="winCondition"></div>
+            <div>{winConditionHeader}</div>
+            <div className="winCondition">
+              <p className="winConditionText">{winConditionText}</p>
+            </div>
           </div>
         </div>
       </Row>

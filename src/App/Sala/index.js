@@ -15,6 +15,7 @@ const Sala = ({ g, jugadorId, estatusActual, registrar, iniciar }) => {
   const [isStarting, setStarting] = useState(false);
   const [isRegistering, setRegistering] = useState(false);
   const [salaCode, setSalaCode] = useState(0);
+  const lobbyURL = document.URL;
 
   // uri for path matching
   const location = useLocation();
@@ -61,7 +62,7 @@ const Sala = ({ g, jugadorId, estatusActual, registrar, iniciar }) => {
   }, [g, registrar, location, isRegistering]);
 
   return (
-    <div>
+    <div className="lobby">
       <Row>
         <div className="col-2 salaBackCol">
           <BackButton />
@@ -78,7 +79,7 @@ const Sala = ({ g, jugadorId, estatusActual, registrar, iniciar }) => {
             </div>
           </div>
           <div className="sala-code col-4">
-            <a onClick={copyRoomUrl}>{t("salaCode")} {salaCode}</a>
+            <a onClick={copyRoomUrl}>{t("salaCode")} {lobbyURL}</a>
           </div>
           <Cuadros jugadores={g.jugadores} />
           <div>

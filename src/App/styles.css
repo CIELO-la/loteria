@@ -130,6 +130,10 @@ table {
   margin-bottom: 20px;
 }
 
+.winRow {
+  max-width: 25%;
+}
+
 .winCardHolder {
   height: 500px;
 }
@@ -150,6 +154,12 @@ table {
   border-radius: 5px;
   white-space: inherit;
   margin: 15px auto;
+}
+
+.winConditionText {
+  color: #cb3805;
+  font-size:  1.28em;
+  white-space:  pre-wrap;
 }
 
 .cartaCantadaDiv{
@@ -174,6 +184,10 @@ table {
 }
 
 /* Sala - game lobby */
+
+.lobby .col-4 {
+  min-width: 45%;
+}
 
 .sala-header {
   margin-top: 60px;
