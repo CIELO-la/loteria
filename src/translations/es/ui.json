@@ -16,13 +16,15 @@
   "conectándose": "Conectándose...",
   "imprimir": "Versión impresa",
   "salaHeader": "Esperando jugadores...",
-  "salaHost": "Cuando todos los jugadores estén listos presione INICIAR",
+  "salaHost": "Envía esta URL a otros jugadores. Cuando todos los jugadores estén listos presione INICIAR",
   "salaPlayer": "El anfitrión comenzará cuando todos los jugadores estén listos",
-  "salaCode": "Sala código:",
+  "salaCode": "URL:",
   "salaUrlCopy": "Lobby link copiado",
   "back": "Regresar",
   "ganar": "¡Ganaste el juego!",
   "perder": "¡Mas suerte para la próxima!",
   "home": "Inicio",
-  "otraVez": "Juega de nuevo"
+  "otraVez": "Juega de nuevo",
+  "winConditionHeader": "CÓMO SE GANA",
+  "winConditionText": "Marca cuatro cartas en un pozo o cuatro cartas en una fila horizontal o vertical."
 }

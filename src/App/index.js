@@ -244,6 +244,8 @@ const App = () => {
             marcadas={marcadas}
             ganador={ganador}
             playAudio={playAudio}
+            winConditionHeader={t("winConditionHeader")}
+            winConditionText={t("winConditionText")}
           />
         </Route>
         <Route path={`/${gameId}`}>
