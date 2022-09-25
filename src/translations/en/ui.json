@@ -19,5 +19,10 @@
   "salaHost": "When all players are ready press START",
   "salaPlayer": "The host can start when all players are ready",
   "salaCode": "Room code:",
-  "salaUrlCopy": "Lobby link copied"
+  "salaUrlCopy": "Lobby link copied",
+  "back": "Back",
+  "ganar": "You won the game!",
+  "perder": "Better luck next time.",
+  "home": "Home",
+  "otraVez": "Play again"
 }
