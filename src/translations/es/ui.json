@@ -20,5 +20,9 @@
   "salaPlayer": "El anfitrión comenzará cuando todos los jugadores estén listos",
   "salaCode": "Sala código:",
   "salaUrlCopy": "Lobby link copiado",
-  "back": "Regresar"
+  "back": "Regresar",
+  "ganar": "¡Ganaste el juego!",
+  "perder": "¡Mas suerte para la próxima!",
+  "home": "Inicio",
+  "otraVez": "Juega de nuevo"
 }
