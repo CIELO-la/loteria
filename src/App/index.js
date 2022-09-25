@@ -222,7 +222,7 @@ const App = () => {
             barajaId={localBarajaId}
             barajas={barajas}
           />
-          <Cabecera baraja={barajas[localBarajaId]} />
+          <Cabecera t={t} cartas={barajas[localBarajaId].cartas} />
           <Menu
             hostGame={hostGame}
             joinGame={joinGame}

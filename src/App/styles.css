@@ -244,6 +244,8 @@ table {
   border: 2px solid white;
   border-radius: 10px;
   margin: 32px -15px;
+  filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.5));
+
 }
 
 .placeholderCard {
@@ -380,6 +382,40 @@ table {
   background-color: #d9e7de;
   border: 2px solid #084298;
   border-radius: 5px;
+}
+
+.background-purple {
+  background-color: #e9eaff;
+  border: 2px solid #084298;
+  border-radius: 5px;
+}
+
+.background-yellow-vivid {
+  background-color: #ffc700;
+  border: 2px solid #cb3805;
+  border-radius: 5px;
+  background-image: linear-gradient(175deg, #fffea9, transparent)
+}
+
+.background-red-vivid {
+  background-color: #ff541b;
+  border: 2px solid #d9647c;
+  border-radius: 5px;
+  background-image: linear-gradient(175deg, #ffef97, transparent)
+}
+
+.background-blue-vivid {
+  background-color: #5ec3ff;
+  border: 2px solid #084298;
+  border-radius: 5px;
+  background-image: linear-gradient(175deg, #8bff49, transparent)
+}
+
+.background-purple-vivid {
+  background-color: #8369d5;
+  border: 2px solid #084298;
+  border-radius: 5px;
+  background-image: linear-gradient(175deg, #9af1ff, transparent)
 }
 
 .carta-numero {

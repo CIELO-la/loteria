@@ -1,0 +1,7 @@
+- [x] Remove duplicates
+- [ ] Comment out don miguel deck
+- [ ] More vibrant card colors
+- [ ] Crop images to fill more of the space (same ratios)
+- [ ] Compose numbers/name?
+- [ ] Possible gradient or composed cards in image editing program
+- [ ] Image instead of text for how to win
