@@ -149,7 +149,6 @@ table {
 }
 
 .winCondition {
-  height: 200px;
   background-color: #fdf06e;
   border-radius: 5px;
   white-space: inherit;
@@ -157,8 +156,8 @@ table {
 }
 
 .winConditionText {
-  color: #cb3805;
-  font-size:  1.28em;
+  color: #3265af;
+  font-size:  0.93em;
   white-space:  pre-wrap;
 }
 
