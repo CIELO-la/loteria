@@ -1,4 +1,4 @@
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { v4 as uuid4 } from "uuid";
 import { useTranslation } from "react-i18next";
 import Idiomas from "./Idiomas";
@@ -7,7 +7,7 @@ import Row from "react-bootstrap/Row";
 
 const Menu = ({ hostGame, joinGame, gameId, handleGameIdInput }) => {
   const { t } = useTranslation();
-  const history = useHistory();
+  const navigate = useNavigate();
 
   // temp gameId if hosting a new game
   const newGameId = uuid4();
@@ -19,7 +19,7 @@ const Menu = ({ hostGame, joinGame, gameId, handleGameIdInput }) => {
   // };
 
   function goToHostingScreen(event) {
-    history.push(`/${newGameId}`);
+    navigate(`/${newGameId}`);
     hostGame(event, newGameId);
   }
 

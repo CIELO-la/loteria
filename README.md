@@ -41,7 +41,7 @@ Por ahora realizado con `React`, y custom `js` en `./src/Game`. Antes con `board
   - [x] pasar referencia al documento del depósito
   - [x] repensar porque el enrutador no se relaciona bien con la registración
     - arreglar atribución retrasada de `g` (`g === undefined`)
-    - `history.push` en `useEffect(f, [..., g])`
+    - `navigate` en `useEffect(f, [..., g])`
     - leer params de la ruta en `useEffect(f, [])`
 
 - [ ] búsqueda

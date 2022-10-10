@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useLocation, matchPath, useHistory } from "react-router-dom";
+import { useLocation, matchPath, useNavigate } from "react-router-dom";
 import Cuadros from "../Juego/Cuadros";
 import BackButton from "../Common/BackButton";
 import { useTranslation } from "react-i18next";
@@ -9,7 +9,7 @@ import Row from "react-bootstrap/Row";
 // TODO: handle or 404 cold joiners who lack g
 const Sala = ({ g, jugadorId, estatusActual, registrar, iniciar }) => {
   const { t } = useTranslation();
-  const history = useHistory();
+  const navigate = useNavigate();
 
   // lobby control flow
   const [isStarting, setStarting] = useState(false);
@@ -30,7 +30,7 @@ const Sala = ({ g, jugadorId, estatusActual, registrar, iniciar }) => {
     setStarting(true);
     // message status so players route to /juego
     setTimeout(iniciar, 2000);
-    history.push("/juego");
+    navigate("/juego");
   };
 
   const copyRoomUrl = (e) => {
@@ -48,11 +48,11 @@ const Sala = ({ g, jugadorId, estatusActual, registrar, iniciar }) => {
       return;
     }
     const registerOnLoad = async () => {
-      const match = matchPath(location.pathname, {
+      const match = matchPath({
         path: "/:juegoIdParam",
         exact: true,
         strict: false,
-      });
+      }, location.pathname);
       setSalaCode(match.params.juegoIdParam);
       setRegistering(true);
       await registrar(match.params.juegoIdParam);

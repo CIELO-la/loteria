@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Switch, Route, useHistory } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import Cabecera from "./Sitio/Cabecera";
 import Container from "react-bootstrap/Container";
 import Menu from "./Sitio/Menu";
@@ -60,7 +60,7 @@ const App = () => {
 
   // router hooks
   //const { juegoIdParam } = useParams();
-  const history = useHistory();
+  const navigate = useNavigate();
 
   // app state references
   const { gameId, g, cartaCantada, marcadas, estatusActual, ganador, mensaje, audio } =
@@ -75,12 +75,12 @@ const App = () => {
     // save host id to local storage in case of refresh
     localStorage.setItem('hostIdGameId', `${jugadorId}-${newGameId}`);
 
-    history.push(`/${newGameId}`);
+    navigate(`/${newGameId}`);
   };
   const joinGame = async (e) => {
     e.preventDefault();
     g.asignarHost(false);
-    history.push(`/${gameId}`);
+    navigate(`/${gameId}`);
   };
 
   // browser card audio playback passed down to Sound component
@@ -210,39 +210,43 @@ const App = () => {
   useEffect(() => {
     // route to tabla
     if (estatusActual === estatus.iniciar && gameId) {
-      history.push(`/jugar`);
+      navigate(`/jugar`);
     }
     // route on win
     // else if (estatusActual === estatus.ganar && gameId) {
-    // 	history.push(`/ganar`);
+    // 	navigate(`/ganar`);
     // }
 
     // cleanup
     return () => {};
-  }, [estatusActual, gameId, history]);
+  }, [estatusActual, gameId]);
 
   return (
     <Container className="App">
       {/* <Mensaje mensaje={mensaje} /> */}
-      <Switch>
-        <Route exact path="/">
-          <BarajaButton
-            handleBarajaIdInput={handleBarajaIdInput}
-            barajaId={localBarajaId}
-            barajas={barajas}
-          />
-          <Cabecera t={t} cartas={barajas[localBarajaId].cartas} />
-          <Menu
-            hostGame={hostGame}
-            joinGame={joinGame}
-            gameId={gameId}
-            handleGameIdInput={handleGameIdInput}
-          />
+      <Routes>
+        <Route exact path="/" element={
+          <>
+            <BarajaButton
+              handleBarajaIdInput={handleBarajaIdInput}
+              barajaId={localBarajaId}
+              barajas={barajas}
+            />
+            <Cabecera t={t} cartas={barajas[localBarajaId].cartas} />
+            <Menu
+              hostGame={hostGame}
+              joinGame={joinGame}
+              gameId={gameId}
+              handleGameIdInput={handleGameIdInput}
+            />
+          </>
+        }>
         </Route>
-        <Route path="/buscar">
+        <Route path="/buscar" element={
           <Busqueda g={g} />
+        }>
         </Route>
-        <Route path="/jugar">
+        <Route path="/jugar" element={
           <Juego
             g={g}
             jugadorId={jugadorId}
@@ -256,9 +260,10 @@ const App = () => {
             winConditionHeader={t("winConditionHeader")}
             winConditionText={t("winConditionText")}
             startText={t("startText")}
-          />
+          /> 
+        }>
         </Route>
-        <Route path={`/${gameId}`}>
+        <Route path={`/:gameId`} element={
           <Sala
             g={g}
             jugadorId={jugadorId}
@@ -266,8 +271,9 @@ const App = () => {
             registrar={registrar}
             iniciar={iniciar}
           />
+        }>
         </Route>
-      </Switch>
+      </Routes>
     </Container>
   );
 };

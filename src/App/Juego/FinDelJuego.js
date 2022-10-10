@@ -2,13 +2,13 @@ import React from "react";
 import Dialog from '@mui/material/Dialog';
 import { createTheme, DialogActions, DialogContent, DialogContentText, DialogTitle, ThemeProvider } from "@mui/material";
 import { Button } from "react-bootstrap";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
 const FinDelJuego = ({ jugadorId, ganador }) => {
   const { t } = useTranslation();
   const isWinner = ganador === jugadorId;
-  const history = useHistory();
+  const navigate = useNavigate();
   const dialogTheme = createTheme({
     components: {
       MuiDialogTitle: {
@@ -56,7 +56,7 @@ const FinDelJuego = ({ jugadorId, ganador }) => {
           <DialogActions>
              {/*When we have the play again logic wired up, remove this display none.*/}
             <Button onClick="" style={{display: "none"}}>{t("otraVez")}</Button>
-            <Button onClick={() => history.push("/")}>{t("home")}</Button>
+            <Button onClick={() => navigate("/")}>{t("home")}</Button>
           </DialogActions>
         </Dialog>
       </ThemeProvider>
