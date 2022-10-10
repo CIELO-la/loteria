@@ -73,7 +73,7 @@ const App = () => {
     g.seleccionarBaraja(localBarajaId);
 
     // save host id to local storage in case of refresh
-    localStorage.setItem('hostIdGameId', `${jugadorId}-${gameId}`);
+    localStorage.setItem('hostIdGameId', `${jugadorId}-${newGameId}`);
 
     history.push(`/${newGameId}`);
   };
@@ -99,7 +99,7 @@ const App = () => {
     }
 
     // reclaim host if applicable
-    if (localStorage.getItem('hostIdGameId') === `${jugadorId}-${gameId}`){
+    if (localStorage.getItem('hostIdGameId') === `${jugadorId}-${juegoId}`){
       g.isHost = true;
     }
     
