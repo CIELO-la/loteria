@@ -8,7 +8,6 @@
   "registrar": "register - in the lobby",
   "iniciar": "start",
   "jugar": "play",
-  "ganar": "winner - the player {{ganador}} won",
   "empate": "tie - no one won",
   "iniciando": "Starting...",
   "hostIniciar": "Start",

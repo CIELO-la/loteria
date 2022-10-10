@@ -8,7 +8,6 @@
   "registrar": "registrar - en el lobby",
   "iniciar": "iniciar",
   "jugar": "jugar",
-  "ganar": "ganar - ganó el jugador {{ganador}}",
   "empate": "empate - no ganó nadie",
   "iniciando": "Iniciando...",
   "hostIniciar": "Iniciar",
