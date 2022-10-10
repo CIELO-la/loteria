@@ -20,11 +20,11 @@
     "react-dom": "^17.0.2",
     "react-i18next": "^11.16.7",
     "react-router-dom": "^5.3.0",
-    "react-scripts": "^4.0.3",
+    "react-scripts": "^5.0.1",
     "web-vitals": "^1.1.2"
   },
   "scripts": {
-    "start": "react-scripts --openssl-legacy-provider --optimize_for_size --max_old_space_size=2560 start",
+    "start": "react-scripts --optimize_for_size --max_old_space_size=2560 start",
     "build": "react-scripts --openssl-legacy-provider --optimize_for_size --max_old_space_size=2560 build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
