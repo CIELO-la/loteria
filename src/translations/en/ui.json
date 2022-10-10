@@ -8,7 +8,6 @@
   "registrar": "register - in the lobby",
   "iniciar": "start",
   "jugar": "play",
-  "ganar": "winner - the player {{ganador}} won",
   "empate": "tie - no one won",
   "iniciando": "Starting...",
   "hostIniciar": "Start",
@@ -26,5 +25,6 @@
   "home": "Home",
   "otraVez": "Play again",
   "winConditionHeader": "HOW TO WIN",
-  "winConditionText": "Get four cards in a corner or four cards in a horizontal or vertical row."
+  "winConditionText": "Get four cards in a corner or four cards in a horizontal or vertical row.",
+  "startText": "Let's get started!"
 }

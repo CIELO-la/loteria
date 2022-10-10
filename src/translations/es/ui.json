@@ -8,7 +8,6 @@
   "registrar": "registrar - en el lobby",
   "iniciar": "iniciar",
   "jugar": "jugar",
-  "ganar": "ganar - ganó el jugador {{ganador}}",
   "empate": "empate - no ganó nadie",
   "iniciando": "Iniciando...",
   "hostIniciar": "Iniciar",
@@ -26,5 +25,6 @@
   "home": "Inicio",
   "otraVez": "Juega de nuevo",
   "winConditionHeader": "CÓMO SE GANA",
-  "winConditionText": "Marca cuatro cartas en un pozo o cuatro cartas en una fila horizontal o vertical."
+  "winConditionText": "Marca cuatro cartas en un pozo o cuatro cartas en una fila horizontal o vertical.",
+  "startText": "¡Corre y se va!"
 }

@@ -255,6 +255,7 @@ const App = () => {
             playAudio={playAudio}
             winConditionHeader={t("winConditionHeader")}
             winConditionText={t("winConditionText")}
+            startText={t("startText")}
           />
         </Route>
         <Route path={`/${gameId}`}>
