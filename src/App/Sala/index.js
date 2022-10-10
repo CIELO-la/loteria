@@ -89,7 +89,7 @@ const Sala = ({ g, jugadorId, estatusActual, registrar, iniciar }) => {
                 className="col-4"
                 onClick={leaveLobbyStartGame}
               >
-                {t("hostIniciar")}
+                {g.isHost ? t("hostIniciar") : t("esperandoParaHost")}
               </Button>
             ) : (
               <Button disabled className="col-4">
