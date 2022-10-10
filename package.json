@@ -24,7 +24,7 @@
     "web-vitals": "^1.1.2"
   },
   "scripts": {
-    "start": "react-scripts --optimize_for_size --max_old_space_size=2560 start",
+    "start": "set HTTPS=true&&react-scripts --optimize_for_size --max_old_space_size=2560 start",
     "build": "react-scripts --openssl-legacy-provider --optimize_for_size --max_old_space_size=2560 build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
