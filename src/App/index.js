@@ -71,10 +71,15 @@ const App = () => {
     e.preventDefault();
     g.asignarHost(true);
     g.seleccionarBaraja(localBarajaId);
+
+    // save host id to local storage in case of refresh
+    localStorage.setItem('hostIdGameId', `${jugadorId}-${gameId}`);
+
     history.push(`/${newGameId}`);
   };
   const joinGame = async (e) => {
     e.preventDefault();
+    // check to see if you are host
     g.asignarHost(false);
     history.push(`/${gameId}`);
   };
@@ -94,6 +99,11 @@ const App = () => {
       await g.conectar();
     }
 
+    // reclaim host if applicable
+    if (localStorage.getItem('hostIdGameId') === `${jugadorId}-${gameId}`){
+      g.isHost = true;
+    }
+    
     // TODO: set and read access flow (in store: { ..., privado: bool })
     const privado = g.isHost;
 
