@@ -213,11 +213,12 @@ class Cantor {
 
     // primera lectura, primera actualización
     if (this.isHost) {
+      let barajaId = localStorage.getItem("barajaId");
       this.cartas = barajar([
-        ...Object.keys(barajas[this.barajaId].cartas),
+        ...Object.keys(barajas[barajaId].cartas),
       ]);
       await this.deposito.update({
-        barajaId: this.barajaId,
+        barajaId: barajaId,
         cartas: this.cartas,
         cantadas: 0,
         estatus: estatus.registrar,
