@@ -16,6 +16,7 @@
   "Conectándose": "Connecting...",
   "imprimir": "Print version",
   "salaHeader": "Waiting for players...",
+  "esperandoParaHost": "Waiting for host...",
   "salaHost": "Send this URL to other players. When all players are ready press START",
   "salaPlayer": "The host can start when all players are ready",
   "salaCode": "URL:",
