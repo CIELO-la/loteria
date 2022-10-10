@@ -258,7 +258,7 @@ const App = () => {
             startText={t("startText")}
           />
         </Route>
-        <Route path={`/${gameId}`}>
+        <Route path={`/:juegoIdParam`}>
           <Sala
             g={g}
             jugadorId={jugadorId}
