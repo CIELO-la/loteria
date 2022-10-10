@@ -79,7 +79,6 @@ const App = () => {
   };
   const joinGame = async (e) => {
     e.preventDefault();
-    // check to see if you are host
     g.asignarHost(false);
     history.push(`/${gameId}`);
   };
