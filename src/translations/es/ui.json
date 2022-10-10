@@ -25,5 +25,6 @@
   "home": "Inicio",
   "otraVez": "Juega de nuevo",
   "winConditionHeader": "CÓMO SE GANA",
-  "winConditionText": "Marca cuatro cartas en un pozo o cuatro cartas en una fila horizontal o vertical."
+  "winConditionText": "Marca cuatro cartas en un pozo o cuatro cartas en una fila horizontal o vertical.",
+  "startText": "¡Corre y se va!"
 }

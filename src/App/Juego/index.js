@@ -18,7 +18,8 @@ const Juego = ({
   ganador,
   playAudio,
   winConditionHeader,
-  winConditionText
+  winConditionText,
+  startText
 }) => (
   <div className="juego">
     <Stack direction="horizontal">
@@ -71,7 +72,7 @@ const Juego = ({
                 />
               </div>
             ) : (
-              <div className="juego-start-header">¡Corre y se va!</div>
+              <div className="juego-start-header">{startText}</div>
             )}
           </div>
           <Button className="loteria" onClick={() => g.verificar()}>
