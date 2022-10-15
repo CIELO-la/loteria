@@ -7,6 +7,7 @@ import Busqueda from "./Busqueda";
 import Sala from "./Sala";
 import Juego from "./Juego";
 import Download from "./Download";
+import DownloadDeck from "./DownloadDeck";
 import Cantor from "../Loteria";
 import BarajaButton from "./Sitio/BarajaButton";
 import { barajas } from "../Loteria/barajas";
@@ -261,6 +262,9 @@ const App = () => {
         </Route>
         <Route path="/download">
           <Download />
+        </Route>
+        <Route path="/downloadDeck">
+          <DownloadDeck />
         </Route>
         <Route path={`/:juegoIdParam`}>
           <Sala

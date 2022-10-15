@@ -2,15 +2,19 @@ import { useTranslation } from "react-i18next";
 import Row from "react-bootstrap/Row";
 import BackButton from "../Common/BackButton";
 import Button from "react-bootstrap/Button";
+import { useHistory } from "react-router-dom";
 
 const Download = ({}) => {
   const { t } = useTranslation();
+  const history = useHistory();
 
   // TODO: find a better way to update the background color on this page
   document.body.style.backgroundColor = "#FEECE9"
+
   const handleDeckDowndload = () => {
-    // TODO: download deck of all 54 cards
+    history.push(`/downloadDeck`);
   }
+
   return (
     <div className="downloadPage">
       <Row>

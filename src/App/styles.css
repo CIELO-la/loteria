@@ -479,3 +479,9 @@ table {
   font-size: 0.60em;
   line-height: 0.60em;
 }
+
+
+@page {
+  size: 8.5in 11in;  
+  margin: 70pt 60pt 70pt;
+}

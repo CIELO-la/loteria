@@ -6,63 +6,63 @@ export const barajas = {
       ganar: "¡Loteria!",
     },
     cartas: {
-      "01": {
+      1: {
         nombre: "yelllhio",
         imagen: "https://storage.googleapis.com/loteria-cielo/barajas/dx-zoogocho/01-yelllhio.png",
         audio: "https://storage.googleapis.com/loteria-cielo/audio/dx-zoogocho/01-yelllhio.mp3",
         color: "yellow",
         id: "01"
       },
-      "02": {
+      2: {
         nombre: "gwbill",
         imagen: "https://storage.googleapis.com/loteria-cielo/barajas/dx-zoogocho/02-gwbill.png",
         audio: "https://storage.googleapis.com/loteria-cielo/audio/dx-zoogocho/02-gwbill.wav",
         color: "purple",
         id: "02"
       },
-      "03": {
+      3: {
         nombre: "bio'",
         imagen: "https://storage.googleapis.com/loteria-cielo/barajas/dx-zoogocho/03-bio'.png",
         audio: "https://storage.googleapis.com/loteria-cielo/audio/dx-zoogocho/03-bio'.wav",
         color: "blue",
         id: "03"
       },
-      "04": {
+      4: {
         nombre: "beljw",
         imagen: "https://storage.googleapis.com/loteria-cielo/barajas/dx-zoogocho/04-beljw.png",
         audio: "https://storage.googleapis.com/loteria-cielo/audio/dx-zoogocho/04-beljw.wav",
         color: "red",
         id: "04"
       },
-      "05": {
+      5: {
         nombre: "yaba",
         imagen: "https://storage.googleapis.com/loteria-cielo/barajas/dx-zoogocho/05-yaba.png",
         audio: "https://storage.googleapis.com/loteria-cielo/audio/dx-zoogocho/05-yaba.wav",
         color: "yellow",
         id: "05"
       },
-      "06": {
+      6: {
         nombre: "bdoa",
         imagen: "https://storage.googleapis.com/loteria-cielo/barajas/dx-zoogocho/06-bdoa.png",
         audio: "https://storage.googleapis.com/loteria-cielo/audio/dx-zoogocho/06-bdoa.wav",
         color: "blue",
         id: "06"
       },
-      "07": {
+      7: {
         nombre: "bej",
         imagen: "https://storage.googleapis.com/loteria-cielo/barajas/dx-zoogocho/07-bej.png",
         audio: "https://storage.googleapis.com/loteria-cielo/audio/dx-zoogocho/07-bej.wav",
         color: "red",
         id: "07"
       },
-      "08": {
+      8: {
         nombre: "yelh",
         imagen: "https://storage.googleapis.com/loteria-cielo/barajas/dx-zoogocho/08-yelh.png",
         audio: "https://storage.googleapis.com/loteria-cielo/audio/dx-zoogocho/08-yelh.wav",
         color: "yellow",
         id: "08"
       },
-      "09": {
+      9: {
         nombre: "ya'yego",
         imagen: "https://storage.googleapis.com/loteria-cielo/barajas/dx-zoogocho/09-ya'yego.png",
         audio: "https://storage.googleapis.com/loteria-cielo/audio/dx-zoogocho/09-ya'yego.wav",
