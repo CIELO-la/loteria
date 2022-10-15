@@ -1,6 +1,7 @@
 import { barajas } from "./barajas";
 import { estatus } from "./estatus";
 import { dbConnect } from "../utils/db";
+import { barajar } from "../utils/deckManagement";
 
 // NOTE: véase el archivo db para interacciones Juego-db
 class Cantor {
@@ -96,7 +97,7 @@ class Cantor {
   crearTabla = () =>
     // barajar tabla de 16 cartas e indicar si están marcadas
     [
-      ...this.barajar(this.cartas)
+      ...barajar(this.cartas)
         .slice(0, 16)
         .map((cartaId) => [cartaId, false]),
     ];
@@ -212,11 +213,12 @@ class Cantor {
 
     // primera lectura, primera actualización
     if (this.isHost) {
-      this.cartas = this.barajar([
-        ...Object.keys(barajas[this.barajaId].cartas),
+      let barajaId = localStorage.getItem("barajaId");
+      this.cartas = barajar([
+        ...Object.keys(barajas[barajaId].cartas),
       ]);
       await this.deposito.update({
-        barajaId: this.barajaId,
+        barajaId: barajaId,
         cartas: this.cartas,
         cantadas: 0,
         estatus: estatus.registrar,
@@ -272,19 +274,6 @@ class Cantor {
     this.isHost && clearInterval(this.timer);
     this.seAcabo = true;
     this.deposito.unsub();
-  };
-
-  barajar = (cartas) => {
-    const cartasBarajadas = [...cartas].reverse();
-    let temp, j;
-    cartas.map((_, i) => {
-      j = Math.floor(Math.random() * (i + 1));
-      temp = cartasBarajadas[i];
-      cartasBarajadas[i] = cartasBarajadas[j];
-      cartasBarajadas[j] = temp;
-      return null;
-    });
-    return cartasBarajadas;
   };
 
   cantar = () => {

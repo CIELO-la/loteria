@@ -8,7 +8,6 @@
   "registrar": "register - in the lobby",
   "iniciar": "start",
   "jugar": "play",
-  "ganar": "winner - the player {{ganador}} won",
   "empate": "tie - no one won",
   "iniciando": "Starting...",
   "hostIniciar": "Start",
@@ -16,8 +15,17 @@
   "Conectándose": "Connecting...",
   "imprimir": "Print version",
   "salaHeader": "Waiting for players...",
-  "salaHost": "When all players are ready press START",
+  "esperandoParaHost": "Waiting for host...",
+  "salaHost": "Send this URL to other players. When all players are ready press START",
   "salaPlayer": "The host can start when all players are ready",
   "salaCode": "Room code:",
-  "downloadPrompt": "Download a print version"
+  "salaUrlCopy": "Lobby link copied",
+  "back": "Back",
+  "ganar": "You won the game!",
+  "perder": "Better luck next time.",
+  "home": "Home",
+  "otraVez": "Play again",
+  "winConditionHeader": "HOW TO WIN",
+  "winConditionText": "Get four cards in a corner or four cards in a horizontal or vertical row.",
+  "startText": "Let's get started!"
 }

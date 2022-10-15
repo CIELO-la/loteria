@@ -1,26 +1,19 @@
-import { useTranslation } from "react-i18next";
 import { barajas } from "../../Loteria/barajas";
+import { barajar } from "../../utils/deckManagement";
 
-const Cabecera = () => {
-  const { t } = useTranslation();
+const Cabecera = ({ t, cartas }) => {
 
   const styleList = ["midRight", "lowLeft", "up", "lowRight", ""];
 
-  const allCards = [...Object.keys(barajas.es01.cartas)];
-
-  var logoCards = [];
-  for (var i = 0; i < 9; i++) {
-    const selectedCardNum = Math.floor(Math.random() * allCards.length);
-    const selectedCard = barajas.es01.cartas[allCards[selectedCardNum]];
-    logoCards.push(
+  const logoCards = barajar([...Object.values(cartas)]).slice(0,9).map(
+    (selectedCard, i) => (
       <img
-        className={`logoCarta ${styleList[i % styleList.length]}`}
+        className={`logoCarta ${styleList[i % styleList.length]} background-${selectedCard.color}-vivid`}
         src={selectedCard.imagen}
         alt={selectedCard.nombre}
         key={i}
       />
-    );
-  }
+  ));
 
   return (
     <div className="cabecera">

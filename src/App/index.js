@@ -43,6 +43,7 @@ const App = () => {
     estatusActual: "",
     ganador: "",
     mensaje: "",
+    audio: null
   });
   // local browser storage for player id
   const jugadorId = useLocalStorage(
@@ -63,7 +64,7 @@ const App = () => {
   const history = useHistory();
 
   // app state references
-  const { gameId, g, cartaCantada, marcadas, estatusActual, ganador, mensaje } =
+  const { gameId, g, cartaCantada, marcadas, estatusActual, ganador, mensaje, audio } =
     state;
 
   // wrap game registration for host (create game id) vs guest (follow id)
@@ -71,12 +72,23 @@ const App = () => {
     e.preventDefault();
     g.asignarHost(true);
     g.seleccionarBaraja(localBarajaId);
+
+    // save host id to local storage in case of refresh
+    localStorage.setItem('hostIdGameId', `${jugadorId}-${newGameId}`);
+
     history.push(`/${newGameId}`);
   };
   const joinGame = async (e) => {
     e.preventDefault();
     g.asignarHost(false);
     history.push(`/${gameId}`);
+  };
+
+  // browser card audio playback passed down to Sound component
+  const playAudio = async(audioURI) => {
+    if (!audio) { return; }
+    audio.src = audioURI;
+    audio.play();
   };
 
   // TODO: access (allow/disallow depending on joined game status)
@@ -87,6 +99,11 @@ const App = () => {
       await g.conectar();
     }
 
+    // reclaim host if applicable
+    if (localStorage.getItem('hostIdGameId') === `${jugadorId}-${juegoId}`){
+      g.isHost = true;
+    }
+    
     // TODO: set and read access flow (in store: { ..., privado: bool })
     const privado = g.isHost;
 
@@ -180,10 +197,12 @@ const App = () => {
   // start game and connect game-db on app start
   useEffect(() => {
     const gameInstance = new Cantor(jugadorId);
+    const audio = new Audio();
     gameInstance.conectar((db) =>
       setState((prevState) => ({
         ...prevState,
         g: gameInstance,
+        audio
       }))
     );
   }, [jugadorId]);
@@ -213,7 +232,7 @@ const App = () => {
             barajaId={localBarajaId}
             barajas={barajas}
           />
-          <Cabecera baraja={barajas[localBarajaId]} />
+          <Cabecera t={t} cartas={barajas[localBarajaId].cartas} />
           <Menu
             hostGame={hostGame}
             joinGame={joinGame}
@@ -227,18 +246,23 @@ const App = () => {
         <Route path="/jugar">
           <Juego
             g={g}
+            jugadorId={jugadorId}
             baraja={barajas[localBarajaId]}
             cartaCantada={cartaCantada}
             tablaDimension={4}
             marcar={marcar}
             marcadas={marcadas}
             ganador={ganador}
+            playAudio={playAudio}
+            winConditionHeader={t("winConditionHeader")}
+            winConditionText={t("winConditionText")}
+            startText={t("startText")}
           />
         </Route>
         <Route path="/download">
           <Download />
         </Route>
-        <Route path={`/${gameId}`}>
+        <Route path={`/:juegoIdParam`}>
           <Sala
             g={g}
             jugadorId={jugadorId}

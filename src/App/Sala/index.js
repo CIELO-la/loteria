@@ -15,6 +15,7 @@ const Sala = ({ g, jugadorId, estatusActual, registrar, iniciar }) => {
   const [isStarting, setStarting] = useState(false);
   const [isRegistering, setRegistering] = useState(false);
   const [salaCode, setSalaCode] = useState(0);
+  const lobbyURL = document.URL;
 
   // uri for path matching
   const location = useLocation();
@@ -30,6 +31,15 @@ const Sala = ({ g, jugadorId, estatusActual, registrar, iniciar }) => {
     // message status so players route to /juego
     setTimeout(iniciar, 2000);
     history.push("/juego");
+  };
+
+  const copyRoomUrl = (e) => {
+    var roomUrl = document.URL;
+    navigator.clipboard
+      .writeText(roomUrl)
+      .then(() => {
+        alert(t("salaUrlCopy"));
+      });
   };
 
   // immediately register players from uri
@@ -52,7 +62,7 @@ const Sala = ({ g, jugadorId, estatusActual, registrar, iniciar }) => {
   }, [g, registrar, location, isRegistering]);
 
   return (
-    <div>
+    <div className="lobby">
       <Row>
         <div className="col-2 salaBackCol">
           <BackButton />
@@ -69,7 +79,7 @@ const Sala = ({ g, jugadorId, estatusActual, registrar, iniciar }) => {
             </div>
           </div>
           <div className="sala-code col-4">
-            {t("salaCode")} {salaCode}
+            <a onClick={copyRoomUrl}>{t("salaCode")} {lobbyURL}</a>
           </div>
           <Cuadros jugadores={g.jugadores} />
           <div>
@@ -79,7 +89,7 @@ const Sala = ({ g, jugadorId, estatusActual, registrar, iniciar }) => {
                 className="col-4"
                 onClick={leaveLobbyStartGame}
               >
-                {t("hostIniciar")}
+                {g.isHost ? t("hostIniciar") : t("esperandoParaHost")}
               </Button>
             ) : (
               <Button disabled className="col-4">
