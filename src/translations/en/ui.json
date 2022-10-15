@@ -27,5 +27,7 @@
   "otraVez": "Play again",
   "winConditionHeader": "HOW TO WIN",
   "winConditionText": "Get four cards in a corner or four cards in a horizontal or vertical row.",
-  "startText": "Let's get started!"
+  "startText": "Let's get started!",
+  "downloadPrompt": "Download a print version",
+  "tablas": "boards"
 }
