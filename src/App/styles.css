@@ -62,8 +62,9 @@ table {
   border-collapse: separate;
 }
 
-.tabla-girada {
-  transform: rotate(90deg);
+#tabla.tabla-printable {
+  padding: 0;
+  border: none;
 }
 
 .jugador {
@@ -124,6 +125,21 @@ table {
 
 .carta-marcada {
   opacity: 0.3;
+}
+
+.carta-button-printable {
+  width: 2.5in;
+  height: 3.75in;
+}
+
+.carta-button-printable .carta-numero, .carta-button-printable .carta-nombre {
+  font-size: 1.5em;
+  line-height: 1.5em;
+}
+
+.carta-button-printable .carta-imagen {
+  width: 150px;
+  height: 200px;
 }
 
 .juego {
@@ -491,5 +507,8 @@ table {
 
 @page {
   size: 8.5in 11in;  
-  margin: 70pt 60pt 70pt;
+}
+
+@media print {
+  .pagebreak { page-break-after: always; }
 }

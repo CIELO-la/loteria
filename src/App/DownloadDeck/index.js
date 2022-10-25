@@ -1,42 +1,51 @@
 import { Carta } from "../Juego/Carta";
 import { barajas } from "../../Loteria/barajas";
 
+const groupArrayByCount = (list, count) => {
+  return list.reduce((a, c, i) => {
+    return i % count === 0 ? a.concat([list.slice(i, i + count)]) : a;
+  }, []);
+};
+
 const DownloadDeck = () => {
-    document.body.style.backgroundColor = "white"
-    const dillaXhonBaraja = barajas.za01
-    const cartas = Object.entries(dillaXhonBaraja.cartas)
-    const res = cartas.reduce((a, c, i) => {
-        return i % 2 === 0 ? a.concat([cartas.slice(i, i + 2)]) : a;
-      }, []);
+  document.body.style.backgroundColor = "white";
+  const dillaXhonBaraja = barajas.za01;
+  const cartas = Object.entries(dillaXhonBaraja.cartas);
+  const rowsOfCartas = groupArrayByCount(cartas, 4);
+  const pages = groupArrayByCount(rowsOfCartas, 3);
 
-    // const middleIndex = Math.ceil(cartas.length / 2);
-
-    // const firstHalf = cartas.splice(0, middleIndex);   
-    // const secondHalf = cartas.splice(-middleIndex);
-    return(
-        <table id="tabla">
+  return (
+    <>
+      {pages.map((page, i) => {
+        return (
+          <table
+            id="tabla"
+            className="pagebreak tabla-printable"
+            key={`table-${i}`}
+          >
             <tbody>
-                {res.map(row => {
-                    return(
-                        <tr>
-                             {row.map(([cartaId, carta], i) => {
-                                return(
-                                    <div className="carta-printable">
-                                        <Carta
-                                            key={`carta-${cartaId}`}
-                                            carta={carta}
-                                            componible={true}
-                                            printView={true}
-                                        />
-                                    </div>
-                                )
-                            })}    
-                        </tr>
-                    )
-                })}
+              {page.map((row, j) => {
+                return (
+                  <tr key={`row-${j}`}>
+                    {row.map(([cartaId, carta]) => {
+                      return (
+                        <Carta
+                          key={`carta-${cartaId}`}
+                          carta={carta}
+                          componible={true}
+                          printView={true}
+                        />
+                      );
+                    })}
+                  </tr>
+                );
+              })}
             </tbody>
-        </table>
-    )
-}
+          </table>
+        );
+      })}
+    </>
+  );
+};
 
 export default DownloadDeck;
