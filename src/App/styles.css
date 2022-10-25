@@ -62,6 +62,10 @@ table {
   border-collapse: separate;
 }
 
+.tabla-girada {
+  transform: rotate(90deg);
+}
+
 .jugador {
   width: 100%;
   margin: 12px 0;
@@ -106,6 +110,7 @@ table {
   border-radius: 2px;
   padding-top: 7px;
   padding-bottom: 7px;
+  font-size: 22px;
 }
 
 .carta-button:disabled {
@@ -480,6 +485,9 @@ table {
   line-height: 0.60em;
 }
 
+.print-deck {
+  max-width: 100px;
+}
 
 @page {
   size: 8.5in 11in;  
