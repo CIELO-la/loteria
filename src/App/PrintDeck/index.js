@@ -1,5 +1,8 @@
 import { Carta } from "../Juego/Carta";
 import { barajas } from "../../Loteria/barajas";
+import Button from "react-bootstrap/Button";
+import { useTranslation } from "react-i18next";
+import { useHistory } from "react-router-dom";
 
 const groupArrayByCount = (list, count) => {
   return list.reduce((a, c, i) => {
@@ -7,7 +10,10 @@ const groupArrayByCount = (list, count) => {
   }, []);
 };
 
-const DownloadDeck = () => {
+const PrintDeck = () => {
+  const { t } = useTranslation();
+  const history = useHistory();
+
   document.body.style.backgroundColor = "white";
   const dillaXhonBaraja = barajas.za01;
   const cartas = Object.entries(dillaXhonBaraja.cartas);
@@ -16,6 +22,24 @@ const DownloadDeck = () => {
 
   return (
     <>
+      <div className="print-buttons">
+        <Button
+          variant={"light"}
+          size="md"
+          className="print-hidden print-button"
+          onClick={() => window.print()}
+        >
+          🖨 {t("print")}
+        </Button>
+        <Button
+          variant={"light"}
+          size="md"
+          className="print-hidden"
+          onClick={() => history.push("/download")}
+        >
+          ← {t("back")}
+        </Button>
+      </div>
       {pages.map((page, i) => {
         return (
           <table
@@ -48,4 +72,4 @@ const DownloadDeck = () => {
   );
 };
 
-export default DownloadDeck;
+export default PrintDeck;

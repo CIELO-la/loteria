@@ -12,7 +12,7 @@ const Download = ({}) => {
   document.body.style.backgroundColor = "#FEECE9"
 
   const handleDeckDowndload = () => {
-    history.push(`/downloadDeck`);
+    history.push(`/PrintDeck`);
   }
 
   return (

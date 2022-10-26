@@ -65,6 +65,8 @@ table {
 #tabla.tabla-printable {
   padding: 0;
   border: none;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .jugador {
@@ -505,10 +507,25 @@ table {
   max-width: 100px;
 }
 
+.print-button {
+  margin-right: 8px;
+}
+
+.print-buttons {
+  margin-top: 24px;
+  margin-bottom: 8px;
+}
+
 @page {
   size: 8.5in 11in;  
 }
 
 @media print {
-  .pagebreak { page-break-after: always; }
+  .pagebreak { 
+    page-break-after: always; 
+  }
+
+  .print-hidden {
+    display: none;
+  }
 }

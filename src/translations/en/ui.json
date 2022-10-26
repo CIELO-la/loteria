@@ -29,5 +29,6 @@
   "winConditionText": "Get four cards in a corner or four cards in a horizontal or vertical row.",
   "startText": "Let's get started!",
   "downloadPrompt": "Download a print version",
-  "tablas": "boards"
+  "tablas": "boards",
+  "print": "Print"
 }

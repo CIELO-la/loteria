@@ -7,7 +7,7 @@ import Busqueda from "./Busqueda";
 import Sala from "./Sala";
 import Juego from "./Juego";
 import Download from "./Download";
-import DownloadDeck from "./DownloadDeck";
+import PrintDeck from "./PrintDeck";
 import Cantor from "../Loteria";
 import BarajaButton from "./Sitio/BarajaButton";
 import { barajas } from "../Loteria/barajas";
@@ -263,8 +263,8 @@ const App = () => {
         <Route path="/download">
           <Download />
         </Route>
-        <Route path="/downloadDeck">
-          <DownloadDeck />
+        <Route path="/PrintDeck">
+          <PrintDeck />
         </Route>
         <Route path={`/:juegoIdParam`}>
           <Sala

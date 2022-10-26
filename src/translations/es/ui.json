@@ -29,5 +29,6 @@
   "winConditionText": "Marca cuatro cartas en un pozo o cuatro cartas en una fila horizontal o vertical.",
   "startText": "¡Corre y se va!",
   "downloadPrompt": "Descargar una versión imprimible",
-  "tablas": "tablas"
+  "tablas": "tablas",
+  "print": "Impresa"
 }
