@@ -8,6 +8,7 @@ import Sala from "./Sala";
 import Juego from "./Juego";
 import Download from "./Download";
 import PrintDeck from "./PrintDeck";
+import PrintBoards from "./PrintBoards";
 import Cantor from "../Loteria";
 import BarajaButton from "./Sitio/BarajaButton";
 import { barajas } from "../Loteria/barajas";
@@ -61,7 +62,6 @@ const App = () => {
   );
 
   // router hooks
-  //const { juegoIdParam } = useParams();
   const history = useHistory();
 
   // app state references
@@ -265,6 +265,9 @@ const App = () => {
         </Route>
         <Route path="/PrintDeck">
           <PrintDeck />
+        </Route>
+        <Route path={`/PrintBoards/:playerBoardCount`}>
+          <PrintBoards />
         </Route>
         <Route path={`/:juegoIdParam`}>
           <Sala
