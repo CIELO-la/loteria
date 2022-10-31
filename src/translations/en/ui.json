@@ -18,7 +18,7 @@
   "esperandoParaHost": "Waiting for host...",
   "salaHost": "Send this URL to other players. When all players are ready press START",
   "salaPlayer": "The host can start when all players are ready",
-  "salaCode": "URL:",
+  "salaCode": "Room code:",
   "salaUrlCopy": "Lobby link copied",
   "back": "Back",
   "ganar": "You won the game!",
@@ -27,5 +27,8 @@
   "otraVez": "Play again",
   "winConditionHeader": "HOW TO WIN",
   "winConditionText": "Get four cards in a corner or four cards in a horizontal or vertical row.",
-  "startText": "Let's get started!"
+  "startText": "Let's get started!",
+  "downloadPrompt": "Download a print version",
+  "tablas": "boards",
+  "print": "Print"
 }
