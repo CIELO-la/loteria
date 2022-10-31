@@ -1,4 +1,3 @@
-import { barajas } from "../../Loteria/barajas";
 import { barajar } from "../../utils/deckManagement";
 
 const Cabecera = ({ t, cartas }) => {

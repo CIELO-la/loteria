@@ -63,7 +63,7 @@ const App = () => {
   const history = useHistory();
 
   // app state references
-  const { gameId, g, cartaCantada, marcadas, estatusActual, ganador, mensaje, audio } =
+  const { gameId, g, cartaCantada, marcadas, estatusActual, ganador, audio } =
     state;
 
   // wrap game registration for host (create game id) vs guest (follow id)
