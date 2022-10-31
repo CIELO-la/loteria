@@ -5,7 +5,7 @@ import Button from "react-bootstrap/Button";
 import { useHistory } from "react-router-dom";
 import { useState } from 'react'
 
-const Download = ({}) => {
+const Download = () => {
   const { t } = useTranslation();
   const history = useHistory();
   const [boardCount, setBoardCount] = useState(4)
