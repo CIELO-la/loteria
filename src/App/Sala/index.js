@@ -34,6 +34,7 @@ const Sala = ({ g, jugadorId, estatusActual, registrar, iniciar }) => {
   };
 
   const copyRoomUrl = (e) => {
+    e.preventDefault()
     var roomUrl = document.URL;
     navigator.clipboard
       .writeText(roomUrl)
@@ -79,7 +80,7 @@ const Sala = ({ g, jugadorId, estatusActual, registrar, iniciar }) => {
             </div>
           </div>
           <div className="sala-code col-4">
-            <a href="#copyCode" onClick={copyRoomUrl}>{t("salaCode")} {lobbyURL}</a>
+            <a href="#copyCode" onClick={copyRoomUrl} style={{color: "blue", textDecoration: "none"}}>{t("salaCode")} {lobbyURL}</a>
           </div>
           <Cuadros jugadores={g.jugadores} />
           <div>

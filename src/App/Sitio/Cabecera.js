@@ -16,7 +16,7 @@ const Cabecera = ({ t, cartas }) => {
 
   return (
     <div className="cabecera">
-      <img className="logo" src={`/${process.env.PUBLIC_URL}/¡Loteria!.svg`} alt={t("titulo")} />
+      <img className="logo" src={`${process.env.PUBLIC_URL}/¡Loteria!.svg`} alt={t("titulo")} />
       <div className="logoCards">{logoCards}</div>
       <div className="placeholderCard" />
     </div>
