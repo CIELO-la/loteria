@@ -227,7 +227,11 @@ db.collection('ciudades').get()...
 ```
 
 ## Deploy to github pages
+Automatically deploys using github workflows.
 
+You can modify this file .github/workflows/build-and-deploy.yml
+
+Or run a manual deploy with:
 ```
 npm run deploy
 ```

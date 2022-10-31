@@ -5,7 +5,7 @@ import Button from "react-bootstrap/Button";
 import { useHistory } from "react-router-dom";
 import { useState } from 'react'
 
-const Download = ({}) => {
+const Download = () => {
   const { t } = useTranslation();
   const history = useHistory();
   const [boardCount, setBoardCount] = useState(4)
@@ -39,7 +39,7 @@ const Download = ({}) => {
       </Row>
       <Row className="mt-4">
         <div className="downloadSection">
-        <img src="/baraja.svg" alt={t("baraja")} />
+        <img src={`${process.env.PUBLIC_URL}/baraja.svg`} alt={t("baraja")} />
           <div className="downloadSectionLabel">
               Deck of 54 cards
           </div>
@@ -50,7 +50,7 @@ const Download = ({}) => {
       </Row>
       <Row className="mt-4">
         <div className="downloadSection">
-        <img src="/tablas.svg" alt={t("tablas")} />
+        <img src={`${process.env.PUBLIC_URL}/tablas.svg`} alt={t("tablas")} />
           <div className="downloadSectionLabel">
               Player boards
           </div>
