@@ -23,6 +23,10 @@ const Menu = ({ hostGame, joinGame, gameId, handleGameIdInput }) => {
     hostGame(event, newGameId);
   }
 
+  function goToDownloadScreen() {
+    history.push(`/download`);
+  }
+
   return (
     <div>
       <Row>
@@ -31,8 +35,7 @@ const Menu = ({ hostGame, joinGame, gameId, handleGameIdInput }) => {
         </Button>
       </Row>
       <Row>
-        <Button variant="secondary" className="col-4">
-          {/* TODO actually implement this */}
+        <Button onClick={(e) => goToDownloadScreen()} variant="secondary" className="col-4">
           {t("imprimir")}
         </Button>
       </Row>

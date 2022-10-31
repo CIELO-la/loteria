@@ -18,7 +18,7 @@
   "esperandoParaHost": "Esperando para host",
   "salaHost": "Envía esta URL a otros jugadores. Cuando todos los jugadores estén listos presione INICIAR",
   "salaPlayer": "El anfitrión comenzará cuando todos los jugadores estén listos",
-  "salaCode": "URL:",
+  "salaCode": "Sala código:",
   "salaUrlCopy": "Lobby link copiado",
   "back": "Regresar",
   "ganar": "¡Ganaste el juego!",
@@ -27,5 +27,8 @@
   "otraVez": "Juega de nuevo",
   "winConditionHeader": "CÓMO SE GANA",
   "winConditionText": "Marca cuatro cartas en un pozo o cuatro cartas en una fila horizontal o vertical.",
-  "startText": "¡Corre y se va!"
+  "startText": "¡Corre y se va!",
+  "downloadPrompt": "Descargar una versión imprimible",
+  "tablas": "tablas",
+  "print": "Impresa"
 }

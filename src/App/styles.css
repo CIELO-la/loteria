@@ -62,6 +62,16 @@ table {
   border-collapse: separate;
 }
 
+#tabla.tabla-printable {
+  padding: 0;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#tabla.tabla-printable:not(.tabla-printable-sm) {
+  border: none;
+}
+
 .jugador {
   width: 100%;
   margin: 12px 0;
@@ -106,6 +116,7 @@ table {
   border-radius: 2px;
   padding-top: 7px;
   padding-bottom: 7px;
+  font-size: 22px;
 }
 
 .carta-button:disabled {
@@ -119,6 +130,36 @@ table {
 
 .carta-marcada {
   opacity: 0.3;
+}
+
+.carta-button-printable {
+  width: 2.5in;
+  height: 3.75in;
+}
+
+.tabla-printable-sm .carta-button-printable {
+  width: 1.5in;
+  height: 2.25in;
+}
+
+.carta-button-printable .carta-numero, .carta-button-printable .carta-nombre {
+  font-size: 1.5em;
+  line-height: 1.5em;
+}
+
+.tabla-printable-sm .carta-button-printable .carta-numero, .tabla-printable-sm  .carta-button-printable .carta-nombre {
+  font-size: 1em;
+  line-height: 1em;
+}
+
+.carta-button-printable .carta-imagen {
+  width: 150px;
+  height: 200px;
+}
+
+.tabla-printable-sm .carta-button-printable .carta-imagen {
+  width: 90px;
+  height: 120px;
 }
 
 .juego {
@@ -269,6 +310,54 @@ table {
 
 .up {
   transform: translateY(-17px);
+}
+
+/* Download */
+
+.prompt {
+  padding-top: 69px;
+  font-size: 24px;
+}
+
+.downloadSectionRow {
+  margin: 24px;
+}
+
+.downloadSection {
+  border: 1px solid #D9647C;
+  border-radius: 3px;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+}
+
+.downloadSectionLabel {
+  flex-grow: 1;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  margin-left: 42px;
+}
+
+.downloadButton {
+  flex-grow: 1;
+  max-width: 166px;
+  min-width: 112px;
+  margin: 21px;
+}
+
+.placeholderIcon {
+  height: 74px;
+  width: 74px;
+  background: #D9647C;
+  border-radius: 100%;
+}
+
+.boardCountInput {
+  width: 64px;
+  padding: 6px 10px 8px;
+  border: 1px solid #CB3805;
+  border-radius: 6px;
 }
 
 /* Common element styling */
@@ -430,4 +519,31 @@ table {
   text-align: center;
   font-size: 0.60em;
   line-height: 0.60em;
+}
+
+.print-deck {
+  max-width: 100px;
+}
+
+.print-button {
+  margin-right: 8px;
+}
+
+.print-buttons {
+  margin-top: 24px;
+  margin-bottom: 8px;
+}
+
+@page {
+  size: 8.5in 11in;  
+}
+
+@media print {
+  .pagebreak { 
+    page-break-after: always; 
+  }
+
+  .print-hidden {
+    display: none;
+  }
 }
