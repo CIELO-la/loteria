@@ -52,5 +52,8 @@
   },
   "devDependencies": {
     "gh-pages": "^4.0.0"
+  },
+  "overrides": {
+    "autoprefixer": "10.4.5"
   }
 }
