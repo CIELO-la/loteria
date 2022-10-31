@@ -1,6 +1,7 @@
 {
   "name": "loteria",
   "version": "0.1.0",
+  "homepage": "https://gdomingu.github.io/loteria-cielo/",
   "private": true,
   "engines": {
     "node": "18.3.0"
@@ -25,9 +26,11 @@
   },
   "scripts": {
     "start": "set HTTPS=true&&react-scripts --optimize_for_size --max_old_space_size=2560 start",
-    "build": "react-scripts --openssl-legacy-provider --optimize_for_size --max_old_space_size=2560 build",
+    "build": "react-scripts --optimize_for_size --max_old_space_size=2560 build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
@@ -46,5 +49,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "gh-pages": "^4.0.0"
   }
 }

@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { BrowserRouter as Router } from "react-router-dom";
+import { HashRouter as Router } from "react-router-dom";
 import "./translations/i18n";
 import "bootstrap/dist/css/bootstrap.min.css";
 import App from "./App";
