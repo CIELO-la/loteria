@@ -225,3 +225,9 @@ db.collection('ciudades').where('visibilidad', '==', 'público').get()...
 db.collection('ciudades').get()...
 
 ```
+
+## Deploy to github pages
+
+```
+npm run deploy
+```
