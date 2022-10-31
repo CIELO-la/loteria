@@ -14,7 +14,6 @@ const Sala = ({ g, jugadorId, estatusActual, registrar, iniciar }) => {
   // lobby control flow
   const [isStarting, setStarting] = useState(false);
   const [isRegistering, setRegistering] = useState(false);
-  // const [_salaCode, setSalaCode] = useState(0);
   const lobbyURL = document.URL;
 
   // uri for path matching
@@ -54,7 +53,7 @@ const Sala = ({ g, jugadorId, estatusActual, registrar, iniciar }) => {
         exact: true,
         strict: false,
       });
-      // setSalaCode(match.params.juegoIdParam);
+
       setRegistering(true);
       await registrar(match.params.juegoIdParam);
     };
