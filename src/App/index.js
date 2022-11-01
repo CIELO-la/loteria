@@ -45,7 +45,7 @@ const App = () => {
     estatusActual: "",
     ganador: "",
     mensaje: "",
-    audio: null
+    audio: null,
   });
   // local browser storage for player id
   const jugadorId = useLocalStorage(
@@ -75,7 +75,7 @@ const App = () => {
     g.seleccionarBaraja(localBarajaId);
 
     // save host id to local storage in case of refresh
-    localStorage.setItem('hostIdGameId', `${jugadorId}-${newGameId}`);
+    localStorage.setItem("hostIdGameId", `${jugadorId}-${newGameId}`);
 
     history.push(`/${newGameId}`);
   };
@@ -86,8 +86,10 @@ const App = () => {
   };
 
   // browser card audio playback passed down to Sound component
-  const playAudio = async(audioURI) => {
-    if (!audio) { return; }
+  const playAudio = async (audioURI) => {
+    if (!audio) {
+      return;
+    }
     audio.src = audioURI;
     audio.play();
   };
@@ -101,10 +103,10 @@ const App = () => {
     }
 
     // reclaim host if applicable
-    if (localStorage.getItem('hostIdGameId') === `${jugadorId}-${juegoId}`){
+    if (localStorage.getItem("hostIdGameId") === `${jugadorId}-${juegoId}`) {
       g.isHost = true;
     }
-    
+
     // TODO: set and read access flow (in store: { ..., privado: bool })
     const privado = g.isHost;
 
@@ -203,7 +205,7 @@ const App = () => {
       setState((prevState) => ({
         ...prevState,
         g: gameInstance,
-        audio
+        audio,
       }))
     );
   }, [jugadorId]);
@@ -222,6 +224,27 @@ const App = () => {
     // cleanup
     return () => {};
   }, [estatusActual, gameId, history]);
+
+  // set up sound for safari users
+  useEffect(() => {
+    document.body.addEventListener("click", unlockAudio);
+    document.body.addEventListener("touchstart", unlockAudio);
+  });
+
+  // This is a way to get sound to work on Safari
+  const unlockAudio = () => {
+    const sound = new Audio(
+      "https://github.com/anars/blank-audio/raw/master/250-milliseconds-of-silence.mp3"
+    );
+
+    sound.play().then(() => {
+      sound.pause();
+      sound.currentTime = 0;
+    });
+
+    document.body.removeEventListener("click", unlockAudio);
+    document.body.removeEventListener("touchstart", unlockAudio);
+  };
 
   return (
     <Container className="App">
