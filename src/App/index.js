@@ -45,7 +45,6 @@ const App = () => {
     estatusActual: "",
     ganador: "",
     mensaje: "",
-    audio: null,
   });
   // local browser storage for player id
   const jugadorId = useLocalStorage(
@@ -65,8 +64,7 @@ const App = () => {
   const history = useHistory();
 
   // app state references
-  const { gameId, g, cartaCantada, marcadas, estatusActual, ganador, audio } =
-    state;
+  const { gameId, g, cartaCantada, marcadas, estatusActual, ganador } = state;
 
   // wrap game registration for host (create game id) vs guest (follow id)
   const hostGame = async (e, newGameId) => {
@@ -83,15 +81,6 @@ const App = () => {
     e.preventDefault();
     g.asignarHost(false);
     history.push(`/${gameId}`);
-  };
-
-  // browser card audio playback passed down to Sound component
-  const playAudio = async (audioURI) => {
-    if (!audio) {
-      return;
-    }
-    audio.src = audioURI;
-    audio.play();
   };
 
   // TODO: access (allow/disallow depending on joined game status)
@@ -200,12 +189,10 @@ const App = () => {
   // start game and connect game-db on app start
   useEffect(() => {
     const gameInstance = new Cantor(jugadorId);
-    const audio = new Audio();
     gameInstance.conectar((db) =>
       setState((prevState) => ({
         ...prevState,
         g: gameInstance,
-        audio,
       }))
     );
   }, [jugadorId]);
@@ -277,7 +264,6 @@ const App = () => {
             marcar={marcar}
             marcadas={marcadas}
             ganador={ganador}
-            playAudio={playAudio}
             winConditionHeader={t("winConditionHeader")}
             winConditionText={t("winConditionText")}
             startText={t("startText")}

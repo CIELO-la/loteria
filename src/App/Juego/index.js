@@ -16,7 +16,6 @@ const Juego = ({
   marcar,
   marcadas,
   ganador,
-  playAudio,
   winConditionHeader,
   winConditionText,
   startText
@@ -67,7 +66,6 @@ const Juego = ({
                   alt={cartaCantada.nombre}
                 />
                 <Sound
-                  playAudio={playAudio}
                   audioURI={cartaCantada.audio}
                 />
               </div>
