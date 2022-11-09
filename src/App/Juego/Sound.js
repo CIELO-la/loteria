@@ -1,10 +1,11 @@
 import React, { useEffect } from "react";
 
-const Sound = ({ playAudio, audioURI }) => {
+const Sound = ({ audioURI }) => {
   useEffect(() => {
-    playAudio(audioURI);
-  }, [playAudio, audioURI]);
-  return(<></>);
+    const audio = new Audio(audioURI);
+    audio.play();
+  }, [audioURI]);
+  return <></>;
 };
 
 export default Sound;
