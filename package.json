@@ -1,7 +1,7 @@
 {
   "name": "loteria",
   "version": "0.1.0",
-  "homepage": "https://JessRudder.github.io/loteria-cielo/",
+  "homepage": "https://cielo-la.github.io/loteria/",
   "private": true,
   "engines": {
     "node": "18.3.0"
