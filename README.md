@@ -1,4 +1,4 @@
- https://jessicarudder.com/loteria-cielo
+https://cielo-la.github.io/loteria/
  
 # Lotería pero en su lengua
 
