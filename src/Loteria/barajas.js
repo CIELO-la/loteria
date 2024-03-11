@@ -82,7 +82,7 @@ export const barajas = {
       },
       10: {
         nombre: "yag",
-        imagen: `${PUBLIC_URL}/images/10. EL ÁRBOL.webp`,
+        imagen: `${PUBLIC_URL}/images/10. EL ARBOL.webp`,
         audio: `${PUBLIC_URL}/audio/Tree.wav`,
         color: "blue",
         id: "10",
@@ -122,7 +122,7 @@ export const barajas = {
       },
       15: {
         nombre: "beldao'",
-        imagen: `${PUBLIC_URL}/images/15. EL CAMARÓN.webp`,
+        imagen: `${PUBLIC_URL}/images/15. EL CAMARON.webp`,
         audio: `${PUBLIC_URL}/audio/Shrimp.wav`,
         color: "red",
         id: "15",
@@ -146,7 +146,7 @@ export const barajas = {
       },
       18: {
         nombre: "yelh",
-        imagen: `${PUBLIC_URL}/images/18. MATA DE MAÍZ.webp`,
+        imagen: `${PUBLIC_URL}/images/18. MATA DE MAIZ.webp`,
         audio: `${PUBLIC_URL}/audio/Corn Plant.wav`,
         color: "purple",
         id: "18",
@@ -162,7 +162,7 @@ export const barajas = {
       },
       20: {
         nombre: "xhoa'",
-        imagen: `${PUBLIC_URL}/images/20. LOS GRANOS DE MAÍZ.webp`,
+        imagen: `${PUBLIC_URL}/images/20. LOS GRANOS DE MAIZ.webp`,
         audio: `${PUBLIC_URL}/audio/Corn Kernels.wav`,
         color: "purple",
         id: "20",
@@ -178,7 +178,7 @@ export const barajas = {
       },
       22: {
         nombre: "dao",
-        imagen: `${PUBLIC_URL}/images/22. LA ESPIGA DE MAÍZ.webp`,
+        imagen: `${PUBLIC_URL}/images/22. LA ESPIGA DE MAIZ.webp`,
         audio: `${PUBLIC_URL}/audio/Corn Tassel.wav`,
         color: "yellow",
         id: "22",
@@ -234,7 +234,7 @@ export const barajas = {
       },
       29: {
         nombre: "xtobia",
-        imagen: `${PUBLIC_URL}/images/29. LA TELARAÑA.webp`,
+        imagen: `${PUBLIC_URL}/images/29. LA TELARANA.webp`,
         audio: `${PUBLIC_URL}/audio/Spiderweb.wav`,
         color: "yellow",
         id: "29",
@@ -266,7 +266,7 @@ export const barajas = {
       },
       33: {
         nombre: "bsia",
-        imagen: `${PUBLIC_URL}/images/33. EL ÁGUILA.webp`,
+        imagen: `${PUBLIC_URL}/images/33. EL AGUILA.webp`,
         audio: `${PUBLIC_URL}/audio/Eagle.wav`,
         color: "blue",
         id: "33",
@@ -314,7 +314,7 @@ export const barajas = {
       },
       39: {
         nombre: "bexjonhi'",
-        imagen: `${PUBLIC_URL}/images/39. EL ALACRÁN.webp`,
+        imagen: `${PUBLIC_URL}/images/39. EL ALACRAN.webp`,
         audio: `${PUBLIC_URL}/audio/Scorpion.wav`,
         color: "purple",
         id: "39",
@@ -370,7 +370,7 @@ export const barajas = {
       },
       46: {
         nombre: "yela'",
-        imagen: `${PUBLIC_URL}/images/46. EL PLÁTANO.webp`,
+        imagen: `${PUBLIC_URL}/images/46. EL PLATANO.webp`,
         audio: `${PUBLIC_URL}/audio/Banana.wav`,
         color: "blue",
         id: "46",
@@ -386,7 +386,7 @@ export const barajas = {
       },
       48: {
         nombre: "nazia'",
-        imagen: `${PUBLIC_URL}/images/48. EL CAPULÍN.webp`,
+        imagen: `${PUBLIC_URL}/images/48. EL CAPULIN.webp`,
         audio: `${PUBLIC_URL}/audio/Capulin.wav`,
         color: "blue",
         id: "48",
@@ -442,7 +442,7 @@ export const barajas = {
       },
       55: {
         nombre: "bio'",
-        imagen: `${PUBLIC_URL}/images/55. LA MÁSCARA.webp`,
+        imagen: `${PUBLIC_URL}/images/55. LA MASCARA.webp`,
         audio: `${PUBLIC_URL}/audio/Mask.wav`,
         color: "purple",
         id: "55",
