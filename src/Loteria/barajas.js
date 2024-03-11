@@ -434,7 +434,7 @@ export const barajas = {
       },
       54: {
         nombre: "bayw",
-        imagen: `${PUBLIC_URL}/images/54. EL PAÑUELO.webp`,
+        imagen: `${PUBLIC_URL}/images/54. EL PANUELO.webp`,
         audio: `${PUBLIC_URL}/audio/Handkerchief.wav`,
         color: "yellow",
         id: "54",
